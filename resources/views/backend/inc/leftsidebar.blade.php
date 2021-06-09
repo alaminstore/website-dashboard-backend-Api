@@ -15,13 +15,19 @@
                 <li class="menu-title">Main</li>
 
                 <li>
-                    <a href="index.blade.php" class="waves-effect"><i class="dripicons-device-desktop"></i><span> Dashboard </span></a>
+                    <a href="/" class="waves-effect"><i class="dripicons-device-desktop"></i><span> Dashboard </span></a>
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-suitcase"></i><span> User Interface <span class="float-right"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-suitcase"></i><span>Portfolio <span class="float-right"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                     <ul class="list-unstyled">
-                        <li><a href="ui-buttons.html">Buttons</a></li>
+                        {{-- <li><a href="ui-buttons.html">Buttons</a></li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link {{url()->current() == route('backend.portfolio_cat')}}" href="{{route('backend.portfolio_cat')}}">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{url()->current() == route('backend.portfolio_position')}}" href="{{route('backend.portfolio_position')}}">Position</a>
+                        </li>
                         <li><a href="ui-cards.html">Cards</a></li>
                         <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
                         <li><a href="ui-modals.html">Modals</a></li>

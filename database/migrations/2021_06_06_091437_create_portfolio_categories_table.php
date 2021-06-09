@@ -17,6 +17,7 @@ class CreatePortfolioCategoriesTable extends Migration
             $table->increments('portfolio_category_id');
             $table->string('name')->nullable();
             $table->string('icon')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

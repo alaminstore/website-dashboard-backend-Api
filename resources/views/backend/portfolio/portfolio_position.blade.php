@@ -265,12 +265,13 @@
             //   allowClear: true
           });
 
-          $("#nameid2").select2({
-              placeholder:,
-              //   allowClear: true
+  </script>
+  <script>
+      $("#nameid2").select2({
+              placeholder:cat,
            });
           $("#itemid2").select2({
-              placeholder: demo,
+              placeholder: item,
             //   allowClear: true
           });
           $("#position2").select2({

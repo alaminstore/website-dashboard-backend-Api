@@ -32,11 +32,36 @@ class PortfolioPositionController extends Controller
 
 
 
-    public function edit($id){
-        $category  = PortfolioPositionZQWSE::find($id);
+    public function portfolioEdit($id){
+        $category  = PortfolioPosition::find($id);
         return response()->json($category);
     }
 
+    //Update Data
+    public function updated(Request $request)
+    {
+        $request->validate([
+            'nameid' => 'required',
+            'itemid' => 'required',
+            'position'=>'required'
+        ]);
+
+        $position= PortfolioPosition::find($request->category_id);
+        $position->portfolio_category_id    = $request->nameid;
+        $position->portfolio_item_id    = $request->itemid;
+        $position->position = $request->position;
+
+        if($position->save())
+        {
+            $notification = array('message' => 'Portfolio Position  updated successfully', 'alert-type'=> 'success');
+        }
+        else
+        {
+            $notification = array('message' => 'Someting went wrong!', 'alert-type'=> 'error');
+        }
+
+        return redirect()->route('backend.portfolio_position')->with($notification);
+    }
 
     //Delete Data
     public function destroy(Request $request){

@@ -36,10 +36,10 @@ Route::delete('portfolio-categories-del/{id}', [PortfolioCategoriesController::c
 Route::get('portfolio-categories/{id}/edit', [PortfolioCategoriesController::class,'portfolioEdit']);
 Route::post('portfolio-categories/updated', [PortfolioCategoriesController::class,'portfolioUpdated'])->name('portfoliocat.updated');
 
-//Portfolio Item
+//Portfolio Position
 Route::post('portfolio-position/store', [PortfolioPositionController::class,'Store'])->name('portfolioitem.store');
 Route::delete('portfolio-position-del/{id}', [PortfolioPositionController::class,'destroy'])->name('portfolioposition.destroy');
-Route::get('portfolio-position/{id}/edit', [PortfolioPositionController::class,'edit']);
+Route::get('portfolio-position/{id}/edit', [PortfolioPositionController::class,'portfolioEdit']);
 Route::post('portfolio-position/updated', [PortfolioPositionController::class,'updated'])->name('portfolioposition.updated');
 
 

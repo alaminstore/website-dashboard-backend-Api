@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\PortfolioCategoriesController;
 use App\Http\Controllers\PortfolioPositionController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\Sidebar;
+use App\Http\Controllers\tagsController;
+use App\Http\Controllers\TagsController as ControllersTagsController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +33,9 @@ Route::get('/clear-cache', function() {
 Route::get('/', [Sidebar::class,'index']);
 Route::get('/portfolio-categories', [Sidebar::class,'portfolio_cat'])->name('backend.portfolio_cat');
 Route::get('/portfolio-position', [Sidebar::class,'portfolio_position'])->name('backend.portfolio_position');
+Route::get('/clients', [Sidebar::class,'clients'])->name('backend.clients');
+Route::get('/services', [Sidebar::class,'services'])->name('backend.serve');
+Route::get('/tags', [Sidebar::class,'tags'])->name('backend.tags');
 
 //Portfolio categories
 Route::post('portfolio-categories/store', [PortfolioCategoriesController::class,'portfolioStore'])->name('portfoliocat.store');
@@ -41,6 +48,21 @@ Route::post('portfolio-position/store', [PortfolioPositionController::class,'Sto
 Route::delete('portfolio-position-del/{id}', [PortfolioPositionController::class,'destroy'])->name('portfolioposition.destroy');
 Route::get('portfolio-position/{id}/edit', [PortfolioPositionController::class,'portfolioEdit']);
 Route::post('portfolio-position/updated', [PortfolioPositionController::class,'updated'])->name('portfolioposition.updated');
+// Clients
+Route::post('clients/store', [ClientsController::class,'store'])->name('clients.store');
+Route::delete('clients/{id}', [ClientsController::class,'destroy'])->name('clients.destroy');
+Route::get('clients/{id}/edit', [ClientsController::class,'edit']);
+Route::post('clients/updated', [ClientsController::class,'updated'])->name('clients.updated');
+// Services
+Route::post('services/store', [ServicesController::class,'store'])->name('services.store');
+Route::delete('services/{id}', [ServicesController::class,'destroy'])->name('services.destroy');
+Route::get('services/{id}/edit', [ServicesController::class,'edit']);
+Route::post('services/updated', [ServicesController::class,'updated'])->name('services.updated');
+//Tags
+Route::post('tags/store', [tagsController::class,'store'])->name('tags.store');
+Route::get('tagsdelete', [tagsController::class,'destroy'])->name('tags.destroy');
+Route::get('tags/{id}/edit', [tagsController::class,'edit']);
+Route::post('tags/updated', [tagsController::class,'updated'])->name('tags.updated');
 
 
 

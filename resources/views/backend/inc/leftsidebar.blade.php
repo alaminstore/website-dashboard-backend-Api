@@ -28,7 +28,7 @@
                         <li class="nav-item">
                             <a class="nav-link {{url()->current() == route('backend.portfolio_position')}}" href="{{route('backend.portfolio_position')}}">Position</a>
                         </li>
-                        <li><a href="ui-cards.html">Cards</a></li>
+                        {{-- <li><a href="ui-cards.html">Cards</a></li>
                         <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
                         <li><a href="ui-modals.html">Modals</a></li>
                         <li><a href="ui-images.html">Images</a></li>
@@ -44,10 +44,25 @@
                         <li><a href="ui-video.html">Video</a></li>
                         <li><a href="ui-typography.html">Typography</a></li>
                         <li><a href="ui-sweet-alert.html">Sweet-Alert</a></li>
-                        <li><a href="ui-grid.html">Grid</a></li>
+                        <li><a href="ui-grid.html">Grid</a></li> --}}
                     </ul>
                 </li>
+                <li>
+                    <a class="nav-link waves-effect {{url()->current() == route('backend.clients')}}" href="{{route('backend.clients')}}"><i class="ion-person"></i><span>Clients</a>
+                </li>
 
+                <li>
+                    <a class="nav-link waves-effect {{url()->current() == url('/services')}}" href="{{url('/services')}}"><i class="ion-ios7-bookmarks"></i><span>Services</a>
+                </li>
+
+
+                <li>
+                    <a class="nav-link waves-effect {{url()->current() == url('/tags')}}" href="{{url('/tags')}}"><i class="ion-person"></i><span>Tags</a>
+                </li>
+
+{{--
+    ============================================================================================================================================
+--}}
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-mail"></i> <span> Email <span class="float-right"><i class="mdi mdi-chevron-right"></i></span> </span> </a>
                     <ul class="list-unstyled">

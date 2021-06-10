@@ -26,7 +26,7 @@
         }
     </style>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-5">
             <div id="">
             <div class="card m-b-20">
                 <div class="card-body">
@@ -36,8 +36,8 @@
                         @csrf
                         {{-- {!! Form::number('style', null, ['class' => 'form-control', 'id' => 'style', 'placeholder' => 'Write Zalo Po here']) !!} --}}
                         <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">Portfolio Category Name</label>
-                            <div class="col-sm-10">
+                            <label for="name" class="col-sm-6 col-form-label">Portfolio Category Name</label>
+                            <div class="col-sm-12">
                                 <select style="width: 200px" id="nameid" name="nameid">
                                     <option></option>
                                     @foreach($portfolio_cat as $cat)
@@ -47,8 +47,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">Portfolio Item</label>
-                            <div class="col-sm-10">
+                            <label for="name" class="col-sm-6 col-form-label">Portfolio Item</label>
+                            <div class="col-sm-12">
                                 <select style="width: 200px" id="itemid" name="itemid">
                                     <option></option>
                                     @foreach($portfolio_item as $item)
@@ -58,8 +58,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Position</label>
-                            <div class="col-sm-10">
+                            <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Position</label>
+                            <div class="col-sm-12">
                                 <select style="width: 200px" id="position" name="position">
                                     <option></option>
                                       <option value="1">Position 1</option>
@@ -84,14 +84,16 @@
             </div>
         </div>
         </div>
-    </div>
-    <div class="list text-center">
-        <h6 class="display-4">Portfolio Position List</h6>
-    </div>
-    <div id="reload-category">
-    <div class="row">
+    {{-- </div>
 
-        <div class="col-md-12">
+
+    <div class="row"> --}}
+
+        <div class="col-md-7">
+            <div id="reload-category"></div>
+            <div class="list text-center">
+                <h6 class="display-4" style="font-size: 20px;">Portfolio Position List</h6>
+            </div>
             <table id="myTable" class="table table-bordered dt-responsive nowrap"
                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
@@ -136,6 +138,7 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
     </div>

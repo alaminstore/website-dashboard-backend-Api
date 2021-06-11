@@ -200,10 +200,12 @@
                                 @php($i=1)
                                 @for($i=1;$i<=9;$i++)
                                     @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
-                                        <option style="background: red" value="{{$i}}">Position {{$i}}</option>
-{{--                                        @continue--}}
+                                        <option disabled style="background: red" value="{{$i}}">Position {{$i}}</option>
+{{--                                                                                @continue--}}
+                                    @else
+                                        <option value="{{$i}}">Position {{$i}}</option>
                                     @endif
-                                    <option value="{{$i}}">Position {{$i}}</option>
+
                                 @endfor
                             </select>
                         </div>

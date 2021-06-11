@@ -56,7 +56,12 @@ class CategoryRelatedServiceController extends Controller
             $image->move($path,$imageName);
             $catservices->icon      = $path.$imageName;
         }
-        $catservices->position = $request->position;
+        $positionValue = $catservices->position;
+        if($request->position == null){
+           $catservices->position = $positionValue;
+        }else{
+            $catservices->position = $request->position;
+        }
         $catservices->save();
         return response()->json($catservices);
     }

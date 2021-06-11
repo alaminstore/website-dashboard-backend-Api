@@ -12,6 +12,7 @@ use App\Models\PortfolioItem;
 use App\Models\PortfolioPosition;
 use App\Models\Service;
 use App\Models\Tag;
+use App\Models\TermsPolicies;
 use Illuminate\Http\Request;
 
 class Sidebar extends Controller
@@ -61,6 +62,10 @@ class Sidebar extends Controller
     public function faqs(){
         $faqs = Faq::all();
         return view('backend.faqs.faqs',compact('faqs'));
+    }
+    public function terms(){
+        $terms = TermsPolicies::all();
+        return view('backend.terms_policies.termspolicies',compact('terms'));
     }
 
 

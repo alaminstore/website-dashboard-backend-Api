@@ -5,14 +5,13 @@
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
 @endsection
 @section('content')
-
     <div class="row" id="okreload">
         <div class="col-md-2">
         </div>
         <div class="col-md-7" id="reloadId">
             <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Faqs
+                <i class="ion-plus"></i> Add New Terms Policy
             </button>
             <div id="reload-category">
                 <div class="list text-center">
@@ -23,8 +22,8 @@
                     <thead>
                     <tr class="text-center">
                         <th>#SL</th>
-                        <th>Faqs Question</th>
-                        <th>Faqs Answer</th>
+                        <th>Title</th>
+                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -32,19 +31,19 @@
                     @php
                         $i=0;
                     @endphp
-                    @foreach($faqs  as $faq)
-                        <tr class="text-center unqtags{{$faq->faq_id}}">
+                    @foreach($terms as $term)
+                        <tr class="text-center unqtags{{$term->terms_policie_id}}">
                             <td><b>{{$i+=1}}</b></td>
-                            <td>{{$faq->faq_question}}</td>
-                            <td>{!! \Illuminate\Support\Str::limit($faq->faq_answer, 50, $end='...') !!}</td>
+                            <td>{{$term->title}}</td>
+                            <td>{!! \Illuminate\Support\Str::limit($term->description, 50, $end='...') !!}</td>
                             <td>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                        data-id="{{$faq->faq_id}}" title="Edit"
+                                        data-id="{{$term->terms_policie_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
                                     <i class="mdi mdi-border-color"></i> Edit
                                 </button>
-                                <a class="deletetag" data-id="{{$faq->faq_id}}">
+                                <a class="deletetag" data-id="{{$term->terms_policie_id}}">
                                     <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
                                             class="ti-trash"></i> Delete
                                     </button>
@@ -65,32 +64,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Faqs Question & Answer Add</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Count Add</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Faqs Question</label>
+                        <label for="name" class="col-sm-6 col-form-label">Title</label>
                         <div class="col-sm-12">
-                            <input class="form-control" type="text" id="faq_question" name="faq_question"
-                                   placeholder="Faq Question Here..."
+                            <input class="form-control" type="text" id="title" name="title"
+                                   placeholder="Title Here..."
                                    required>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Faqs Answer</label>
-                        <div class="col-sm-12">
-                            <input class="form-control" type="text" id="faq_answer" name="faq_answer"
-                                   placeholder="Faq Answer Here..."
-                                   required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="description" class="col-sm-6 col-form-label">Faqs Answer</label>
-                        <textarea class="summernote" name="faq_answer" id="faq_answer" required>
-                            {{old('faq_answer')}}
+                        <label for="description" class="col-sm-6 col-form-label">Description</label>
+                        <textarea class="summernote" name="description" id="description" placeholder="Description Here..." required>
+                            {{old('description')}}
                         </textarea>
                     </div>
 
@@ -116,25 +108,26 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Faqs Question & Answer Update</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Count Update</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Faq Question</label>
+                        <label for="name" class="col-sm-6 col-form-label">Title</label>
                         <div class="col-sm-12">
-                            <input class="form-control" type="text" id="faq_question" name="faq_question"
-                                   placeholder="Faq Question Here..."
+                            <input class="form-control" type="text" id="title2" name="title"
+                                   placeholder="Title Here..."
                                    required>
-                            <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
+                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label for="description" class="col-sm-6 col-form-label">Faqs Answer</label>
-                        <textarea class="summernote" name="faq_answer" id="faq_answer" required>
-                            {{old('faq_answer')}}
+                        <label for="description" class="col-sm-6 col-form-label">Description</label>
+                        <textarea class="summernote" name="description" id="description2" placeholder="Description Here..." required>
+                            {{old('description')}}
                         </textarea>
                     </div>
 
@@ -186,17 +179,16 @@
                 let id = $(this).attr('data-id');
 
                 $.ajax({
-                    url: "{{url('faqs')}}/" + id + '/edit',
+                    url: "{{url('terms')}}/" + id + '/edit',
                     method: "get",
                     data: {},
                     dataType: 'json',
                     success: function (data) {
                         let url = window.location.origin;
                         console.log('data', data);
-                        $('#tagsupdate').find('#faq_question').val(data.faq_question).focus();
-                        $('#tagsupdate').find('#faq_answer').summernote('code', data.faq_answer);
-                        $('#tagsupdate').find('#category-edit-id').val(data.faq_id);
-                        var positiondata = $('#tagsupdate').find('#position2').val(data.position);
+                        $('#tagsupdate').find('#title2').val(data.title).focus();
+                        $('#tagsupdate').find('#description2').summernote('code', data.description);
+                        $('#tagsupdate').find('#category-edit-id').val(data.terms_policie_id);
 
                         $('#category-modal').modal('show');
                     },
@@ -218,7 +210,7 @@
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
-                url: "{{route('faqs.store')}}",
+                url: "{{route('terms.store')}}",
                 method: "POST",
                 data: new FormData(this),
                 dataType: 'JSON',
@@ -268,7 +260,7 @@
 
                     if (result.value) {
                         $.ajax({
-                            url: "{!! route('faqs.destroy') !!}",
+                            url: "{!! route('terms.destroy') !!}",
                             type: "get",
                             data: {
                                 id: id,
@@ -289,7 +281,7 @@
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
-                url: "{{route('faqs.updated')}}",
+                url: "{{route('terms.updated')}}",
                 method: "POST",
                 data: new FormData(this),
                 dataType: 'JSON',

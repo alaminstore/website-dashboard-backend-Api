@@ -84,6 +84,10 @@
                     <a class="nav-link waves-effect {{url()->current() == route('backend.faqs')}}"
                        href="{{route('backend.faqs')}}"><i class="fa fa-modx"></i><span>Faqs</span></a>
                 </li>
+                <li>
+                    <a class="nav-link waves-effect {{url()->current() == route('backend.terms')}}"
+                       href="{{route('backend.terms')}}"><i class="mdi mdi-air-conditioner"></i><span>Terms Policies</span></a>
+                </li>
 
 
                 {{--

@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryRelatedServiceController;
 use App\Http\Controllers\CountController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\InfosController;
+use App\Http\Controllers\TermsPoliciesController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,7 @@ Route::get('/portfolio-items', [Sidebar::class,'portfolioItem'])->name('backend.
 Route::get('/infos', [Sidebar::class,'infos'])->name('backend.infos');
 Route::get('/counts', [Sidebar::class,'counts'])->name('backend.counts');
 Route::get('/faqs', [Sidebar::class,'faqs'])->name('backend.faqs');
+Route::get('/terms-policies', [Sidebar::class,'terms'])->name('backend.terms');
 
 //Portfolio categories
 Route::post('portfolio-categories/store', [PortfolioCategoriesController::class,'portfolioStore'])->name('portfoliocat.store');
@@ -95,3 +97,8 @@ Route::post('faqs/store', [FaqsController::class,'store'])->name('faqs.store');
 Route::get('faqsdelete', [FaqsController::class,'destroy'])->name('faqs.destroy');
 Route::get('faqs/{id}/edit', [FaqsController::class,'edit']);
 Route::post('faqs/updated', [FaqsController::class,'updated'])->name('faqs.updated');
+//Tems Policies
+Route::post('terms/store', [TermsPoliciesController::class,'store'])->name('terms.store');
+Route::get('termsdelete', [TermsPoliciesController::class,'destroy'])->name('terms.destroy');
+Route::get('terms/{id}/edit', [TermsPoliciesController::class,'edit']);
+Route::post('terms/updated', [TermsPoliciesController::class,'updated'])->name('terms.updated');

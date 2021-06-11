@@ -269,17 +269,5 @@
           });
 
   </script>
-  <script>
-      $("#nameid2").select2({
-              placeholder:cat,
-           });
-          $("#itemid2").select2({
-              placeholder: item,
-            //   allowClear: true
-          });
-          $("#position2").select2({
-              placeholder: position,
-            //   allowClear: true
-          });
-  </script>
+
 @endsection

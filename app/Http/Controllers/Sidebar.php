@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryRelatedServices;
 use App\Models\Client;
+use App\Models\Count;
+use App\Models\Faq;
+use App\Models\Info;
 use App\Models\PortfolioCategories;
 use App\Models\PortfolioItem;
 use App\Models\PortfolioPosition;
@@ -46,4 +49,25 @@ class Sidebar extends Controller
         $portfolio_cat = PortfolioCategories::all();
         return view('backend.services.categoryrelatedservices',compact('catservices','portfolio_cat'));
     }
+
+    public function infos(){
+        $infos = Info::all();
+        return view('backend.infos.infos',compact('infos'));
+    }
+    public function counts(){
+        $counts = Count::all();
+        return view('backend.count.count',compact('counts'));
+    }
+    public function faqs(){
+        $faqs = Faq::all();
+        return view('backend.faqs.faqs',compact('faqs'));
+    }
+
+
+    public function portfolioItem(){
+        $portfolioitems = PortfolioItem::all();
+        return view('backend.portfolio.portfolioitems',compact('portfolioitems'));
+    }
+
+
 }

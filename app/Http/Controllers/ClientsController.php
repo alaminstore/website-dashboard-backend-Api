@@ -52,18 +52,17 @@ class ClientsController extends Controller
 
 
       //Update Data
-    public function updated(Request $request)
-    {
+    public function updated(Request $request){
         $request->validate([
             'name' => 'required | string | max: 200',
-            'position'=>'required'
+
         ]);
         $category= Client::find($request->category_id);
         $category->name    = $request->name;
         $category->portfolio_category_id;
         if($request->hasFile('image'))
         {
-            $path           = 'images/portfolio_Cat/';
+            $path           = 'images/clients/';
             @unlink($category->image);
             if (!is_dir($path))
             {

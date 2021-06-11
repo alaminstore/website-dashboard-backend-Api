@@ -7,6 +7,9 @@ use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\Sidebar;
 use App\Http\Controllers\tagsController;
 use App\Http\Controllers\CategoryRelatedServiceController;
+use App\Http\Controllers\CountController;
+use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\InfosController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +40,10 @@ Route::get('/clients', [Sidebar::class,'clients'])->name('backend.clients');
 Route::get('/services', [Sidebar::class,'services'])->name('backend.serve');
 Route::get('/tags', [Sidebar::class,'tags'])->name('backend.tags');
 Route::get('/category-related-services', [Sidebar::class,'catServices'])->name('backend.catservices');
+Route::get('/portfolio-items', [Sidebar::class,'portfolioItem'])->name('backend.portfolioItem');
+Route::get('/infos', [Sidebar::class,'infos'])->name('backend.infos');
+Route::get('/counts', [Sidebar::class,'counts'])->name('backend.counts');
+Route::get('/faqs', [Sidebar::class,'faqs'])->name('backend.faqs');
 
 //Portfolio categories
 Route::post('portfolio-categories/store', [PortfolioCategoriesController::class,'portfolioStore'])->name('portfoliocat.store');
@@ -71,5 +78,20 @@ Route::get('catservicesdelete', [CategoryRelatedServiceController::class,'destro
 Route::get('catservices/{id}/edit', [CategoryRelatedServiceController::class,'edit']);
 Route::post('catservices/updated', [CategoryRelatedServiceController::class,'updated'])->name('catservices.updated');
 
+//Info
+Route::post('infos/store', [InfosController::class,'store'])->name('infos.store');
+Route::get('infosdelete', [InfosController::class,'destroy'])->name('infos.destroy');
+Route::get('infos/{id}/edit', [InfosController::class,'edit']);
+Route::post('infos/updated', [InfosController::class,'updated'])->name('infos.updated');
 
+//Count
+Route::post('count/store', [CountController::class,'store'])->name('count.store');
+Route::get('countdelete', [CountController::class,'destroy'])->name('count.destroy');
+Route::get('count/{id}/edit', [CountController::class,'edit']);
+Route::post('count/updated', [CountController::class,'updated'])->name('count.updated');
 
+//Count
+Route::post('faqs/store', [FaqsController::class,'store'])->name('faqs.store');
+Route::get('faqsdelete', [FaqsController::class,'destroy'])->name('faqs.destroy');
+Route::get('faqs/{id}/edit', [FaqsController::class,'edit']);
+Route::post('faqs/updated', [FaqsController::class,'updated'])->name('faqs.updated');

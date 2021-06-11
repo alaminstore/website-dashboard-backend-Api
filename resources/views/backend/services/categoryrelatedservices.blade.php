@@ -127,7 +127,6 @@
                         <div class="col-sm-12">
                             <select style="width: 200px" id="position" name="position">
                                 <option></option>
-
                                 @php($i=1)
                                 @for($i=1;$i<=9;$i++)
                                     @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
@@ -135,15 +134,6 @@
                                     @endif
                                     <option value="{{$i}}">Position {{$i}}</option>
                                 @endfor
-
-                                {{--                                <option value="2">Position 2</option>--}}
-                                {{--                                <option value="3">Position 3</option>--}}
-                                {{--                                <option value="4">Position 4</option>--}}
-                                {{--                                <option value="5">Position 5</option>--}}
-                                {{--                                <option value="6">Position 6</option>--}}
-                                {{--                                <option value="7">Position 7</option>--}}
-                                {{--                                <option value="8">Position 8</option>--}}
-                                {{--                                <option value="9">Position 9</option>--}}
                             </select>
                         </div>
                     </div>
@@ -207,15 +197,14 @@
                         <div class="col-sm-12">
                             <select class="select_css" id="position2" name="position">
                                 <option></option>
-                                <option value="1">Position 1</option>
-                                <option value="2">Position 2</option>
-                                <option value="3">Position 3</option>
-                                <option value="4">Position 4</option>
-                                <option value="5">Position 5</option>
-                                <option value="6">Position 6</option>
-                                <option value="7">Position 7</option>
-                                <option value="8">Position 8</option>
-                                <option value="9">Position 9</option>
+                                @php($i=1)
+                                @for($i=1;$i<=9;$i++)
+                                    @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
+                                        <option style="background: red" value="{{$i}}">Position {{$i}}</option>
+{{--                                        @continue--}}
+                                    @endif
+                                    <option value="{{$i}}">Position {{$i}}</option>
+                                @endfor
                             </select>
                         </div>
                     </div>

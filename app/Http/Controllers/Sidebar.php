@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryRelatedServices;
 use App\Models\Client;
 use App\Models\PortfolioCategories;
 use App\Models\PortfolioItem;
@@ -38,5 +39,11 @@ class Sidebar extends Controller
     public function tags(){
         $tags = Tag::all();
         return view('backend.tags.tags',compact('tags'));
+    }
+    public function catServices(){
+        $catservices = CategoryRelatedServices::with('getPortfolioCategory')->get();
+//        return $catservices;
+        $portfolio_cat = PortfolioCategories::all();
+        return view('backend.services.categoryrelatedservices',compact('catservices','portfolio_cat'));
     }
 }

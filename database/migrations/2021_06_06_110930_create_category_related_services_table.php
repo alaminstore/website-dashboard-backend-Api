@@ -15,7 +15,7 @@ class CreateCategoryRelatedServicesTable extends Migration
     {
         Schema::create('category_related_services', function (Blueprint $table) {
             $table->increments('category_related_service_id');
-            $table->unsignedInteger('portdolio_category_id')->nullable();
+            $table->unsignedInteger('portfolio_category_id')->nullable();
             $table->string('name')->nullable();
             $table->string('icon')->nullable();
             $table->string('position')->nullable();

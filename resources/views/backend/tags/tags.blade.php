@@ -212,24 +212,30 @@
                         "extendedTimeOut": 1000
                     };
 
+                    // setTimeout(function () {
+                    //     $('#myModalSave'). modal('hide');
+                    // }, 1000);
                     setTimeout(function () {
                         $('#myModalSave'). modal('hide');
+                        // $("#reloadId").load();
+                        // $("#loadnow").load(location.href + " #loadnow");
+                        $("#loadnow").load(location.href+" #loadnow>*","");
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
-                    $('.tbodytags').prepend(`<tr class='unqtags` + data.tag_id + `'>
-                            <td class="text-center"><b>` + parseInt(data.tag_id++) + `</b></td>
-                            <td class="text-center">{{$tag->tag}}</td>
+                    // $('.tbodytags').prepend(`<tr class='unqtags` + data.tag_id + `'>
+                    //         <td class="text-center"><b>` + parseInt(data.tag_id++) + `</b></td>
+                    //         <td class="text-center">{{$tag->tag}}</td>
 
-                            <td class="text-center">
-                            <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit" data-id="` + data.id + `" title="Edit" data-toggle="modal" data-target="#myModal">
-                                <i class="mdi mdi-border-color"></i> Edit
-                            </button>
-                            <a class="deletetag" data-id="` + data.id + `">
-                                <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i> Delete</button>
-                            </a>
+                    //         <td class="text-center">
+                    //         <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit" data-id="` + data.id + `" title="Edit" data-toggle="modal" data-target="#myModal">
+                    //             <i class="mdi mdi-border-color"></i> Edit
+                    //         </button>
+                    //         <a class="deletetag" data-id="` + data.id + `">
+                    //             <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i> Delete</button>
+                    //         </a>
 
-                        </td>
-                            </tr>`);
+                    //     </td>
+                    //         </tr>`);
                     $('#tagstore').trigger('reset');
                 }
 

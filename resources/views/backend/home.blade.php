@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <link rel="stylesheet" href="assets/js/jquery-toast-plugin/jquery.toast.min.css">
     <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
     @yield('style')
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
@@ -35,7 +36,6 @@
         <footer class="footer">
             © 2018 Fonik - Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand.
         </footer>
-
     </div>
 </div>
 <script src="assets/js/jquery.min.js"></script>
@@ -43,6 +43,7 @@
 <script src="assets/js/modernizr.min.js"></script>
 <script src="assets/js/jquery.slimscroll.js"></script>
 <script src="assets/js/waves.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 <script src="assets/js/jquery-toast-plugin/jquery.toast.min.js"></script>
 <script src="assets/js/jquery.nicescroll.js"></script>
 <script src="assets/js/jquery.scrollTo.min.js"></script>
@@ -57,7 +58,6 @@
     $(document).ajaxStart(function () {
         $("#overlay").show();
     });
-
     $(document).ajaxComplete(function () {
         $("#overlay").hide();
     });

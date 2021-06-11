@@ -6,7 +6,7 @@ use App\Http\Controllers\PortfolioPositionController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\Sidebar;
 use App\Http\Controllers\tagsController;
-use App\Http\Controllers\TagsController as ControllersTagsController;
+use App\Http\Controllers\CategoryRelatedServiceController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +36,7 @@ Route::get('/portfolio-position', [Sidebar::class,'portfolio_position'])->name('
 Route::get('/clients', [Sidebar::class,'clients'])->name('backend.clients');
 Route::get('/services', [Sidebar::class,'services'])->name('backend.serve');
 Route::get('/tags', [Sidebar::class,'tags'])->name('backend.tags');
+Route::get('/category-related-services', [Sidebar::class,'catServices'])->name('backend.catservices');
 
 //Portfolio categories
 Route::post('portfolio-categories/store', [PortfolioCategoriesController::class,'portfolioStore'])->name('portfoliocat.store');
@@ -63,6 +64,12 @@ Route::post('tags/store', [tagsController::class,'store'])->name('tags.store');
 Route::get('tagsdelete', [tagsController::class,'destroy'])->name('tags.destroy');
 Route::get('tags/{id}/edit', [tagsController::class,'edit']);
 Route::post('tags/updated', [tagsController::class,'updated'])->name('tags.updated');
+
+//Category Related Services
+Route::post('catservices/store', [CategoryRelatedServiceController::class,'store'])->name('catservices.store');
+Route::get('catservicesdelete', [CategoryRelatedServiceController::class,'destroy'])->name('catservices.destroy');
+Route::get('catservices/{id}/edit', [CategoryRelatedServiceController::class,'edit']);
+Route::post('catservices/updated', [CategoryRelatedServiceController::class,'updated'])->name('catservices.updated');
 
 
 

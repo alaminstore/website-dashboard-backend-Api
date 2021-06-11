@@ -11,4 +11,8 @@ class CategoryRelatedServices extends Model
     protected $guarded=[];
     protected $table = "category_related_services";
     protected $primaryKey = 'category_related_service_id';
+
+    public function getPortfolioCategory(){
+        return $this->belongsTo(PortfolioCategories::class,'portfolio_category_id');
+    }
 }

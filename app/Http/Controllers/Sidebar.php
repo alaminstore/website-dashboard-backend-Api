@@ -71,7 +71,10 @@ class Sidebar extends Controller
 
     public function portfolioItem(){
         $portfolioitems = PortfolioItem::all();
-        return view('backend.portfolio.portfolioitems',compact('portfolioitems'));
+        $portfolio_cat = PortfolioCategories::all();
+        $clients = Client::all();
+        $tags = Tag::all();
+        return view('backend.portfolio.portfolioitems',compact('portfolioitems','portfolio_cat','clients','tags'));
     }
 
 

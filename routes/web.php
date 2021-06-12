@@ -10,7 +10,9 @@ use App\Http\Controllers\CategoryRelatedServiceController;
 use App\Http\Controllers\CountController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\InfosController;
+use App\Http\Controllers\PortfolioItemsController;
 use App\Http\Controllers\TermsPoliciesController;
+use App\Models\PortfolioItem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -102,3 +104,7 @@ Route::post('terms/store', [TermsPoliciesController::class,'store'])->name('term
 Route::get('termsdelete', [TermsPoliciesController::class,'destroy'])->name('terms.destroy');
 Route::get('terms/{id}/edit', [TermsPoliciesController::class,'edit']);
 Route::post('terms/updated', [TermsPoliciesController::class,'updated'])->name('terms.updated');
+
+
+//Conditional Dropdown
+Route::get('out-category/{id}', [PortfolioItemsController::class,'catToItem']);

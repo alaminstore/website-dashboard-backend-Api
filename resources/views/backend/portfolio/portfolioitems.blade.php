@@ -3,7 +3,7 @@
 @section('style')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
     <style>
@@ -30,13 +30,13 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-7" id="reloadId">
-            <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+            <button type="button" class="btn btn-sm btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Category Services
+                <i class="ion-plus"></i> Add New Portfolio Item
             </button>
             <div id="reload-category">
                 <div class="list text-center">
-                    <h6 class="display-4" style="font-size: 20px;">Categories Related Services List</h6>
+                    <h6 class="display-4" style="font-size: 20px;">Portfolio Item List</h6>
                 </div>
                 <table id="myTable" class="table table-bordered dt-responsive nowrap"
                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -44,9 +44,11 @@
                     <tr class="text-center">
                         <th>#SL</th>
                         <th>Portfolio Category</th>
-                        <th>Name</th>
-                        <th>Icon</th>
-                        <th>Position</th>
+                        <th>Title</th>
+                        <th>Image</th>
+                        <th>Url</th>
+                        <th>Client</th>
+                        <th>Tags</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -54,15 +56,16 @@
                     @php
                         $i=0;
                     @endphp
-                    @foreach($catservices  as $catservices)
+                    {{-- @foreach($portfolioitems  as $item)
                         <tr class="text-center unqtags{{$catservices->category_related_servoce_id}}">
                             <td><b>{{$i+=1}}</b></td>
-                            <td>{{$catservices->getPortfolioCategory->name}}</td>
-                            <td>{{$catservices->name}}</td>
+                            <td>{{$item->getPortfolioCategory->name}}</td>
+                            <td>{{$item->title}}</td>
                             <td class="cat_img">
-                                <img src="{{$catservices->icon}}" class="img-fluid" alt="portfolio Category Image">
+                                <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
                             </td>
-                            <td>{{$catservices->position}}</td>
+                            <td>{{$item->url}}</td>
+                            <td>{{$item->url}}</td>
                             <td>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
@@ -77,7 +80,7 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                     </tbody>
                 </table>
             </div>
@@ -100,7 +103,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-6 col-form-label">Portfolio Category</label>
                         <div class="col-sm-12">
-                            <select style="width: 200px" id="cat" name="portfolio_category_id">
+                            <select style="width: 200px" class="cat_selector" id="cat" name="portfolio_category_id">
                                 <option></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
@@ -109,17 +112,36 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                        <label for="name" class="col-sm-6 col-form-label">Title</label>
                         <div class="col-sm-12">
-                            <input class="form-control" type="text" id="name" name="name"
-                                   placeholder="Category Service Name Here..."
+                            <input class="form-control" type="text" id="title" name="title"
+                                   placeholder="Title Here..."
                                    required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Icon</label>
+                        <label for="name" class="col-sm-6 col-form-label">Image</label>
                         <div class="col-sm-12">
                             <input type="file" name="image" id="input-file-now" class="dropify"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-6 col-form-label">Url</label>
+                        <div class="col-sm-12">
+                            <input class="form-control" type="text" id="url" name="url"
+                                   placeholder="Url Here..."
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Client</label>
+                        <div class="col-sm-12">
+                            <select style="width: 200px" id="client_id" name="client_id">
+                                <option></option>
+                                @foreach ($clients as $client)
+                                <option value="{{$client->client_id}}">{{$client->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -129,11 +151,22 @@
                                 <option></option>
                                 @php($i=1)
                                 @for($i=1;$i<=9;$i++)
-                                    @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
+                                    @if(\App\Models\PortfolioPosition::where('position', '=', $i)->exists())
                                         @continue
                                     @endif
                                     <option value="{{$i}}">Position {{$i}}</option>
                                 @endfor
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Tags</label>
+                        <div class="col-sm-12">
+                            <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple">
+                                <option></option>
+                                @foreach ($tags as $tag)
+                                <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -156,7 +189,7 @@
 
 
     <!--modal content Update -->
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    {{-- <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -201,7 +234,7 @@
                                 @for($i=1;$i<=9;$i++)
                                     @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
                                         <option disabled style="background: red" value="{{$i}}">Position {{$i}}</option>
-{{--                                                                                @continue--}}
+
                                     @else
                                         <option value="{{$i}}">Position {{$i}}</option>
                                     @endif
@@ -225,13 +258,18 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection
 @section('scripts')
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.tag_id').select2();
+        });
+    </script>
     <script>
         $('.dropify').dropify();
         $(document).ready(function () {
@@ -249,6 +287,9 @@
         });
         $("#position").select2({
             placeholder: "Select the Position"
+        });
+        $("#client_id").select2({
+            placeholder: "Select the Client"
         });
     </script>
     <script type="text/javascript">   // Edit data
@@ -403,5 +444,26 @@
             });
 
         });
+    </script>
+    <script>
+        //Color to fabrication
+        $(document).on('change', '.cat_selector', function (e) {
+                // e.preventDefault();
+                let id = $(this).val();
+                console.log(id);
+                $.ajax({
+                    method: 'get',
+                    data:{},
+                    dataType: 'json',
+                    url:"{{url('out-category')}}/"+id,
+                    success: function (result) {
+                        console.log('result: ',result);
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+
+            });
     </script>
 @endsection

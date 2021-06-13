@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGetQuotesTable extends Migration
+class AddNewColumnToClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateGetQuotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('get_quotes', function (Blueprint $table) {
-            $table->increments('get_quote_id');
-            $table->string('service_name')->nullable();
-            $table->string('email')->nullable();
-            $table->timestamps();
+        Schema::table('clients', function (Blueprint $table) {
+            $table->string('url')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateGetQuotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('get_quotes');
+        Schema::table('clients', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -10,6 +10,14 @@ class CategoryRelatedServiceController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'portfolio_category_id'=>'required',
+            'name'=>'required',
+            'image'=>'required | max:300',
+            'position'=>'required',
+
+        ]);
+
         $catservices = new CategoryRelatedServices();
         $catservices->portfolio_category_id = $request->portfolio_category_id;
         $catservices->name = $request->name;
@@ -37,6 +45,10 @@ class CategoryRelatedServiceController extends Controller
 
     public function updated(Request $request)
     {
+        $request->validate([
+            'name'=>'required',
+        ]);
+
         $catservices = CategoryRelatedServices::find($request->category_id);
         $catservices->portfolio_category_id = $request->portfolio_category_id;
         $catservices->name = $request->name;

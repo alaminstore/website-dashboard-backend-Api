@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AntroApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,31 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('portfolio-categories',[AntroApiController::class,'portfolio_cat']);
+Route::get('portfolio-categories/{id}',[AntroApiController::class,'getCategoryById']);
+
+Route::get('category-related-services',[AntroApiController::class,'categoryRelatedServices']);
+Route::get('category-related-services/{id}',[AntroApiController::class,'categoryRelatedServicesById']);
+
+Route::get('infos',[AntroApiController::class,'infos']);
+Route::get('infos/{id}',[AntroApiController::class,'infosById']);
+
+Route::get('quotes-list',[AntroApiController::class,'quotes']);
+Route::post('quotes',[AntroApiController::class,'getQuotes']);
+
+Route::get('clients',[AntroApiController::class,'clients']);
+Route::get('clients/{id}',[AntroApiController::class,'clientsById']);
+
+Route::get('counts',[AntroApiController::class,'counts']);
+Route::get('counts/{id}',[AntroApiController::class,'countsById']);
+
+Route::get('terms',[AntroApiController::class,'terms']);
+Route::get('terms/{id}',[AntroApiController::class,'termsById']);
+
+Route::get('services',[AntroApiController::class,'services']);
+Route::get('services/{id}',[AntroApiController::class,'servicesById']);
+
+Route::get('faqs',[AntroApiController::class,'faqs']);
+Route::get('faqs/{id}',[AntroApiController::class,'faqsById']);

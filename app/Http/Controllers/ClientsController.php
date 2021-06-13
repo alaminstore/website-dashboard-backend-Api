@@ -14,11 +14,14 @@ class ClientsController extends Controller
         $request->validate([
             'name' => 'required | string | max: 200',
             'image'=>'required',
+            'url'=>'required',
             'precedence'=>'required'
         ]);
         $category= new Client();
         $category->name    = $request->name;
         $category->image = $request->image;
+        $category->url = $request->url;
+        $category->precedence = $request->precedence;
 
         if ($request->hasFile('image')) {
             $path = 'images/clients/';
@@ -31,7 +34,7 @@ class ClientsController extends Controller
             $image->move($path, $imageName);
             $category->image = $path . $imageName;
         }
-        $category->precedence = $request->precedence;
+
         if($category->save())
         {
             $notification = array('message' => 'New Client added successfully', 'alert-type'=> 'success');
@@ -55,10 +58,12 @@ class ClientsController extends Controller
     public function updated(Request $request){
         $request->validate([
             'name' => 'required | string | max: 200',
+            'url' => 'required',
 
         ]);
         $category= Client::find($request->category_id);
         $category->name    = $request->name;
+        $category->url = $request->url;
         $category->portfolio_category_id;
         if($request->hasFile('image'))
         {

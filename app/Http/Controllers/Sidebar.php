@@ -46,7 +46,7 @@ class Sidebar extends Controller
     }
     public function catServices(){
         $catservices = CategoryRelatedServices::with('getPortfolioCategory')->get();
-//        return $catservices;
+    //    return $catservices;
         $portfolio_cat = PortfolioCategories::all();
         return view('backend.services.categoryrelatedservices',compact('catservices','portfolio_cat'));
     }

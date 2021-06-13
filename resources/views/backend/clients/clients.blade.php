@@ -51,6 +51,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">Url</label>
+                                <div class="col-sm-12">
+                                    <input class="form-control" type="text" id="url" name="url"
+                                           placeholder="Url Here..." required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Precedence</label>
                                 <div class="col-sm-12">
                                     <select style="width: 200px" id="position" name="precedence">
@@ -96,6 +103,7 @@
                         <th>Name</th>
                         <th>Image</th>
                         <th>Precedence</th>
+                        <th>Url</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -116,6 +124,7 @@
                                     Level 3
                                 @endif
                             </td>
+                            <td>{{$client->url}}</td>
 
                             <td>
                                 <button type="button"
@@ -160,6 +169,13 @@
                             <div class="col-sm-12">
                                 <input class="form-control" type="text" id="category-edit-name" name="name"
                                        placeholder="Client Name Here..." required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="url" class="col-sm-2 col-form-label">Url</label>
+                            <div class="col-sm-12">
+                                <input class="form-control" type="text" id="url" name="url"
+                                       placeholder="Url Here..." required>
                             </div>
                         </div>
 

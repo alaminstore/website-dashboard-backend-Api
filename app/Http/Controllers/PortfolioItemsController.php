@@ -11,5 +11,5 @@ class PortfolioItemsController extends Controller
         $cat_id = PortfolioPosition::find($id);
         return response()->json($cat_id);
     }
-    }
+
 }

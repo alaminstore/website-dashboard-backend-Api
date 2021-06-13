@@ -28,10 +28,10 @@
                             <a class="nav-link {{url()->current() == route('backend.portfolio_cat')}}"
                                href="{{route('backend.portfolio_cat')}}"><i class="fa fa-share"></i><span></span>Categories</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link {{url()->current() == route('backend.portfolio_position')}}"
                                href="{{route('backend.portfolio_position')}}"><i class="fa fa-share"></i><span></span>Position</a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a class="nav-link waves-effect {{url()->current() == url('/portfolio-items')}}"
                                href="{{url('/portfolio-items')}}"><i class="fa fa-share"></i><span></span>Portfolio Items</a>

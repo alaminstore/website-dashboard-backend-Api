@@ -54,23 +54,23 @@
                     @php
                         $i=0;
                     @endphp
-                    @foreach($catservices  as $catservices)
-                        <tr class="text-center unqtags{{$catservices->category_related_servoce_id}}">
+                    @foreach($catservices  as $catservice)
+                        <tr class="text-center unqtags{{$catservice->category_related_service_id}}">
                             <td><b>{{$i+=1}}</b></td>
-                            <td>{{$catservices->getPortfolioCategory->name}}</td>
-                            <td>{{$catservices->name}}</td>
+                            <td>{{$catservice->getPortfolioCategory->name}}</td>
+                            <td>{{$catservice->name}}</td>
                             <td class="cat_img">
-                                <img src="{{$catservices->icon}}" class="img-fluid" alt="portfolio Category Image">
+                                <img src="{{$catservice->icon}}" class="img-fluid" alt="portfolio Category Image">
                             </td>
-                            <td>{{$catservices->position}}</td>
+                            <td>{{$catservice->position}}</td>
                             <td>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                        data-id="{{$catservices->category_related_service_id}}" title="Edit"
+                                        data-id="{{$catservice->category_related_service_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
                                     <i class="mdi mdi-border-color"></i> Edit
                                 </button>
-                                <a class="deletetag" data-id="{{$catservices->category_related_service_id}}">
+                                <a class="deletetag" data-id="{{$catservice->category_related_service_id}}">
                                     <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
                                             class="ti-trash"></i> Delete
                                     </button>

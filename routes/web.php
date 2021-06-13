@@ -102,7 +102,7 @@ Route::post('faqs/updated', [FaqsController::class,'updated'])->name('faqs.updat
 //Tems Policies
 Route::post('terms/store', [TermsPoliciesController::class,'store'])->name('terms.store');
 Route::get('termsdelete', [TermsPoliciesController::class,'destroy'])->name('terms.destroy');
-Route::get('terms/{id}/edit', [TermsPoliciesController::class,'edit']);
+Route::get('terms/{id}/edit',[TermsPoliciesController::class,'edit']);
 Route::post('terms/updated', [TermsPoliciesController::class,'updated'])->name('terms.updated');
 
 

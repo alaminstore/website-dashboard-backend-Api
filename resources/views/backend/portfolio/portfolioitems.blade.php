@@ -30,10 +30,29 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-7" id="reloadId">
-            <button type="button" class="btn btn-sm btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+            <div class="form-group row">
+                <label for="name" class="col-sm-6 col-form-label">Portfolio Category</label>
+                <div class="col-sm-12">
+                    <select style="width: 200px" class="cat_selector" id="cat" name="cat">
+                        <option></option>
+                        @foreach($portfolio_cat as $cat)
+                            <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
+                        @endforeach
+                    </select>
+
+                </div>
+            </div>
+
+                <input type="text" id="cat_input" name="testinput"><br>
+
+            <button type="button" name="submit" class="btn btn-sm btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Portfolio Item
             </button>
+
+
+
+
             <div id="reload-category">
                 <div class="list text-center">
                     <h6 class="display-4" style="font-size: 20px;">Portfolio Item List</h6>
@@ -88,6 +107,7 @@
     </div>
     </div>
 
+
     <!--modal content  Save-->
     <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -100,17 +120,7 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Portfolio Category</label>
-                        <div class="col-sm-12">
-                            <select style="width: 200px" class="cat_selector" id="cat" name="portfolio_category_id">
-                                <option></option>
-                                @foreach($portfolio_cat as $cat)
-                                    <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                    {{-- ========================================================================== --}}
                     <div class="form-group row">
                         <label for="name" class="col-sm-6 col-form-label">Title</label>
                         <div class="col-sm-12">
@@ -118,6 +128,7 @@
                                    placeholder="Title Here..."
                                    required>
                         </div>
+
                     </div>
                     <div class="form-group row">
                         <label for="name" class="col-sm-6 col-form-label">Image</label>
@@ -149,12 +160,27 @@
                         <div class="col-sm-12">
                             <select style="width: 200px" id="position" name="position">
                                 <option></option>
-                                @php($i=1)
+
+                                {{-- @php
+                                    $i=1;
+
+                                    if(isset($_GET['submit'])){
+                                        $GLOBALS ['getCatId'] = $_GET['testinput'];
+                                        echo $getCatId;
+                                    }
+                                @endphp --}}
                                 @for($i=1;$i<=9;$i++)
-                                    @if(\App\Models\PortfolioPosition::where('position', '=', $i)->exists())
+                                    {{-- @if(\App\Models\PortfolioPosition::where('position', '=', $i)->exists())
                                         @continue
+                                    @endif --}}
+                                    @if(\App\Models\PortfolioPosition::where('portfolio_category_id','=',3)
+                                                                       ->where('position','=',$i)
+                                                                       ->exists())
+                                       <option disabled value="{{$i}}">Position {{$i}}(unavilable)</option>
+
+                                       @else
+                                       <option value="{{$i}}">Position {{$i}}</option>
                                     @endif
-                                    <option value="{{$i}}">Position {{$i}}</option>
                                 @endfor
                             </select>
                         </div>
@@ -233,7 +259,7 @@
                                 @php($i=1)
                                 @for($i=1;$i<=9;$i++)
                                     @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
-                                        <option disabled style="background: red" value="{{$i}}">Position {{$i}}</option>
+                                        <option disabled  value="{{$i}}">Position {{$i}}</option>
 
                                     @else
                                         <option value="{{$i}}">Position {{$i}}</option>
@@ -440,24 +466,26 @@
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
                 }
-
             });
-
         });
     </script>
+
     <script>
-        //Color to fabrication
         $(document).on('change', '.cat_selector', function (e) {
                 // e.preventDefault();
                 let id = $(this).val();
                 console.log(id);
+
                 $.ajax({
                     method: 'get',
-                    data:{},
-                    dataType: 'json',
-                    url:"{{url('out-category')}}/"+id,
+                    data: {
+                        id
+                    },
+                    url: '{{ url('out-category') }}/' + id,
                     success: function (result) {
-                        console.log('result: ',result);
+                        console.log('result',result);
+                        $('#reloadId').find('#cat_input').val(result.portfolio_position_id);
+                        $('#resultr').html(result.portfolio_position_id);
                     },
                     error: function (err) {
                         console.log(err)
@@ -466,4 +494,5 @@
 
             });
     </script>
+
 @endsection

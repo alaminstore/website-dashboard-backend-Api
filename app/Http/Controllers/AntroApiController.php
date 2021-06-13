@@ -60,7 +60,6 @@ class AntroApiController extends Controller
 
     public function clientsById($id){
         $clients = Client::where('precedence','=', $id)->get();
-        // return response()->json($clients);
         if(empty($clients)){
             return response()->json(['message'=>'Sorry Client Info has not been found'],404);
         }

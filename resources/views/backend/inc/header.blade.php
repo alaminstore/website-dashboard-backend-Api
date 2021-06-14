@@ -12,7 +12,7 @@
                     <img src="assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle border">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                    <a class="dropdown-item" href="#"><i class="dripicons-exit text-muted"></i> Logout</a>
+                    <a class="dropdown-item" href="{{route('auth.logout')}}"><i class="dripicons-exit text-muted"></i> Logout</a>
                 </div>
             </li>
         </ul>

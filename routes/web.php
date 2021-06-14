@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryRelatedServiceController;
 use App\Http\Controllers\CountController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\InfosController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\PortfolioItemsController;
 use App\Http\Controllers\TermsPoliciesController;
 use App\Models\PortfolioItem;
@@ -36,10 +37,13 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return 'DONE'; //Return anything
 });
-Route::get('/', [Sidebar::class,'index']);
+
 // Route::get('/', function(){
 //     return view('welcome');
 // });
+
+Route::get('/', [Sidebar::class,'index']);
+
 Route::get('/portfolio-categories', [Sidebar::class,'portfolio_cat'])->name('backend.portfolio_cat');
 Route::get('/portfolio-position', [Sidebar::class,'portfolio_position'])->name('backend.portfolio_position');
 Route::get('/clients', [Sidebar::class,'clients'])->name('backend.clients');
@@ -121,3 +125,15 @@ Route::post('portfolio-rest-items/store', [PortfolioItemsController::class,'stor
 Route::get('itemdelete', [PortfolioItemsController::class,'destroy'])->name('portfolio.destroy');
 Route::get('portfoliorestitemsdelete/{id}/edit', [PortfolioItemsController::class,'edit']);
 Route::post('portfolio-rest-items/updated', [PortfolioItemsController::class,'updated'])->name('portfolio.updated');
+
+
+
+Route::get('/auth/login', [MainController::class,'login']);
+Route::post('/auth/check',[MainController::class, 'check'])->name('auth.check');
+Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout');
+
+
+Route::group(['middleware'=>['AuthCheck']], function(){
+
+});
+

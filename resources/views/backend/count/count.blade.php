@@ -257,11 +257,8 @@
 
     </script>
     <script type="text/javascript">
-        $("#cat2").select2({
-            placeholder: positiondata
-        });
         $("#position2").select2({
-            placeholder: catdata
+            placeholder: positiondata
         });
     </script>
 

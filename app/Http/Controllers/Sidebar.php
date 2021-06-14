@@ -70,7 +70,8 @@ class Sidebar extends Controller
 
 
     public function portfolioItem(){
-        $portfolioitems = PortfolioItem::all();
+        $portfolioitems = PortfolioItem::with('getClient')->get();
+        // return $portfolioitems;
         $portfolio_cat = PortfolioCategories::all();
         $clients = Client::all();
         $tags = Tag::all();

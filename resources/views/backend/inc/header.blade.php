@@ -25,7 +25,7 @@
                 </button>
             </li>
             <li class="hide-phone list-inline-item app-search">
-                <a href="{{url('/')}}"><h3 class="page-title">Antopolis</h3></a>
+                <h3 class="page-title">@yield('title','Antopolis-Dashboard')</h3>
             </li>
         </ul>
 

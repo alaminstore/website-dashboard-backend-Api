@@ -15,6 +15,11 @@
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <!-- DataTables -->
+    <link href="assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <title>@yield('title','Antopolis-Dashboard')</title>
 </head>
 <body class="fixed-left">
@@ -43,6 +48,20 @@
 <script src="assets/js/modernizr.min.js"></script>
 <script src="assets/js/jquery.slimscroll.js"></script>
 <script src="assets/js/waves.js"></script>
+
+<!-- Required datatable js -->
+<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="assets/plugins/datatables/dataTables.buttons.min.js"></script>
+<script src="assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
+<!-- Responsive examples -->
+<script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
+<script src="assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="assets/pages/datatables.init.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 <script src="assets/js/jquery-toast-plugin/jquery.toast.min.js"></script>
 <script src="assets/js/jquery.nicescroll.js"></script>

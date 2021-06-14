@@ -119,10 +119,14 @@ code {
 .table > thead > tr > td {
     padding: 6px 10px !important;
 }
+.flex_css {
+    display: flex !important;
+    justify-content: space-between;
+}
 .btn-group-sm > .btn,
 .btn-sm {
-    padding: 0px 5px;
-    font-size: 12px;
+    padding: 5px 7px;
+    font-size: 18px;
     line-height: 1.5;
     border-radius: 0.2rem;
 }

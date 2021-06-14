@@ -9,6 +9,7 @@ use App\Models\PortfolioPosition;
 use App\Models\PortfolioTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use function unlink;
 
 class PortfolioItemsController extends Controller
 {
@@ -76,6 +77,43 @@ class PortfolioItemsController extends Controller
         }
 
         return redirect()->route('backend.portfolioItem')->with($notification);
+    }
+
+    public function edit($id)
+    {
+        $category = PortfolioItem::find($id);
+        return response()->json($category);
+    }
+
+    public function updated(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'url'=>'required',
+            'client_id'=>'required'
+        ]);
+        $items = PortfolioItem::find($request->category_id);
+        $items->title = $request->title;
+        $items->url = $request->url;
+        if($request->hasFile('image'))
+        {
+            $path = 'images/portfolio-items/';
+            @unlink($items->image);
+            if (!is_dir($path))
+            {
+                mkdir($path, 0755, true);
+            }
+
+            $image              = $request->image;
+            $imageName          = rand(100,1000).$image->getClientOriginalName();
+
+            $image->move($path,$imageName);
+            $items->image      = $path.$imageName;
+        }
+        $items->client_id = $request->client_id;
+        // return $items;
+        $items->save();
+        return response()->json($items);
     }
 
 

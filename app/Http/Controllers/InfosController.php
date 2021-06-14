@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Info;
 use Illuminate\Http\Request;
-
+use function unlink;
 class InfosController extends Controller
 {
     public function store(Request $request)

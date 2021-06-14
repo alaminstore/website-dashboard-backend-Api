@@ -11,4 +11,9 @@ class PortfolioItem extends Model
     protected $guarded=[];
     protected $table = "portfolio_items";
     protected $primaryKey = 'portfolio_item_id';
+
+    public function getClient()
+    {
+        return $this->belongsTo(Client::class,'client_id');
+    }
 }

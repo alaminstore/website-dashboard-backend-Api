@@ -25,7 +25,7 @@
                 </button>
             </li>
             <li class="hide-phone list-inline-item app-search">
-                <h3 class="page-title">Antopolis</h3>
+                <a href="{{url('/')}}"><h3 class="page-title">Antopolis</h3></a>
             </li>
         </ul>
 

@@ -12,4 +12,9 @@ class PortfolioCategories extends Model
     protected $table = "portfolio_categories";
     protected $primaryKey = 'portfolio_category_id';
 
+    public function getPortfolioCategory()
+    {
+        return $this->belongsTo(PortfolioCategories::class,'portfolio_category_id');
+    }
+
 }

@@ -108,3 +108,13 @@ Route::post('terms/updated', [TermsPoliciesController::class,'updated'])->name('
 
 //Conditional Dropdown
 Route::get('out-category/{id}', [PortfolioItemsController::class,'catToItem']);
+
+
+
+//portfolio items
+Route::post('portfolio-rest-items', [PortfolioItemsController::class,'dataPass'])->name('portfolioitem.passing');
+
+Route::post('portfolio-rest-items/store', [PortfolioItemsController::class,'store'])->name('portfolio.store');
+Route::get('itemdelete', [PortfolioItemsController::class,'destroy'])->name('portfolio.destroy');
+Route::get('portfoliorestitemsdelete/{id}/edit', [PortfolioItemsController::class,'edit']);
+Route::post('portfolio-rest-items/updated', [PortfolioItemsController::class,'updated'])->name('portfolio.updated');

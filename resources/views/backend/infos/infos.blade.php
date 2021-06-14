@@ -402,7 +402,7 @@
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
 
-                    $('#tagstore').trigger('reset');
+                    $('#catservestore').trigger('reset');
                 }
 
             });

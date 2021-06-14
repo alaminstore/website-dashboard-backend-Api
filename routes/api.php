@@ -23,6 +23,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('portfolio-categories',[AntroApiController::class,'portfolio_cat']);
 Route::get('portfolio-categories/{id}',[AntroApiController::class,'getCategoryById']);
 
+Route::get('portfolio-items',[AntroApiController::class,'portfolioItem']);
+Route::get('portfolio-items/{id}',[AntroApiController::class,'portfolioItemById']);
+
+Route::get('portfolio-position',[AntroApiController::class,'portfolioPosition']);
+Route::get('portfolio-position/{id}',[AntroApiController::class,'portfolioPositionById']);
+
+Route::get('portfolio-tags',[AntroApiController::class,'portfolioTags']);
+Route::get('portfolio-tags/{id}',[AntroApiController::class,'portfolioTagsById']);
+
+
 Route::get('category-related-services',[AntroApiController::class,'categoryRelatedServices']);
 Route::get('category-related-services/{id}',[AntroApiController::class,'categoryRelatedServicesById']);
 

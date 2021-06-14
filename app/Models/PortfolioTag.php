@@ -11,4 +11,10 @@ class PortfolioTag extends Model
     protected $guarded=[];
     protected $table = "portfolio_tags";
     protected $primaryKey = 'portfolio_tag_id';
+
+    public function getPortfolioItem()
+    {
+        return $this->belongsTo(PortfolioItem::class,'portfolio_item_id');
+    }
+
 }

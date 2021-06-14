@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 class TagsController extends Controller
 {
     public function store(Request $request){
+        $request->validate([
+            'tag'=>'required'
+        ]);
         $tags = new Tag();
         $tags->tag = $request->tag;
         $tags->save();

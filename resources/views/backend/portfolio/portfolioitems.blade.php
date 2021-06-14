@@ -25,13 +25,16 @@
             opacity: .6;
             border-radius: 7px;
         }
+        .hideportion{
+            display:none;
+        }
     </style>
     <div class="row" id="okreload">
         <div class="col-md-2">
         </div>
         <div class="col-md-7" id="reloadId">
             <div class="form-group row">
-                <label for="name" class="col-sm-6 col-form-label">Portfolio Category</label>
+                <label for="name" class="col-sm-6 col-form-label">Portfolio Items</label>
                 <div class="col-sm-12">
                     <select style="width: 200px" class="cat_selector" id="cat" name="cat">
                         <option></option>
@@ -39,70 +42,60 @@
                             <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                         @endforeach
                     </select>
-
                 </div>
             </div>
 
-                <input type="text" id="cat_input" name="testinput"><br>
+           <form action="{{url('portfolio-rest-items')}}" method="post">
+            @csrf
+            <input type="hidden" id="cat_input" name="passingdata">
+            <button type="submit" class="btn btn-info waves-effect waves-light hideportion" ><i class="ion-plus"></i> Next</button>
+           </form>
 
-            <button type="button" name="submit" class="btn btn-sm btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
-                    data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Portfolio Item
-            </button>
-
-
-
-
-            <div id="reload-category">
-                <div class="list text-center">
-                    <h6 class="display-4" style="font-size: 20px;">Portfolio Item List</h6>
-                </div>
-                <table id="myTable" class="table table-bordered dt-responsive nowrap"
-                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                    <tr class="text-center">
-                        <th>#SL</th>
-                        <th>Portfolio Category</th>
-                        <th>Title</th>
-                        <th>Image</th>
-                        <th>Url</th>
-                        <th>Client</th>
-                        <th>Tags</th>
-                        <th>Action</th>
+           <div id="reload-category">
+            <div class="list text-center">
+                <h6 class="display-4" style="font-size: 20px;">Portfolio Item List</h6>
+            </div>
+            <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <thead>
+                <tr class="text-center">
+                    <th>#SL</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Url</th>
+                    <th>Client</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody class="tbodytags" id="loadnow">
+                @php
+                    $i=0;
+                @endphp
+                @foreach($portfolioitems  as $item)
+                    <tr class="text-center unqtags{{$item->portfolio_item_id}}">
+                        <td><b>{{$i+=1}}</b></td>
+                        <td>{{$item->title}}</td>
+                        <td class="cat_img">
+                            <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
+                        </td>
+                        <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
+                        <td>{{$item->client_id}}</td>
+                        <td>
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                    data-id="{{$item->portfolio_item_id}}" title="Edit"
+                                    data-toggle="modal" data-target="#myModal">
+                                <i class="mdi mdi-border-color"></i> Edit
+                            </button>
+                            <a class="deletetag" data-id="{{$item->portfolio_item_id}}">
+                                <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i> Delete</button>
+                            </a>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody class="tbodytags" id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
-                    {{-- @foreach($portfolioitems  as $item)
-                        <tr class="text-center unqtags{{$catservices->category_related_servoce_id}}">
-                            <td><b>{{$i+=1}}</b></td>
-                            <td>{{$item->getPortfolioCategory->name}}</td>
-                            <td>{{$item->title}}</td>
-                            <td class="cat_img">
-                                <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
-                            </td>
-                            <td>{{$item->url}}</td>
-                            <td>{{$item->url}}</td>
-                            <td>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                        data-id="{{$catservices->category_related_service_id}}" title="Edit"
-                                        data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i> Edit
-                                </button>
-                                <a class="deletetag" data-id="{{$catservices->category_related_service_id}}">
-                                    <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i> Delete
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach --}}
-                    </tbody>
-                </table>
-            </div>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
         </div>
     </div>
     </div>
@@ -120,7 +113,6 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
-                    {{-- ========================================================================== --}}
                     <div class="form-group row">
                         <label for="name" class="col-sm-6 col-form-label">Title</label>
                         <div class="col-sm-12">
@@ -160,19 +152,8 @@
                         <div class="col-sm-12">
                             <select style="width: 200px" id="position" name="position">
                                 <option></option>
-
-                                {{-- @php
-                                    $i=1;
-
-                                    if(isset($_GET['submit'])){
-                                        $GLOBALS ['getCatId'] = $_GET['testinput'];
-                                        echo $getCatId;
-                                    }
-                                @endphp --}}
                                 @for($i=1;$i<=9;$i++)
-                                    {{-- @if(\App\Models\PortfolioPosition::where('position', '=', $i)->exists())
-                                        @continue
-                                    @endif --}}
+
                                     @if(\App\Models\PortfolioPosition::where('portfolio_category_id','=',3)
                                                                        ->where('position','=',$i)
                                                                        ->exists())
@@ -188,10 +169,10 @@
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Tags</label>
                         <div class="col-sm-12">
-                            <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple">
+                            <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[0][tag]" multiple="multiple">
                                 <option></option>
                                 @foreach ($tags as $tag)
-                                <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
+                                <option value="{{$tag->tag}}">{{$tag->tag}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -309,7 +290,7 @@
     </script>
     <script type="text/javascript">
         $("#cat").select2({
-            placeholder: "Select the Category"
+            placeholder: "Select the Portfolio Item"
         });
         $("#position").select2({
             placeholder: "Select the Position"
@@ -369,7 +350,7 @@
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
-                url: "{{route('catservices.store')}}",
+                url: "{{route('portfolio.store')}}",
                 method: "POST",
                 data: new FormData(this),
                 dataType: 'JSON',
@@ -388,12 +369,12 @@
                         "extendedTimeOut": 1000
                     };
                     setTimeout(function () {
-                        $('#myModalSave').modal('hide');
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
+                    $('#catservestore').trigger('reset');
 
-                    $('#tagstore').trigger('reset');
+
                 }
 
             });
@@ -419,15 +400,13 @@
 
                     if (result.value) {
                         $.ajax({
-                            url: "{!! route('catservices.destroy') !!}",
+                            url: "{!! route('portfolio.destroy') !!}",
                             type: "get",
                             data: {
                                 id: id,
                             },
-                            success: function (data) {
-                            }
                         });
-
+                        toastr.success('Data Deleted Successfully');
                         $(this).closest('tr').hide();
 
                     }
@@ -440,7 +419,7 @@
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
-                url: "{{route('catservices.updated')}}",
+                url: "{{route('portfolio.updated')}}",
                 method: "POST",
                 data: new FormData(this),
                 dataType: 'JSON',
@@ -469,7 +448,6 @@
             });
         });
     </script>
-
     <script>
         $(document).on('change', '.cat_selector', function (e) {
                 // e.preventDefault();
@@ -484,15 +462,14 @@
                     url: '{{ url('out-category') }}/' + id,
                     success: function (result) {
                         console.log('result',result);
-                        $('#reloadId').find('#cat_input').val(result.portfolio_position_id);
-                        $('#resultr').html(result.portfolio_position_id);
+                        $('#reloadId').find('#cat_input').val(result.portfolio_category_id);
                     },
                     error: function (err) {
                         console.log(err)
                     }
                 })
+                $('.hideportion').show();
 
             });
     </script>
-
 @endsection

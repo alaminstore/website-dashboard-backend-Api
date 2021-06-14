@@ -9,6 +9,9 @@ use App\Models\Faq;
 use App\Models\GetQuotes;
 use App\Models\Info;
 use App\Models\PortfolioCategories;
+use App\Models\PortfolioItem;
+use App\Models\PortfolioPosition;
+use App\Models\PortfolioTag;
 use App\Models\Service;
 use App\Models\TermsPolicies;
 use Illuminate\Http\Request;
@@ -26,6 +29,71 @@ class AntroApiController extends Controller
         }
         return response()->json($portfolio_categories::find($id),200);
     }
+//
+    public function portfolioItem(){
+        return response()->json(PortfolioItem::all(),200);
+    }
+
+    public function portfolioItemById($id){
+        $portfolio_items = PortfolioItem::find($id);
+        if(is_null($portfolio_items)){
+            return response()->json(['message'=>'Portfolio Position not found'],404);
+        }
+        return response()->json($portfolio_items::find($id),200);
+    }
+
+
+    public function portfolioPosition(){
+        return response()->json(PortfolioPosition::with("getPortfolioCategory","getPortfolioItem")->get(),200);
+    }
+
+    public function portfolioPositionById($id){
+        $portfolio_items = PortfolioPosition::with("getPortfolioCategory","getPortfolioItem")
+                                             ->where('portfolio_position_id',$id)->first();
+        if(is_null($portfolio_items)){
+            return response()->json(['message'=>'Portfolio Position not found'],404);
+        }
+        return response()->json($portfolio_items,200);
+    }
+
+    public function portfolioTags(){
+        return response()->json(PortfolioTag::with("getPortfolioItem")->get(),200);
+    }
+    // public function portfolioTags(){
+    //     $tags = PortfolioTag::with("getPortfolioItem")->get();
+    //     $tags->tag_id = json_decode($tags->tag_id);
+    //     return response()->json($tags,200);
+    // }
+
+    public function portfolioTagsById($id){
+
+        $portfolio_tags = PortfolioTag::with("getPortfolioItem")
+                                             ->where('portfolio_tag_id',$id)->first();
+
+        if($portfolio_tags){
+            $portfolio_tags->tag_id = json_decode($portfolio_tags->tag_id);
+            return response()->json($portfolio_tags,200);
+        }else{
+            return response()->json(['message'=>'Portfolio Tags not found'],404);
+        }
+    }
+
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function categoryRelatedServices(){
@@ -56,8 +124,6 @@ class AntroApiController extends Controller
         return response()->json(Client::all(),200);
     }
 
-
-
     public function clientsById($id){
         $clients = Client::where('precedence','=', $id)->get();
         if(empty($clients)){
@@ -65,14 +131,6 @@ class AntroApiController extends Controller
         }
         return response()->json($clients,200);
     }
-
-
-
-
-
-
-
-
 
     public function counts(){
         return response()->json(Count::all(),200);

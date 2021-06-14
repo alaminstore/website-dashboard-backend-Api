@@ -1,5 +1,5 @@
 @extends('backend.home')
-@section('title','Categories')
+@section('title','Tags')
 @section('style')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet" />
@@ -222,20 +222,6 @@
                         $("#loadnow").load(location.href+" #loadnow>*","");
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
-                    // $('.tbodytags').prepend(`<tr class='unqtags` + data.tag_id + `'>
-                    //         <td class="text-center"><b>` + parseInt(data.tag_id++) + `</b></td>
-                    //         <td class="text-center">{{$tag->tag}}</td>
-
-                    //         <td class="text-center">
-                    //         <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit" data-id="` + data.id + `" title="Edit" data-toggle="modal" data-target="#myModal">
-                    //             <i class="mdi mdi-border-color"></i> Edit
-                    //         </button>
-                    //         <a class="deletetag" data-id="` + data.id + `">
-                    //             <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i> Delete</button>
-                    //         </a>
-
-                    //     </td>
-                    //         </tr>`);
                     $('#tagstore').trigger('reset');
                 }
 
@@ -310,30 +296,6 @@
                         $("#loadnow").load(location.href+" #loadnow>*","");
                     }, 1000);
                     toastr.success('Data Updated Successfully');
-
-
-                    // setTimeout(function () {
-                    //     // location.reload();
-                    //     $("#myTable").load();
-                    // }, 00);
-
-                //     $("#getCameraSerialNumbers").click(function () {
-
-                // });
-                    // $('.tbodytags').prepend(`<tr class=' blue unqtags` + data.tag_id + `'>
-                    //         <td class="text-center"><b>` + parseInt(data.tag_id) + `</b></td>
-                    //         <td class="text-center">{{$tag->tag}}</td>
-
-                    //         <td class="text-center">
-                    //         <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit" data-id="` + data.id + `" title="Edit" data-toggle="modal" data-target="#myModal">
-                    //             <i class="mdi mdi-border-color"></i> Edit
-                    //         </button>
-                    //         <a class="deletetag" data-id="` + data.id + `">
-                    //             <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i> Delete</button>
-                    //         </a>
-
-                    //     </td>
-                    //         </tr>`);
 
                     $('#tagsupdate').trigger('reset');
                 }

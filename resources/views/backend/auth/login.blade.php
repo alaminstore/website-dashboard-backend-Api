@@ -43,6 +43,8 @@
                      <div class="alert alert-danger">
                         <p class="text-center">{{ Session::get('fail') }}</p>
                      </div>
+                     @elseif (Session::get('unauthorized'))
+                     <p class="text-center">{{ Session::get('unauthorized') }}</p>
                      @endif
                      @csrf
                      {{-- <div class="form-group">

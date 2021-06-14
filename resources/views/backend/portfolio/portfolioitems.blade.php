@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-           <form action="{{url('portfolio-rest-items')}}" method="post">
+           <form action="{{url('portfolio-rest-items')}}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" id="cat_input" name="passingdata">
             <button type="submit" class="btn btn-info waves-effect waves-light hideportion" ><i class="ion-plus"></i> Next</button>
@@ -115,7 +115,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Image</label>
                         <div class="col-sm-8">
-                            <input type="file" name="image" id="image" class="dropify"/>
+                            <input type="file" name="image" id="image" class="dropify" required/>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -129,7 +129,7 @@
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Client</label>
                         <div class="col-sm-8">
-                            <select class="select_css form-control" id="ClientData" name="client_id">
+                            <select class="select_css form-control" id="ClientData" name="client_id" required>
                                 <option></option>
                                 @foreach ($clients as $client)
                                 <option value="{{$client->client_id}}">{{$client->name}}</option>

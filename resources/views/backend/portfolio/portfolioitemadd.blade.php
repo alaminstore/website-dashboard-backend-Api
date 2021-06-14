@@ -46,7 +46,7 @@
                 <div class="form-group row">
                     <label for="image" class="col-sm-6 col-form-label">Image</label>
                     <div class="col-sm-12">
-                        <input type="file" name="image" id="image" class="dropify"/>
+                        <input type="file" name="image" id="image" class="dropify" required/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -66,6 +66,7 @@
                             <option value="{{$client->client_id}}">{{$client->name}}</option>
                             @endforeach
                         </select>
+                        <div id="feedback"></div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -85,6 +86,7 @@
                                 @endif
                             @endfor
                         </select>
+                        <div id="feedback3"></div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -96,12 +98,13 @@
                             <option value="{{$tag->tag}}">{{$tag->tag}}</option>
                             @endforeach
                         </select>
+                        <div id="feedback2"></div>
                     </div>
                 </div>
 
                 <div class="form-group m-b-0">
                     <div>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                        <button type="submit" id="submit" class="btn btn-primary waves-effect waves-light">
                             Submit Here
                         </button>
                         <button type="reset" class="btn btn-secondary waves-effect m-l-5">
@@ -241,36 +244,54 @@
 
 
         //Update data
-        $('#tagsupdate').on('submit', function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: "{{route('portfolio.updated')}}",
-                method: "POST",
-                data: new FormData(this),
-                dataType: 'JSON',
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function (data) {
-                    console.log('update', data);
-                    toastr.options = {
-                        "debug": false,
-                        "positionClass": "toast-bottom-right",
-                        "onclick": null,
-                        "fadeIn": 300,
-                        "fadeOut": 1000,
-                        "timeOut": 5000,
-                        "extendedTimeOut": 1000
-                    };
+        // $('#tagsupdate').on('submit', function (e) {
+        //     e.preventDefault();
+        //     $.ajax({
+        //         url: "{{route('portfolio.updated')}}",
+        //         method: "POST",
+        //         data: new FormData(this),
+        //         dataType: 'JSON',
+        //         contentType: false,
+        //         cache: false,
+        //         processData: false,
+        //         success: function (data) {
+        //             console.log('update', data);
+        //             toastr.options = {
+        //                 "debug": false,
+        //                 "positionClass": "toast-bottom-right",
+        //                 "onclick": null,
+        //                 "fadeIn": 300,
+        //                 "fadeOut": 1000,
+        //                 "timeOut": 5000,
+        //                 "extendedTimeOut": 1000
+        //             };
 
-                    setTimeout(function () {
-                        $('#myModal').modal('hide');
-                        $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
-                    toastr.success('Data Updated Successfully');
-                    $('#tagsupdate').trigger('reset');
-                }
-            });
-        });
+        //             setTimeout(function () {
+        //                 $('#myModal').modal('hide');
+        //                 $("#loadnow").load(location.href + " #loadnow>*", "");
+        //             }, 1000);
+        //             toastr.success('Data Updated Successfully');
+        //             $('#tagsupdate').trigger('reset');
+        //         }
+        //     });
+        // });
+
+        $("#submit").click(function(){
+            var client_id = $("#client_id");
+            var tag_id = $("#tag_id");
+            var position = $("#position");
+            if(client_id.val() ===""){
+                document.getElementById("feedback").innerHTML="Client Vlue is required";
+                document.getElementById("feedback").style.color="red";
+            }
+            if(tag_id.val() ===""){
+                document.getElementById("feedback2").innerHTML="Tags Vlue is required";
+                document.getElementById("feedback2").style.color="red";
+            }
+            if(position.val() ===""){
+                document.getElementById("feedback3").innerHTML="Position Vlue is required";
+                document.getElementById("feedback3").style.color="red";
+            }
+        })
     </script>
 @endsection

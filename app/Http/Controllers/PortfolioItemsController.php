@@ -33,7 +33,6 @@ class PortfolioItemsController extends Controller
             'title' => 'required',
             'url'=>'required',
             'image'=>'required',
-            'client_id'=>'required'
         ]);
         $items = new PortfolioItem();
         $items->title = $request->title;

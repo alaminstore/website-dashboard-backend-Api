@@ -36,10 +36,10 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return 'DONE'; //Return anything
 });
-// Route::get('/', [Sidebar::class,'index']);
-Route::get('/', function(){
-    return view('welcome');
-});
+Route::get('/', [Sidebar::class,'index']);
+// Route::get('/', function(){
+//     return view('welcome');
+// });
 Route::get('/portfolio-categories', [Sidebar::class,'portfolio_cat'])->name('backend.portfolio_cat');
 Route::get('/portfolio-position', [Sidebar::class,'portfolio_position'])->name('backend.portfolio_position');
 Route::get('/clients', [Sidebar::class,'clients'])->name('backend.clients');

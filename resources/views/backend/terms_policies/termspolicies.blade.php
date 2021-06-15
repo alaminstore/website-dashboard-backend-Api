@@ -1,16 +1,16 @@
 @extends('backend.home')
 @section('title','Terms & Policies')
-@section('style')
-    <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
-@endsection
+<style>
+.textarea#description2 {
+    min-height: 220px;
+}
+</style>
 @section('content')
     <div class="row" id="okreload">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-7" id="reloadId">
-            <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+        <div class="col-md-12" id="reloadId">
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Terms Policy
+                <i class="ion-plus"></i>Terms Policy
             </button>
             <div id="reload-category">
                 <div class="list text-center">
@@ -130,9 +130,10 @@
                             <input class="form-control" type="text" id="title2" name="title"
                                    placeholder="Title Here..."
                                    required>
-                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
+
                         </div>
                     </div>
+                    <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                     <div class="form-group row flex_Css">
                         <label for="name" class="col-sm-2 col-form-label">Sub-Title</label>
                         <div class="col-sm-10">
@@ -147,7 +148,7 @@
                     <div class="form-group row flex_Css">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-md-10">
-                            <textarea class="summernote" name="description" id="description2" placeholder="Description Here..." required>
+                            <textarea class="textarea_desc" name="description" id="description2" placeholder="Description Here..." required>
                             </textarea>
                         </div>
                     </div>
@@ -210,7 +211,7 @@
                         console.log('data', data);
                         $('#tagsupdate').find('#title2').val(data.title).focus();
                         $('#tagsupdate').find('#subtitle').val(data.subtitle);
-                        $('#tagsupdate').find('#description2').summernote('code', data.description);
+                        $('#tagsupdate').find('#description2').val(data.description)
                         $('#tagsupdate').find('#category-edit-id').val(data.terms_policie_id);
 
                         $('#category-modal').modal('show');
@@ -323,8 +324,8 @@
                         "extendedTimeOut": 1000
                     };
 
-                setTimeout(function () {
-                        $('#myModal').modal('hide');
+                    $('#myModal').modal('hide');
+                    setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
                     toastr.success('Data Updated Successfully');

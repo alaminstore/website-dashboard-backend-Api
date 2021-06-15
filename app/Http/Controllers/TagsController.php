@@ -13,8 +13,9 @@ class TagsController extends Controller
         ]);
         $tags = new Tag();
         $tags->tag = $request->tag;
-        $tags->save();
-        return response()->json($tags);
+        if($tags->save()){
+            return response()->json($tags);
+        }
     }
 
     public function edit($id){

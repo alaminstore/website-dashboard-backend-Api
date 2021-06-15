@@ -18,10 +18,8 @@
         }
     </style>
     <div class="row" id="okreload">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-7" id="reloadId">
-            <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+        <div class="col-md-12" id="reloadId">
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Category Services
             </button>
@@ -91,7 +89,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Category</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" id="cat" name="portfolio_category_id">
+                            <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id">
                                 <option></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
@@ -217,7 +215,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -392,5 +389,31 @@
             });
 
         });
+    </script>
+    <script>
+        //get portfolio category
+        $(document).on('change', '.cat_selector', function (e) {
+                e.preventDefault();
+                let id = $(this).val();
+                console.log(id);
+
+                $.ajax({
+                    method: 'get',
+                    data: {
+                        id
+                    },
+                    url: '{{ url('out-category-for-position') }}/' + id,
+                    success: function (result) {
+                        console.log('result',result);
+                        // $('#reloadId').find('#cat_input').val(result.portfolio_category_id);
+
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+                $('.hideportion').show();
+
+            });
     </script>
 @endsection

@@ -6,12 +6,12 @@
 @section('content')
 
     <div class="row" id="okreload">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-7" id="reloadId">
-            <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+        {{-- <div class="col-md-2">
+        </div> --}}
+        <div class="col-md-12" id="reloadId">
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Faqs
+                <i class="ion-plus"></i>Add New Faqs
             </button>
             <div id="reload-category">
                 <div class="list text-center">

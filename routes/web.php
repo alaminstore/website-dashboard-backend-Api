@@ -13,6 +13,7 @@ use App\Http\Controllers\InfosController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PortfolioItemsController;
 use App\Http\Controllers\TermsPoliciesController;
+use App\Models\CategoryRelatedServices;
 use App\Models\PortfolioItem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -78,10 +79,10 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('services/updated', [ServicesController::class,'updated'])->name('services.updated');
 
     //Tags
-    Route::post('tags/store', [tagsController::class,'store'])->name('tags.store');
-    Route::get('tagsdelete', [tagsController::class,'destroy'])->name('tags.destroy');
-    Route::get('tags/{id}/edit', [tagsController::class,'edit']);
-    Route::post('tags/updated', [tagsController::class,'updated'])->name('tags.updated');
+    Route::post('tags/store', [TagsController::class,'store'])->name('tags.store');
+    Route::get('tagsdelete', [TagsController::class,'destroy'])->name('tags.destroy');
+    Route::get('tags/{id}/edit', [TagsController::class,'edit']);
+    Route::post('tags/updated', [TagsController::class,'updated'])->name('tags.updated');
 
 
 
@@ -110,6 +111,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     //Conditional Dropdown
     Route::get('out-category/{id}', [PortfolioItemsController::class,'catToItem']);
+    Route::get('out-category-for-position/{id}', [CategoryRelatedServiceController::class,'catServices']);
 
     //portfolio items
     Route::post('portfolio-rest-items', [PortfolioItemsController::class,'dataPass'])->name('portfolioitem.passing');
@@ -133,4 +135,3 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('catservices/updated', [CategoryRelatedServiceController::class,'updated'])->name('catservices.updated');
 
 });
-

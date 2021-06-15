@@ -78,36 +78,18 @@ class AntroApiController extends Controller
         }
     }
 
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function categoryRelatedServices(){
         return response()->json(CategoryRelatedServices::all(),200);
     }
 
     public function categoryRelatedServicesById($id){
-        $portfolio_categories = CategoryRelatedServices::find($id);
+        $portfolio_categories = CategoryRelatedServices::where('portfolio_category_id',$id)->get();
         if(is_null($portfolio_categories)){
             return response()->json(['message'=>'Category Service not found'],404);
         }
-        return response()->json($portfolio_categories::find($id),200);
+        return response()->json($portfolio_categories,200);
     }
-
 
     public function infos(){
         return response()->json(Info::all(),200);

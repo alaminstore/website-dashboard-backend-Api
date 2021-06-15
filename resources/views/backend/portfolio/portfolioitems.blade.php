@@ -37,7 +37,7 @@
            <form class=" col-md-6 offset-md-3" action="{{url('portfolio-rest-items')}}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" id="cat_input" name="passingdata">
-            <button type="submit" class="btn btn-info waves-effect waves-light hideportion" ><i class="ion-plus"></i> Next</button>
+            <button type="submit" class="btn btn-secondary waves-effect waves-light hideportion" ><i class="ion-plus"></i> Next</button>
            </form>
 
            <div id="reload-category">

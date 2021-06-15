@@ -35,12 +35,12 @@ class TermsPoliciesController extends Controller
             'description'=>'required',
             'subtitle'=>'required',
         ]);
-        $terms = TermsPolicies::find($request->category_id);
-        $terms->title = $request->title;
-        $terms->subtitle = $request->subtitle;
-        $terms->description = $request->description;
-        $terms->save();
-        return response()->json($terms);
+        $infos = TermsPolicies::find($request->category_id);
+        $infos->title = $request->title;
+        $infos->subtitle = $request->subtitle;
+        $infos->description = $request->description;
+        $infos->save();
+        return response()->json($infos);
     }
 
     public function destroy(Request $request)

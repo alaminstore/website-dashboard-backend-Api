@@ -25,7 +25,7 @@
             </button>
             <div id="reload-category">
             <div class="list text-center">
-                <h6 class="display-4" style="font-size: 20px;">Categories Information</h6>
+                <h6 class="display-4" style="font-size: 20px;">Tag List</h6>
             </div>
             <table id="myTable" class="table table-bordered dt-responsive nowrap"
                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -66,7 +66,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Modal Heading</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Tag List Add</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -101,7 +101,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Modal Heading</h5>
+                        <h5 class="modal-title mt-0" id="myModalLabel">Tag List Update</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">

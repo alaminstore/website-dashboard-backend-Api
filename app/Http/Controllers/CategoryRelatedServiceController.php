@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryRelatedServices;
+use App\Models\PortfolioCategories;
 use Illuminate\Http\Request;
 use function unlink;
 
@@ -83,5 +84,16 @@ class CategoryRelatedServiceController extends Controller
         $tags = CategoryRelatedServices::find($request->id);
         $tags->delete();
         return response()->json('tags');
+    }
+
+
+    // Ajax controller function
+
+    public function catServices(Request $request){
+        $match_id=CategoryRelatedServices::where('portfolio_category_id',$request->id)
+        ->WhereBetween('position',[1,12])->pluck('position')->toArray();
+        $all = array("1", "2", "3", "4","5","6","7","8","9","10","11","12");
+        $result = array_diff($all, $match_id);
+        return response()->json($result);
     }
 }

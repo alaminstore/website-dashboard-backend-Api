@@ -144,15 +144,13 @@
                             <div class="form-group row flex_css">
                                 <label for="description" class="col-sm-2 col-form-label">Description</label>
                                 <div class="col-sm-10">
-                                <textarea class="summernote" name="description" id="description-edit" required>
-                                    {{old('description')}}
-                                </textarea>
+                                <textarea class="summernote" name="description" id="description-edit" required> </textarea>
                                 </div>
                             </div>
                             <div class="form-group row flex_css">
                                 <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Icon</label>
-                                <div class="col-sm-10">
-                                    <input type="file" name="image" id="portfolio_cat_icon" class="dropify">
+                                <div class="col-sm-10" id="portfolio_cat_icon2">
+                                    <input type="file" name="image" id="portfolio_cat_icon2" class="dropify">
                                 </div>
                             </div>
                             {{-- <div class="form-group" id="category-edit-image">
@@ -224,10 +222,12 @@
                         $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_category_id);
                         $('#tagsupdate').find('#description-edit').summernote('code', data.description);
-                        if(data.icon)
-                          {
-                              $('#tagsupdate').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.icon}"/>`);
-                          }
+                        // if(data.icon)
+                        //   {
+                        //     // $('#portfolio_cat_icon2').attr("data-default-file", `data.icon`);
+                        //     // $('#portfolio_cat_icon2').dropify():
+                        //       $('#tagsupdate').find('#portfolio_cat_icon2').html(`<img width="100%" height="200px"  src="${url}/${data.icon}" class="dropify"/>`);
+                        //   }
 
                         $('#category-modal').modal('show');
                     },

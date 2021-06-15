@@ -31,6 +31,9 @@ class TagsController extends Controller
 
     public function updated(Request $request)
     {
+        $request->validate([
+            'tag' => 'required',
+        ]);
         $tags = Tag::find($request->category_id);
         $tags->tag = $request->tag;
         $tags->save();

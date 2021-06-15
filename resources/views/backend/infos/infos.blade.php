@@ -1,7 +1,6 @@
 @extends('backend.home')
 @section('title','Categories')
 @section('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 @endsection
@@ -101,11 +100,11 @@
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$info->info_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i> Edit
+                                    <i class="mdi mdi-border-color"></i>
                                 </button>
                                 <a class="deletetag" data-id="{{$info->info_id}}">
                                     <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i> Delete
+                                            class="ti-trash"></i>
                                     </button>
                                 </a>
                             </td>
@@ -130,63 +129,63 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Mobile</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Mobile</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="mobile"
                                    placeholder="Mobile Number..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Email</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Email</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="email" id="name" name="email"
                                    placeholder="Email Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Address</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Address</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="address"
                                    placeholder="Address Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Logo</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Logo</label>
+                        <div class="col-sm-8">
                             <input type="file" name="image" id="input-file-now" class="dropify" required/>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Facebook Url</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Facebook Url</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="facebook_url"
                                    placeholder="Facebook Url Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Instagram Url</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Instagram Url</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="instagram_url"
                                    placeholder="Instagram Url Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Linkedin Url</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Linkedin Url</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="linkedin_url"
                                    placeholder="Linkedin Url Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Youtube Url</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Youtube Url</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="youtube_url"
                                    placeholder="Youtube Url Here..."
                                    required>
@@ -221,64 +220,64 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Mobile</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Mobile</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="mobile" name="mobile"
                                    placeholder="Mobile Number..."
                                    required>
                         <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Email</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Email</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="email" id="email" name="email"
                                    placeholder="Email Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Address</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Address</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="address" name="address"
                                    placeholder="Address Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Logo</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Logo</label>
+                        <div class="col-sm-8">
                             <input type="file" name="image" id="logo" class="dropify"/>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Facebook Url</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Facebook Url</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="facebook" name="facebook_url"
                                    placeholder="Facebook Url Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Instagram Url</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Instagram Url</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="instagram" name="instagram_url"
                                    placeholder="Instagram Url Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Linkedin Url</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Linkedin Url</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="linkedin" name="linkedin_url"
                                    placeholder="Linkedin Url Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Youtube Url</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Youtube Url</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="youtube" name="youtube_url"
                                    placeholder="Youtube Url Here..."
                                    required>
@@ -302,7 +301,8 @@
 
 @endsection
 @section('scripts')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
@@ -433,16 +433,15 @@
                             data: {
                                 id: id,
                             },
-                            success: function (data) {
-                            }
                         });
-
+                        toastr.success('Data Deleted Successfully');
                         $(this).closest('tr').hide();
 
                     }
                 }
             )
         });
+
 
 
         //Update data

@@ -1,7 +1,6 @@
 @extends('backend.home')
 @section('title','Tags')
 @section('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet" />
 @endsection
 @section('content')
@@ -47,10 +46,10 @@
                         <td>{{$tag->tag}}</td>
                         <td>
                             <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit" data-id="{{$tag->tag_id}}" title="Edit" data-toggle="modal" data-target="#myModal">
-                                <i class="mdi mdi-border-color"></i> Edit
+                                <i class="mdi mdi-border-color"></i>
                             </button>
                             <a class="deletetag" data-id="{{$tag->tag_id}}">
-                                <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i> Delete</button>
+                                <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i></button>
                             </a>
                         </td>
                     </tr>
@@ -71,12 +70,11 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    {{-- <form action="{{ url('tags.store') }}" method="post" enctype="multipart/form-data"> --}}
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagstore'])!!}
                         @csrf
-                        <div class="form-group row">
+                        <div class="form-group row flex_css">
                             <label for="name" class="col-sm-2 col-form-label">Tags</label>
-                            <div class="col-sm-12">
+                            <div class="col-sm-8">
                                 <input class="form-control" type="text" id="name" name="tag" placeholder="Tag Name Here..." required>
                             </div>
                         </div>
@@ -86,13 +84,12 @@
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">
                                     Submit
                                 </button>
-                                <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                                     Cancel
                                 </button>
                             </div>
                         </div>
                     {!!Form::close()!!}
-                    {{-- </form> --}}
                 </div>
             </div>
         </div>
@@ -108,12 +105,11 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
-                        {{-- <form id="category-edit-form" action="{{ url('tags/updated') }}" method="post" enctype="multipart/form-data"> --}}
                             {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                             @csrf
-                            <div class="form-group row">
+                            <div class="form-group row flex_css">
                                 <label for="name" class="col-sm-2 col-form-label">Tags Name</label>
-                                <div class="col-sm-12">
+                                <div class="col-sm-8">
                                     <input class="form-control" type="text" id="category-edit-name" name="tag" placeholder="Tags Name Here..." required>
                                     <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
                                 </div>
@@ -123,13 +119,12 @@
                                     <button type="submit" class="btn btn-success waves-effect waves-light">
                                         Update
                                     </button>
-                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                                         Cancel
                                     </button>
                                 </div>
                             </div>
                             {!!Form::close()!!}
-                            {{-- </form> --}}
                     </div>
                 </div>
             </div>
@@ -137,7 +132,8 @@
 
 @endsection
 @section('scripts')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
 
     <script>
@@ -211,14 +207,9 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
-
-                    // setTimeout(function () {
-                    //     $('#myModalSave'). modal('hide');
-                    // }, 1000);
+                    $('#myModalSave'). modal('hide');
                     setTimeout(function () {
-                        $('#myModalSave'). modal('hide');
-                        // $("#reloadId").load();
-                        // $("#loadnow").load(location.href + " #loadnow");
+
                         $("#loadnow").load(location.href+" #loadnow>*","");
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
@@ -230,12 +221,12 @@
         });
 
        //Delete data
-        $(document).on('click','.deletetag',function(e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                console.log('id: ',id);
-                //alert(role);
-                Swal.fire({
+        $(document).on('click', '.deletetag', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            console.log('id: ', id);
+            //alert(role);
+            Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
                 type: 'warning',
@@ -244,26 +235,23 @@
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!',
 
-                }).then(result => {
+            }).then(result => {
 
-                if (result.value) {
-                    $.ajax({
-                    url: "{!! route('tags.destroy') !!}",
-                    type: "get",
-                    data: {
-                        id: id,
-                    },
-                    success: function(data) {
-                        }
-                    });
+                    if (result.value) {
+                        $.ajax({
+                            url: "{!! route('tags.destroy') !!}",
+                            type: "get",
+                            data: {
+                                id: id,
+                            },
+                        });
+                        toastr.success('Data Deleted Successfully');
+                        $(this).closest('tr').hide();
 
-                    $(this).closest('tr').hide();
-
+                    }
                 }
-               }
             )
         });
-
 
 
 //Update data
@@ -288,11 +276,8 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
-
+                    $('#myModal'). modal('hide');
                     setTimeout(function () {
-                        $('#myModal'). modal('hide');
-                        // $("#reloadId").load();
-                        // $("#loadnow").load(location.href + " #loadnow");
                         $("#loadnow").load(location.href+" #loadnow>*","");
                     }, 1000);
                     toastr.success('Data Updated Successfully');

@@ -1,7 +1,6 @@
 @extends('backend.home')
 @section('title','Categories')
 @section('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
 @endsection
 @section('content')
@@ -23,6 +22,7 @@
                     <tr class="text-center">
                         <th>#SL</th>
                         <th>Title</th>
+                        <th>Sub-Title</th>
                         <th>Description</th>
                         <th>Action</th>
                     </tr>
@@ -35,17 +35,18 @@
                         <tr class="text-center unqtags{{$term->terms_policie_id}}">
                             <td><b>{{$i+=1}}</b></td>
                             <td>{{$term->title}}</td>
+                            <td>{{$term->subtitle}}</td>
                             <td>{!! \Illuminate\Support\Str::limit($term->description, 50, $end='...') !!}</td>
                             <td>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$term->terms_policie_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i> Edit
+                                    <i class="mdi mdi-border-color"></i>
                                 </button>
                                 <a class="deletetag" data-id="{{$term->terms_policie_id}}">
                                     <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i> Delete
+                                            class="ti-trash"></i>
                                     </button>
                                 </a>
                             </td>
@@ -70,20 +71,29 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Title</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
                             <input class="form-control" type="text" id="title" name="title"
                                    placeholder="Title Here..."
                                    required>
                         </div>
                     </div>
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-2 col-form-label">Sub-Title</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="subtitle" name="subtitle"
+                                   placeholder="Title Here..."
+                                   required>
+                        </div>
+                    </div>
 
-                    <div class="form-group row">
-                        <label for="description" class="col-sm-6 col-form-label">Description</label>
-                        <textarea class="summernote" name="description" id="description" placeholder="Description Here..." required>
-                            {{old('description')}}
-                        </textarea>
+                    <div class="form-group row flex_Css">
+                        <label for="description" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-md-10">
+                            <textarea class="summernote" name="description" id="description" placeholder="Description Here..." required>
+                            </textarea>
+                        </div>
                     </div>
 
                     <div class="form-group m-b-0">
@@ -91,7 +101,7 @@
                             <button type="submit" class="btn btn-primary waves-effect waves-light">
                                 Submit
                             </button>
-                            <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                                 Cancel
                             </button>
                         </div>
@@ -114,21 +124,32 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Title</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_Css">
+                        <label for="name" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
                             <input class="form-control" type="text" id="title2" name="title"
                                    placeholder="Title Here..."
                                    required>
                             <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
+                    <div class="form-group row flex_Css">
+                        <label for="name" class="col-sm-2 col-form-label">Sub-Title</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" id="subtitle" name="subtitle"
+                                   placeholder="Title Here..."
+                                   required>
+                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
+                        </div>
+                    </div>
 
-                    <div class="form-group row">
-                        <label for="description" class="col-sm-6 col-form-label">Description</label>
-                        <textarea class="summernote" name="description" id="description2" placeholder="Description Here..." required>
-                            {{old('description')}}
-                        </textarea>
+
+                    <div class="form-group row flex_Css">
+                        <label for="description" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-md-10">
+                            <textarea class="summernote" name="description" id="description2" placeholder="Description Here..." required>
+                            </textarea>
+                        </div>
                     </div>
 
                     <div class="form-group m-b-0">
@@ -149,7 +170,8 @@
 
 @endsection
 @section('scripts')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="assets/plugins/summernote/summernote.min.js"></script>
     <script>
@@ -187,6 +209,7 @@
                         let url = window.location.origin;
                         console.log('data', data);
                         $('#tagsupdate').find('#title2').val(data.title).focus();
+                        $('#tagsupdate').find('#subtitle').val(data.subtitle);
                         $('#tagsupdate').find('#description2').summernote('code', data.description);
                         $('#tagsupdate').find('#category-edit-id').val(data.terms_policie_id);
 

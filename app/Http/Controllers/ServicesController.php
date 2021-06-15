@@ -11,19 +11,13 @@ class ServicesController extends Controller
     //Store Data
     public function store(Request $request){
         $request->validate([
-            'service_name' => 'required | string | max: 200',
+            'service_name' => 'required',
         ]);
         $category= new Service();
         $category->service_name    = $request->service_name;
-        if($category->save())
-        {
-            $notification = array('message' => 'Service added successfully', 'alert-type'=> 'success');
-        }
-        else
-        {
-            $notification = array('message' => 'Something went wrong!', 'alert-type'=> 'error');
-        }
-        return redirect()->route('backend.serve')->with($notification);
+        $category->save();
+        return response()->json($category);
+
     }
 
     //Edit Data
@@ -37,31 +31,18 @@ class ServicesController extends Controller
     public function updated(Request $request)
     {
         $request->validate([
-            'service_name' => 'required | string | max: 200',
+            'service_name' => 'required',
         ]);
-
-        $category= Service::find($request->category_id);
-        $category->service_name    = $request->service_name;
-        if($category->save())
-        {
-            $notification = array('message' => 'Service updated successfully', 'alert-type'=> 'success');
-        }
-        else
-        {
-            $notification = array('message' => 'Someting went wrong!', 'alert-type'=> 'error');
-        }
-
-        return redirect()->route('backend.serve')->with($notification);
+        $tags = Service::find($request->category_id);
+        $tags->service_name = $request->service_name;
+        $tags->save();
+        return response()->json($tags);
     }
 
     //Delete Data
     public function destroy(Request $request){
-        $portfolio_cat = Service::find($request->id);
-        if ($portfolio_cat->delete()) {
-            $notification = array('message' => 'Service deleted successfully', 'alert-type' => 'success');
-        } else {
-           $notification = array('message' => 'Someting went wrong!', 'alert-type' => 'error');
-        }
-        return redirect()->route('backend.serve')->with($notification);
+        $clients = Service::find($request->id);
+        $clients->delete();
+        return response()->json('clients');
     }
 }

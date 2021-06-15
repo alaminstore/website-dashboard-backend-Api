@@ -28,21 +28,13 @@ class PortfolioCategoriesController extends Controller
             if (!is_dir($path)) {
                 mkdir($path, 0755, true);
             }
-
             $image = $request->image;
             $imageName = rand(100, 1000) . $image->getClientOriginalName();
             $image->move($path, $imageName);
             $category->icon = $path . $imageName;
         }
-        if($category->save())
-        {
-            $notification = array('message' => 'Portfolio Category added successfully', 'alert-type'=> 'success');
-        }
-        else
-        {
-            $notification = array('message' => 'Something went wrong!', 'alert-type'=> 'error');
-        }
-        return redirect()->route('backend.portfolio_cat')->with($notification);
+        $category->save();
+        return response()->json($category);
     }
 
 
@@ -59,7 +51,7 @@ class PortfolioCategoriesController extends Controller
             'name' => ['required',  'string' , 'max: 200' ,Rule::unique('portfolio_categories', 'name')->ignore($request->name, 'name')->where(function ($query) use ($request) {
                 $query->where('name', $request->name);
             })],
-            'description'=>'required'
+            'description'=>'required',
         ]);
 
         $category= PortfolioCategories::find($request->category_id);
@@ -81,26 +73,16 @@ class PortfolioCategoriesController extends Controller
             $image->move($path,$imageName);
             $category->icon      = $path.$imageName;
         }
-        if($category->save())
-        {
-            $notification = array('message' => 'Portfolio Category  updated successfully', 'alert-type'=> 'success');
-        }
-        else
-        {
-            $notification = array('message' => 'Someting went wrong!', 'alert-type'=> 'error');
-        }
+        $category->save();
+        return response()->json($category);
+    }
 
-        return redirect()->route('backend.portfolio_cat')->with($notification);
-    }
-    
     //Delete Data
-    public function portfolioDestrotoy(Request $request){
+    public function portfolioDestrotoy(Request $request)
+    {
         $portfolio_cat = PortfolioCategories::find($request->id);
-        if ($portfolio_cat->delete()) {
-            $notification = array('message' => 'Portfolio Category deleted successfully', 'alert-type' => 'success');
-        } else {
-           $notification = array('message' => 'Someting went wrong!', 'alert-type' => 'error');
-        }
-        return redirect()->route('backend.portfolio_cat')->with($notification);
+        $portfolio_cat->delete();
+        return response()->json('portfolio_cat');
     }
+
 }

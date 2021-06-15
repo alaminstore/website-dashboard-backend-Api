@@ -17,11 +17,11 @@ class ClientsController extends Controller
             'url'=>'required',
             'precedence'=>'required'
         ]);
-        $category= new Client();
-        $category->name    = $request->name;
-        $category->image = $request->image;
-        $category->url = $request->url;
-        $category->precedence = $request->precedence;
+        $clients= new Client();
+        $clients->name    = $request->name;
+        $clients->image = $request->image;
+        $clients->url = $request->url;
+        $clients->precedence = $request->precedence;
 
         if ($request->hasFile('image')) {
             $path = 'images/clients/';
@@ -32,25 +32,17 @@ class ClientsController extends Controller
             $image = $request->image;
             $imageName = rand(100, 1000) . $image->getClientOriginalName();
             $image->move($path, $imageName);
-            $category->image = $path . $imageName;
+            $clients->image = $path . $imageName;
         }
-
-        if($category->save())
-        {
-            $notification = array('message' => 'New Client added successfully', 'alert-type'=> 'success');
-        }
-        else
-        {
-            $notification = array('message' => 'Something went wrong!', 'alert-type'=> 'error');
-        }
-        return redirect()->route('backend.clients')->with($notification);
+        $clients->save();
+        return response()->json($clients);
     }
 
 
     //Edit Data
     public function edit($id){
-        $category  = Client::find($id);
-        return response()->json($category);
+        $clients  = Client::find($id);
+        return response()->json($clients);
     }
 
 
@@ -61,14 +53,14 @@ class ClientsController extends Controller
             'url' => 'required',
 
         ]);
-        $category= Client::find($request->category_id);
-        $category->name    = $request->name;
-        $category->url = $request->url;
-        $category->portfolio_category_id;
+        $clients= Client::find($request->category_id);
+        $clients->name    = $request->name;
+        $clients->url = $request->url;
+        $clients->portfolio_category_id;
         if($request->hasFile('image'))
         {
             $path           = 'images/clients/';
-            @unlink($category->image);
+            @unlink($clients->image);
             if (!is_dir($path))
             {
                 mkdir($path, 0755, true);
@@ -78,30 +70,21 @@ class ClientsController extends Controller
             $imageName          = rand(100,1000).$image->getClientOriginalName();
 
             $image->move($path,$imageName);
-            $category->image      = $path.$imageName;
+            $clients->image      = $path.$imageName;
         }
-        $category->precedence = $request->position;
-        if($category->save())
-        {
-            $notification = array('message' => 'Client Info updated successfully', 'alert-type'=> 'success');
-        }
-        else
-        {
-            $notification = array('message' => 'Someting went wrong!', 'alert-type'=> 'error');
+        if($request->precedence){
+            $clients->precedence = $request->position;
         }
 
-        return redirect()->route('backend.clients')->with($notification);
+        $clients->save();
+        return response()->json($clients);
     }
 
 
     //Delete Data
     public function destroy(Request $request){
-        $portfolio_cat = Client::find($request->id);
-        if ($portfolio_cat->delete()) {
-            $notification = array('message' => 'Client Info deleted successfully', 'alert-type' => 'success');
-        } else {
-           $notification = array('message' => 'Someting went wrong!', 'alert-type' => 'error');
-        }
-        return redirect()->route('backend.clients')->with($notification);
+        $clients = Client::find($request->id);
+        $clients->delete();
+        return response()->json('clients');
     }
 }

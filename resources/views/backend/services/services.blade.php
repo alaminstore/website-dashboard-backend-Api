@@ -1,9 +1,6 @@
 @extends('backend.home')
 @section('title','Categories')
-@section('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <link href="assets/plugins/summernote/summernote.css" rel="stylesheet" />
-@endsection
+
 @section('content')
     <style>
         .cat_img {
@@ -18,41 +15,16 @@
         }
     </style>
     <div class="row">
-        <div class="col-md-5">
-            <div id="">
-            <div class="card m-b-20">
-                <div class="card-body">
-                    <h4 class="mt-0 header-title">Add New Service</h4>
-                    <br>
-                    <form action="{{ url('services/store') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-12">
-                                <input class="form-control" type="text" id="name" name="service_name" placeholder="Service Name Here..." required>
-                            </div>
-                        </div>
-
-                        <div class="form-group m-b-0">
-                            <div>
-                                <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                    Save
-                                </button>
-                                <button type="reset" class="btn btn-secondary waves-effect m-l-5">
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
+        <div class="col-md-2">
         </div>
         <div class="col-md-7">
+            <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+                    data-target="#myModalSave">
+                <i class="ion-plus"></i> Add New Service
+            </button>
             <div id="reload-category">
             <div class="list text-center">
-                <h6 class="display-4" style="font-size: 20px;">Categories Information</h6>
+                <h6 class="display-4" style="font-size: 20px;">Services Information</h6>
             </div>
             <table id="myTable" class="table table-bordered dt-responsive nowrap"
                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -62,21 +34,20 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="loadnow">
                 @foreach($services  as $service)
                     <tr class="text-center">
-
                         <td>{{$service->service_name}}</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit" data-id="{{$service->service_id}}" title="Edit" data-toggle="modal" data-target="#myModal">
-                                <i class="mdi mdi-border-color"></i> Edit
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                    data-id="{{$service->service_id}}" title="Edit"
+                                    data-toggle="modal" data-target="#myModal">
+                                    <i class="mdi mdi-border-color"></i>
                             </button>
-                           <button class="btn btn-outline-danger btn-sm category-delete"  title="Delete" onclick="deleteData({{$service->service_id}})"><i class="ti-trash"></i> Delete</button>
-                           <form id="delete-form-{{$service->service_id}}" method="post" action="{{route('services.destroy', $service->service_id)}}" style="display: none">
-                               @csrf
-                               @method('DELETE')
-                           </form>
-
+                            <a class="deletetag" data-id="{{$service->service_id}}">
+                                <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i></button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -87,7 +58,43 @@
     </div>
     </div>
 
-        <!--modal content -->
+
+
+     <!--modal content  Save-->
+     <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">Count Add</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
+                @csrf
+                <div class="form-group row flex_css">
+                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" id="name" name="service_name" placeholder="Service Name Here..." required>
+                    </div>
+                </div>
+                <div class="form-group m-b-0">
+                    <div>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                            Submit
+                        </button>
+                        <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                {!!Form::close()!!}
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!--modal content update-->
         <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -96,11 +103,11 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
-                        <form id="category-edit-form" action="{{ route('services.updated') }}" method="post" enctype="multipart/form-data">
+                        {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                             @csrf
-                            <div class="form-group row">
+                            <div class="form-group row flex_css">
                                 <label for="name" class="col-sm-2 col-form-label">Service Name</label>
-                                <div class="col-sm-12">
+                                <div class="col-sm-8">
                                     <input class="form-control" type="text" id="category-edit-name" name="service_name" placeholder="Service Name Here..." required>
                                     <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
                                 </div>
@@ -111,13 +118,12 @@
                                     <button type="submit" class="btn btn-success waves-effect waves-light">
                                         Update
                                     </button>
-                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                                         Cancel
                                     </button>
                                 </div>
                             </div>
-
-                        </form>
+                            {!!Form::close()!!}
                     </div>
                 </div>
             </div>
@@ -125,7 +131,8 @@
 
 @endsection
 @section('scripts')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
@@ -133,6 +140,12 @@
         $(document).ready(function () {
             $('form').parsley();
         });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -147,15 +160,8 @@
                     success:function(data){
                       let url = window.location.origin;
                         console.log('data',data);
-                        $('#category-edit-form').find('#category-edit-name').val(data.service_name).focus();
-                        $('#category-edit-form').find('#category-edit-id').val(data.service_id);
-
-
-                        if(data.image)
-                          {
-                              $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.image}"/>`);
-                          }
-
+                        $('#tagsupdate').find('#category-edit-name').val(data.service_name).focus();
+                        $('#tagsupdate').find('#category-edit-id').val(data.service_id);
                         $('#category-modal').modal('show');
                     },
                     error: function (error) {
@@ -169,4 +175,112 @@
         });
 
     </script>
+
+    <script>
+    //save data
+    $('#catservestore').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "{{route('services.store')}}",
+            method: "POST",
+            data: new FormData(this),
+            dataType: 'JSON',
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data) {
+                console.log('save', data);
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-bottom-right",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
+                };
+                $('#myModalSave').modal('hide');
+                setTimeout(function () {
+                    $("#loadnow").load(location.href + " #loadnow>*", "");
+                }, 1000);
+                toastr.success('Data Inserted Successfully');
+
+                $('#catservestore').trigger('reset');
+            }
+
+        });
+
+    });
+
+    //Delete data
+    $(document).on('click', '.deletetag', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            console.log('id: ', id);
+            //alert(role);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+
+            }).then(result => {
+
+                    if (result.value) {
+                        $.ajax({
+                            url: "{!! route('services.destroy') !!}",
+                            type: "get",
+                            data: {
+                                id: id,
+                            },
+                        });
+                        toastr.success('Data Deleted Successfully');
+                        $(this).closest('tr').hide();
+
+                    }
+                }
+            )
+        });
+
+
+    //Update data
+    $('#tagsupdate').on('submit', function (e) {
+         e.preventDefault();
+            $.ajax({
+                url: "{{route('services.updated')}}",
+                method: "POST",
+                data: new FormData(this),
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    console.log(data);
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-bottom-right",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    };
+                    $('#myModal'). modal('hide');
+                    setTimeout(function () {
+                        $("#loadnow").load(location.href+" #loadnow>*","");
+                    }, 1000);
+                    toastr.success('Data Updated Successfully');
+
+                    $('#tagsupdate').trigger('reset');
+                }
+
+            });
+
+        });
+
+</script>
+
 @endsection

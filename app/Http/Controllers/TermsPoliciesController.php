@@ -12,9 +12,11 @@ class TermsPoliciesController extends Controller
         $request->validate([
             'title'=>'required',
             'description'=>'required',
+            'subtitle'=>'required',
         ]);
         $terms = new TermsPolicies();
         $terms->title = $request->title;
+        $terms->subtitle = $request->subtitle;
         $terms->description = $request->description;
         $terms->save();
         return response()->json($terms);
@@ -31,9 +33,11 @@ class TermsPoliciesController extends Controller
         $request->validate([
             'title'=>'required',
             'description'=>'required',
+            'subtitle'=>'required',
         ]);
         $terms = TermsPolicies::find($request->category_id);
         $terms->title = $request->title;
+        $terms->subtitle = $request->subtitle;
         $terms->description = $request->description;
         $terms->save();
         return response()->json($terms);

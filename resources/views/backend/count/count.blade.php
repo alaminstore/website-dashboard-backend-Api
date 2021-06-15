@@ -1,8 +1,6 @@
 @extends('backend.home')
 @section('title','Categories')
 @section('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 @endsection
 @section('content')
@@ -64,11 +62,11 @@
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$count->count_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i> Edit
+                                    <i class="mdi mdi-border-color"></i>
                                 </button>
                                 <a class="deletetag" data-id="{{$count->count_id}}">
                                     <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i> Delete
+                                            class="ti-trash"></i>
                                     </button>
                                 </a>
                             </td>
@@ -93,26 +91,26 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
-                    <div class="form-group row">
+                    <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Parameter</label>
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="parameter" name="parameter"
                                    placeholder="Parameter Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Value</label>
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="value" name="value"
                                    placeholder="Value Here..."
                                    required>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Position</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Position</label>
+                        <div class="col-sm-8">
                             <select style="width: 200px" id="position" name="position">
                                 <option></option>
                                 @php($i=1)
@@ -151,28 +149,28 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
-                    <div class="form-group row">
+                    <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Parameter</label>
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="parameter" name="parameter"
                                    placeholder="Parameter Here..."
                                    required>
                             <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Value</label>
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="value" name="value"
                                    placeholder="Value Here..."
                                    required>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Position</label>
-                        <div class="col-sm-12">
-                            <select style="select_css" id="position2" name="position">
+                    <div class="form-group row flex_css">
+                        <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Position</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="position2" name="position">
                                 <option></option>
                                 @php($i=1)
                                 @for($i=1;$i<=3;$i++)
@@ -199,7 +197,8 @@
 
 @endsection
 @section('scripts')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
@@ -286,8 +285,8 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
+                    $('#myModalSave').modal('hide');
                     setTimeout(function () {
-                        $('#myModalSave').modal('hide');
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
@@ -323,16 +322,15 @@
                             data: {
                                 id: id,
                             },
-                            success: function (data) {
-                            }
                         });
-
+                        toastr.success('Data Deleted Successfully');
                         $(this).closest('tr').hide();
 
                     }
                 }
             )
         });
+
 
 
         //Update data

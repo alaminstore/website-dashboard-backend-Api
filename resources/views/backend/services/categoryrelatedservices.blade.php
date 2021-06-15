@@ -1,7 +1,6 @@
 @extends('backend.home')
 @section('title','Categories')
 @section('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 @endsection
@@ -16,14 +15,6 @@
             height: 50px;
             width: 50px;
             border-radius: 50%;
-        }
-
-        .select_css {
-            height: 40px;
-            width: 465px !important;
-            padding: 8px;
-            opacity: .6;
-            border-radius: 7px;
         }
     </style>
     <div class="row" id="okreload">
@@ -68,11 +59,11 @@
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$catservice->category_related_service_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i> Edit
+                                    <i class="mdi mdi-border-color"></i>
                                 </button>
                                 <a class="deletetag" data-id="{{$catservice->category_related_service_id}}">
                                     <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i> Delete
+                                            class="ti-trash"></i>
                                     </button>
                                 </a>
                             </td>
@@ -97,9 +88,9 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Portfolio Category</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Portfolio Category</label>
+                        <div class="col-sm-8">
                             <select style="width: 200px" id="cat" name="portfolio_category_id">
                                 <option></option>
                                 @foreach($portfolio_cat as $cat)
@@ -108,23 +99,23 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Name</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="name"
                                    placeholder="Category Service Name Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Icon</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Icon</label>
+                        <div class="col-sm-8">
                             <input type="file" name="image" id="input-file-now" class="dropify"/>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Position</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
+                        <div class="col-sm-8">
                             <select style="width: 200px" id="position" name="position">
                                 <option></option>
                                 @php($i=1)
@@ -143,7 +134,7 @@
                             <button type="submit" class="btn btn-primary waves-effect waves-light">
                                 Submit
                             </button>
-                            <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                                 Cancel
                             </button>
                         </div>
@@ -166,10 +157,10 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Portfolio Category</label>
-                        <div class="col-sm-12">
-                            <select class="select_css" id="cat2" name="portfolio_category_id">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Portfolio Category</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="cat2" name="portfolio_category_id">
                                 <option></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
@@ -178,8 +169,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-12">
+                        <label for="name" class="col-sm-4 col-form-label">Name</label>
+                        <div class="col-sm-8">
                             <input class="form-control" type="text" id="category-edit-name" name="name"
                                    placeholder="Category Service Name Here..."
                                    required>
@@ -187,15 +178,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-10 col-form-label"> Upload Change Icon</label>
-                        <div class="col-sm-12">
+                        <label for="name" class="col-sm-4 col-form-label"> Update Icon</label>
+                        <div class="col-sm-8">
                             <input type="file" name="image" id="category-edit-image" class="dropify"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="portfolio_cat_icon" class="col-sm-6 col-form-label">Position</label>
+                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-12">
-                            <select class="select_css" id="position2" name="position">
+                            <select class="form-control" id="position2" name="position">
                                 <option></option>
                                 @php($i=1)
                                 @for($i=1;$i<=9;$i++)
@@ -229,7 +220,8 @@
 
 @endsection
 @section('scripts')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
@@ -255,7 +247,6 @@
         $(document).ready(function () {
             $('#reload-category').on('click', '.category-edit', function () {
                 let id = $(this).attr('data-id');
-
                 $.ajax({
                     url: "{{url('catservices')}}/" + id + '/edit',
                     method: "get",
@@ -264,8 +255,8 @@
                     success: function (data) {
                         let url = window.location.origin;
                         console.log('data', data);
-                        var catdata = $('#tagsupdate').find('#cat2').val(data.category_related_service_id);
-                        $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
+                        var catdata = $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
+                        $('#tagsupdate').find('#category-edit-name').val(data.name);
                         $('#tagsupdate').find('#category-edit-id').val(data.category_related_service_id);
                         var positiondata = $('#tagsupdate').find('#position2').val(data.position);
 
@@ -320,8 +311,8 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
+                    $('#myModalSave').modal('hide');
                     setTimeout(function () {
-                        $('#myModalSave').modal('hide');
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
@@ -357,10 +348,8 @@
                             data: {
                                 id: id,
                             },
-                            success: function (data) {
-                            }
                         });
-
+                        toastr.success('Data Deleted Successfully');
                         $(this).closest('tr').hide();
 
                     }

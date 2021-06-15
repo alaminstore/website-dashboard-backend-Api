@@ -69,7 +69,9 @@
                             <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
                         </td>
                         <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
-                        <td>{{$item->getClient->name}}</td>
+                        <td>
+                            {{$item->getClient->name}}
+                        </td>
                         <td>
                             <button type="button"
                                     class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
@@ -100,7 +102,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
+                {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Title</label>

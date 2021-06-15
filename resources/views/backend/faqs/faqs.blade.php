@@ -1,7 +1,6 @@
 @extends('backend.home')
 @section('title','Categories')
 @section('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
 @endsection
 @section('content')
@@ -42,11 +41,11 @@
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$faq->faq_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i> Edit
+                                    <i class="mdi mdi-border-color"></i>
                                 </button>
                                 <a class="deletetag" data-id="{{$faq->faq_id}}">
                                     <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i> Delete
+                                            class="ti-trash"></i>
                                     </button>
                                 </a>
                             </td>
@@ -72,26 +71,19 @@
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Faqs Question</label>
-                        <div class="col-sm-12">
+                        <label for="name" class="col-sm-2 col-form-label">Faqs Question</label>
+                        <div class="col-sm-10">
                             <input class="form-control" type="text" id="faq_question" name="faq_question"
                                    placeholder="Faq Question Here..."
                                    required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Faqs Answer</label>
-                        <div class="col-sm-12">
-                            <input class="form-control" type="text" id="faq_answer" name="faq_answer"
-                                   placeholder="Faq Answer Here..."
-                                   required>
+                    <div class="form-group row flex_css">
+                        <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
+                        <div class="col-md-10">
+                            <textarea class="summernote" name="faq_answer" id="faq_answer" required>
+                            </textarea>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="description" class="col-sm-6 col-form-label">Faqs Answer</label>
-                        <textarea class="summernote" name="faq_answer" id="faq_answer" required>
-                            {{old('faq_answer')}}
-                        </textarea>
                     </div>
 
                     <div class="form-group m-b-0">
@@ -122,20 +114,21 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-6 col-form-label">Faq Question</label>
-                        <div class="col-sm-12">
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-2 col-form-label">Faq Question</label>
+                        <div class="col-sm-10">
                             <input class="form-control" type="text" id="faq_question" name="faq_question"
                                    placeholder="Faq Question Here..."
                                    required>
                             <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="description" class="col-sm-6 col-form-label">Faqs Answer</label>
-                        <textarea class="summernote" name="faq_answer" id="faq_answer" required>
-                            {{old('faq_answer')}}
-                        </textarea>
+                    <div class="form-group row flex_css">
+                        <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
+                        <div class="col-md-10">
+                            <textarea class="summernote" name="faq_answer" id="faq_answer" required>
+                            </textarea>
+                        </div>
                     </div>
 
                     <div class="form-group m-b-0">
@@ -156,7 +149,8 @@
 
 @endsection
 @section('scripts')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="assets/plugins/summernote/summernote.min.js"></script>
     <script>
@@ -236,13 +230,16 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
+
+                    $('#myModalSave').modal('hide');
                     setTimeout(function () {
-                        $('#myModalSave').modal('hide');
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
+                    $('#description').summernote('code', 'reset');
                     toastr.success('Data Inserted Successfully');
 
                     $('#catservestore').trigger('reset');
+
                 }
 
             });
@@ -273,10 +270,8 @@
                             data: {
                                 id: id,
                             },
-                            success: function (data) {
-                            }
                         });
-
+                        toastr.success('Data Deleted Successfully');
                         $(this).closest('tr').hide();
 
                     }
@@ -314,6 +309,7 @@
                     }, 1000);
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
+                    $('#description').summernote('code', '');
                 }
 
             });

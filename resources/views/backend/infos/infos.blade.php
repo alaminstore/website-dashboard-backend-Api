@@ -1,5 +1,5 @@
 @extends('backend.home')
-@section('title','Categories')
+@section('title','Infos')
 @section('style')
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>

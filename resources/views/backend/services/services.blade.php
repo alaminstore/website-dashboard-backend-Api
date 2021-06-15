@@ -1,5 +1,5 @@
 @extends('backend.home')
-@section('title','Categories')
+@section('title','Services')
 
 @section('content')
     <style>

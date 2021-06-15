@@ -118,8 +118,13 @@ class PortfolioItemsController extends Controller
 
     public function destroy(Request $request){
         $items =  PortfolioItem::find($request->id);
-        $items->delete();
-        return response()->json('items');
+        $position = PortfolioPosition::where('portfolio_item_id',$request->id)->get()->first();
+        $primary = PortfolioPosition::where('portfolio_position_id',$position)->get()->first();
+        $position->portfolio_position_id = $primary;
+        if($position->delete()){
+            if($items->delete()){
+                return response()->json('items');
+            }
+        }
     }
-
 }

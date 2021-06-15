@@ -1,5 +1,5 @@
 @extends('backend.home')
-@section('title','Categories')
+@section('title','Terms & Policies')
 @section('style')
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
 @endsection

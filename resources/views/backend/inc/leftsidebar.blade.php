@@ -4,7 +4,9 @@
     <div class="topbar-left">
         <div class="">
             <!--<a href="index.html" class="logo text-center">Fonik</a>-->
-            <a href="index.html" class="logo"><img src="assets/images/logo.png" height="20" alt="logo"></a>
+
+            <a href="{{url('/')}}" class="logo"><img src="{{asset('assets/images/users/avatar-1.jpg')}}" height="40" alt="logo" class="rounded-circle border">
+                 <span style="font-size: 15px;">Antopolis</span></a>
         </div>
     </div>
 

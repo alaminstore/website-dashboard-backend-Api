@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\PortfolioItem;
 use Illuminate\Http\Request;
 use function unlink;
 use Illuminate\Validation\Rule;

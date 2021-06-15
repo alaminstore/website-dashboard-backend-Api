@@ -23,8 +23,8 @@
     <div class="row" id="okreload">
         <div class="col-md-12" id="reloadId">
             <div class="form-group">
-                <label for="name" class="col-sm-6 col-form-label">Portfolio Categories</label>
-                <div class="col-sm-12">
+                <label for="name" class="col-sm-6 offset-md-3 col-form-label">Portfolio Categories</label>
+                <div class="col-md-6 offset-md-3">
                     <select style="width: 200px" class="cat_selector" id="cat" name="cat">
                         <option></option>
                         @foreach($portfolio_cat as $cat)
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-           <form action="{{url('portfolio-rest-items')}}" method="post" enctype="multipart/form-data">
+           <form class=" col-md-6 offset-md-3" action="{{url('portfolio-rest-items')}}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" id="cat_input" name="passingdata">
             <button type="submit" class="btn btn-info waves-effect waves-light hideportion" ><i class="ion-plus"></i> Next</button>

@@ -67,7 +67,7 @@
                         Level 3
                         @endif
                      </td>
-                     <td>{{$client->url}}</td>
+                     <td><a href="{{$client->url}}" target="_blank">{{$client->url}}</a></td>
                      <td>
                         <button type="button"
                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"

@@ -67,22 +67,13 @@ class PortfolioItemsController extends Controller
             $tags->tag_id = json_encode($request->tag_id);
         }
         $tags->save();
-        if($tags->save())
-        {
-            $notification = array('message' => 'Portfolio Item added successfully', 'alert-type'=> 'success');
-        }
-        else
-        {
-            $notification = array('message' => 'Someting went wrong!', 'alert-type'=> 'error');
-        }
-
-        return redirect()->route('backend.portfolioItem')->with($notification);
+        return response()->json($items);
     }
 
     public function edit($id)
     {
-        $category = PortfolioItem::find($id);
-        return response()->json($category);
+        $items = PortfolioItem::find($id);
+        return response()->json($items);
     }
 
     public function updated(Request $request)
@@ -127,6 +118,16 @@ class PortfolioItemsController extends Controller
                 return response()->json('items');
             }
         }
+    }
+
+
+
+    public function portfolioPositionSet(Request $request){
+        $match_id=PortfolioPosition::where('portfolio_category_id',$request->id)
+        ->WhereBetween('position',[1,9])->pluck('position')->toArray();
+        $all = array("1", "2", "3", "4","5","6","7","8","9");
+        $result = array_diff($all, $match_id);
+        return response()->json($result);
     }
 
 

@@ -112,14 +112,42 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     //Conditional Dropdown
     Route::get('out-category/{id}', [PortfolioItemsController::class,'catToItem']);
     Route::get('out-category-for-position/{id}', [CategoryRelatedServiceController::class,'catServices']);
+    Route::get('out-category-for-portfolio-position/{id}', [PortfolioItemsController::class,'portfolioPositionSet']);
+
+
+
+
+
+
+
+
+
+
 
     //portfolio items
     Route::post('portfolio-rest-items', [PortfolioItemsController::class,'dataPass'])->name('portfolioitem.passing');
 
     Route::post('portfolio-rest-items/store', [PortfolioItemsController::class,'store'])->name('portfolio.store');
     Route::get('itemdelete', [PortfolioItemsController::class,'destroy'])->name('portfolio.destroy');
-    Route::get('portfoliorestitemsdelete/{id}/edit', [PortfolioItemsController::class,'edit']);
+    Route::get('portfoliorestitemsedit/{id}/edit', [PortfolioItemsController::class,'edit']);
     Route::post('portfolio-rest-items/updated', [PortfolioItemsController::class,'updated'])->name('portfolio.updated');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Clients
     Route::post('clients/store', [ClientsController::class,'store'])->name('clients.store');

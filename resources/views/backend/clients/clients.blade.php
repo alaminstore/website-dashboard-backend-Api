@@ -26,7 +26,7 @@
 <div class="row">
    <div class="row">
       <div class="col-md-12">
-         <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+         &nbsp;&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
             data-target="#myModalSave">
          <i class="ion-plus"></i> Add New Clients
          </button>

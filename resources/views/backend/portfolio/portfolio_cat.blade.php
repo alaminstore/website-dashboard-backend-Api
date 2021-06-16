@@ -1,7 +1,6 @@
 @extends('backend.home')
 @section('title','Categories')
 @section('style')
-    <link href="assets/plugins/summernote/summernote.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
@@ -19,7 +18,7 @@
     </style>
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal" data-target="#myModalSave">
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal" data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Portfolio Categories
             </button>
         </div>
@@ -54,7 +53,8 @@
                         <td>{{$cat->name}}</td>
                         <td class="cat_img"><img src="{{$cat->icon}}" class="img-fluid" alt="portfolio Category Image">
                         </td>
-                        <td>{!! \Illuminate\Support\Str::limit($cat->description, 80, $end='...') !!}</td>
+                        {{-- <td>{{\Illuminate\Support\Str::limit($cat->description, 20, $end='...')}}</td> --}}
+                        <td>{{$cat->description}}</td>
                         <td>
                             <button type="button"
                                     class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
@@ -97,7 +97,7 @@
                         <div class="form-group row flex_css">
                             <label for="description" class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                                <textarea class="summernote" name="description" id="faq-question-answer"></textarea>
+                                <textarea class="description_css form-control" name="description" id="faq-question-answer"></textarea>
                             </div>
                         </div>
                         <div class="form-group row flex_css">
@@ -144,7 +144,7 @@
                             <div class="form-group row flex_css">
                                 <label for="description" class="col-sm-2 col-form-label">Description</label>
                                 <div class="col-sm-10">
-                                <textarea class="summernote" name="description" id="description-edit" required> </textarea>
+                                <textarea class="description_css form-control" name="description" id="description-edit" required> </textarea>
                                 </div>
                             </div>
                             <div class="form-group row flex_css">
@@ -169,30 +169,19 @@
 
                             {!!Form::close()!!}
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                </div>
+            </div>
+        </div>
 
 @endsection
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
-    <script src="assets/plugins/summernote/summernote.min.js"></script>
     <script>
         $('.dropify').dropify();
         $(document).ready(function () {
             $('form').parsley();
-        });
-    </script>
-    <script>
-        jQuery(document).ready(function(){
-            $('.summernote').summernote({
-                height: 300,
-                minHeight: null,
-                maxHeight: null,
-                focus: true
-            });
         });
     </script>
     <script>
@@ -221,7 +210,7 @@
                         console.log('data',data);
                         $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_category_id);
-                        $('#tagsupdate').find('#description-edit').summernote('code', data.description);
+                        $('#tagsupdate').find('#description-edit').val(data.description);
                         // if(data.icon)
                         //   {
                         //     // $('#portfolio_cat_icon2').attr("data-default-file", `data.icon`);
@@ -246,6 +235,7 @@
 <script>
 
     //save data
+    $('#catservestore').on('submit', function (e) {
     $('#catservestore').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
@@ -314,7 +304,6 @@
         )
     });
 
-
     //Update data
     $('#tagsupdate').on('submit', function (e) {
         e.preventDefault();
@@ -344,7 +333,6 @@
                 toastr.success('Data Updated Successfully');
                 $('#tagsupdate').trigger('reset');
             }
-
         });
 
     });

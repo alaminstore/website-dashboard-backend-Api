@@ -77,10 +77,10 @@
 
                      <div class="form-group row m-t-20">
                         <div class="col-sm-6">
-                           <div class="custom-control custom-checkbox">
+                           {{-- <div class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" id="customControlInline">
                               <label class="custom-control-label" for="customControlInline">Remember me</label>
-                           </div>
+                           </div> --}}
                         </div>
                         <div class="col-sm-6 text-right">
                            <button type="submit" class="btn btn-primary w-md waves-effect waves-light" >Log In</button>

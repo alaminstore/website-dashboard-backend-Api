@@ -111,18 +111,12 @@
                             <input type="file" name="image" id="input-file-now" class="dropify"/>
                         </div>
                     </div>
+                    {{-- <input type="text" id="valuecat" class="form-control"> --}}
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" id="position" name="position">
+                            <select style="width: 200px" id="position" class="position_list" name="position">
                                 <option></option>
-                                @php($i=1)
-                                @for($i=1;$i<=9;$i++)
-                                    @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
-                                        @continue
-                                    @endif
-                                    <option value="{{$i}}">Position {{$i}}</option>
-                                @endfor
                             </select>
                         </div>
                     </div>
@@ -396,6 +390,7 @@
                 e.preventDefault();
                 let id = $(this).val();
                 console.log(id);
+                // const $position_list = $(this).parents('tr').find('.position_list');
 
                 $.ajax({
                     method: 'get',
@@ -405,8 +400,13 @@
                     url: '{{ url('out-category-for-position') }}/' + id,
                     success: function (result) {
                         console.log('result',result);
-                        // $('#reloadId').find('#cat_input').val(result.portfolio_category_id);
-
+                        $('#myModalSave').find('#valuecat').val(result);
+                        $('#catservestore').find('.position_list').empty();
+                        $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
+                        // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
+                        $.each(result, function (key, value) {
+                            $('#catservestore').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
+                        })
                     },
                     error: function (err) {
                         console.log(err)

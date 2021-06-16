@@ -18,7 +18,7 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-7">
-            <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Service
             </button>

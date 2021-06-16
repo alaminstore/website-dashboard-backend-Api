@@ -36,7 +36,7 @@
                             <td><b>{{$i+=1}}</b></td>
                             <td>{{$term->title}}</td>
                             <td>{{$term->subtitle}}</td>
-                            <td>{!! \Illuminate\Support\Str::limit($term->description, 50, $end='...') !!}</td>
+                            <td>{{ \Illuminate\Support\Str::limit($term->description, 50, $end='...') }}</td>
                             <td>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
@@ -65,7 +65,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Count Add</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Terms & Policies Add</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -91,8 +91,7 @@
                     <div class="form-group row flex_Css">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-md-10">
-                            <textarea class="summernote" name="description" id="description" placeholder="Description Here..." required>
-                            </textarea>
+                            <textarea class="description_css form-control" name="description" id="description" placeholder="Description Here..." required></textarea>
                         </div>
                     </div>
 
@@ -118,7 +117,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Count Update</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Terms & Policies Update</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -140,7 +139,6 @@
                             <input class="form-control" type="text" id="subtitle" name="subtitle"
                                    placeholder="Title Here..."
                                    required>
-                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
 
@@ -148,7 +146,7 @@
                     <div class="form-group row flex_Css">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-md-10">
-                            <textarea class="textarea_desc" name="description" id="description2" placeholder="Description Here..." required>
+                            <textarea class="description_css form-control" name="description" id="description2" placeholder="Description Here..." required>
                             </textarea>
                         </div>
                     </div>
@@ -174,17 +172,6 @@
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
-    <script src="assets/plugins/summernote/summernote.min.js"></script>
-    <script>
-        jQuery(document).ready(function(){
-            $('.summernote').summernote({
-                height: 300,
-                minHeight: null,
-                maxHeight: null,
-                focus: true
-            });
-        });
-    </script>
     <script>
         $('.dropify').dropify();
         $(document).ready(function () {

@@ -1,8 +1,5 @@
 @extends('backend.home')
 @section('title','FAQS')
-@section('style')
-    <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
-@endsection
 @section('content')
 
     <div class="row" id="okreload">
@@ -81,7 +78,7 @@
                     <div class="form-group row flex_css">
                         <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
                         <div class="col-md-10">
-                            <textarea class="summernote" name="faq_answer" id="faq_answer" required>
+                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" required>
                             </textarea>
                         </div>
                     </div>
@@ -126,7 +123,7 @@
                     <div class="form-group row flex_css">
                         <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
                         <div class="col-md-10">
-                            <textarea class="summernote" name="faq_answer" id="faq_answer" required>
+                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" required>
                             </textarea>
                         </div>
                     </div>
@@ -152,17 +149,6 @@
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
-    <script src="assets/plugins/summernote/summernote.min.js"></script>
-    <script>
-        jQuery(document).ready(function(){
-            $('.summernote').summernote({
-                height: 300,
-                minHeight: null,
-                maxHeight: null,
-                focus: true
-            });
-        });
-    </script>
     <script>
         $('.dropify').dropify();
         $(document).ready(function () {
@@ -187,8 +173,8 @@
                     success: function (data) {
                         let url = window.location.origin;
                         console.log('data', data);
-                        $('#tagsupdate').find('#faq_question').val(data.faq_question).focus();
-                        $('#tagsupdate').find('#faq_answer').summernote('code', data.faq_answer);
+                        $('#tagsupdate').find('#faq_question').val(data.faq_question);
+                        $('#tagsupdate').find('#faq_answer').val(data.faq_answer);
                         $('#tagsupdate').find('#category-edit-id').val(data.faq_id);
                         var positiondata = $('#tagsupdate').find('#position2').val(data.position);
 
@@ -235,7 +221,6 @@
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
-                    $('#description').summernote('code', 'reset');
                     toastr.success('Data Inserted Successfully');
 
                     $('#catservestore').trigger('reset');
@@ -309,7 +294,6 @@
                     }, 1000);
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
-                    $('#description').summernote('code', '');
                 }
 
             });

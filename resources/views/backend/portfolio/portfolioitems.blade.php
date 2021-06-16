@@ -22,23 +22,14 @@
     </style>
     <div class="row" id="okreload">
         <div class="col-md-12" id="reloadId">
-            <div class="form-group">
-                <label for="name" class="col-sm-6 offset-md-3 col-form-label">Portfolio Categories</label>
-                <div class="col-md-6 offset-md-3">
-                    <select style="width: 200px" class="cat_selector" id="cat" name="cat">
-                        <option></option>
-                        @foreach($portfolio_cat as $cat)
-                            <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
 
-           <form class=" col-md-6 offset-md-3" action="{{url('portfolio-rest-items')}}" method="post" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" id="cat_input" name="passingdata">
-            <button type="submit" class="btn btn-secondary waves-effect waves-light hideportion" ><i class="ion-plus"></i> Next</button>
-           </form>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
+                    data-target="#myModalSave">
+                <i class="ion-plus"></i>Add new Portfolio Item
+            </button>
+
+
 
            <div id="reload-category">
             <div class="list text-center">
@@ -93,35 +84,49 @@
     </div>
 
 
-    <!--modal content Update -->
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+
+    <!--modal content  Save-->
+    <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Portfolio Items Update Update</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Portfolio Item Add</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
+                    {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
+
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Title</label>
+                        <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
+                        <div class="col-sm-8">
+                            <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id">
+                                <option></option>
+                                @foreach($portfolio_cat as $cat)
+                                    <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Title</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="title" name="title"
                                    placeholder="Title Here..."
                                    required>
                         </div>
-                        <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
-
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Image</label>
+                        <label for="image" class="col-sm-4 col-form-label">Image</label>
                         <div class="col-sm-8">
                             <input type="file" name="image" id="image" class="dropify" required/>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Url</label>
+                        <label for="name" class="col-sm-4 col-form-label">Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="url" name="url"
                                    placeholder="Url Here..."
@@ -129,12 +134,132 @@
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Client</label>
+                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Client</label>
                         <div class="col-sm-8">
-                            <select class="select_css form-control" id="ClientData" name="client_id" required>
+                            <select style="width: 200px" id="client_id" name="client_id">
                                 <option></option>
                                 @foreach ($clients as $client)
                                 <option value="{{$client->client_id}}">{{$client->name}}</option>
+                                @endforeach
+                            </select>
+                            <div id="feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
+                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
+                        <div class="col-sm-8">
+                            <select class="position_list" id="position" name="position">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Tags</label>
+                        <div class="col-sm-8">
+                            <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple">
+                                <option></option>
+                                @foreach ($tags as $tag)
+                                <option value="{{$tag->tag}}">{{$tag->tag}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group m-b-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                Submit
+                            </button>
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    {!!Form::close()!!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!--modal content Update -->
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myModalLabel">Portfolio Item Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
+                    @csrf
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="cat2" class="cat_selector" name="portfolio_category_id">
+                                <option></option>
+                                @foreach($portfolio_cat as $cat)
+                                    <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Title</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="title" name="title"
+                                   placeholder="Title Here..."
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
+                        <label for="image" class="col-sm-4 col-form-label">Image</label>
+                        <div class="col-sm-8">
+                            <input type="file" name="image" id="image" class="dropify" required/>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Url</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="url" name="url"
+                                   placeholder="Url Here..."
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
+                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Client</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="client_id2" name="client_id">
+                                <option></option>
+                                @foreach ($clients as $client)
+                                <option value="{{$client->client_id}}">{{$client->name}}</option>
+                                @endforeach
+                            </select>
+                            <div id="feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
+                        <label for="position" class="col-sm-4 col-form-label">Position</label>
+                        <div class="col-sm-8">
+                            <select class="position_list form-control" id="position2" name="position">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Tags</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" class="tag_id2" id="tag_id" name="tag_id[]" multiple="multiple">
+                                <option></option>
+                                @foreach ($tags as $tag)
+                                <option value="{{$tag->tag}}">{{$tag->tag}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -166,6 +291,7 @@
     <script>
         $(document).ready(function() {
             $('.tag_id').select2();
+            $('.tag_id2').select2();
         });
     </script>
     <script>
@@ -179,13 +305,24 @@
             $('#datatable').DataTable();
         });
     </script>
+    <script type="text/javascript">
+        $("#cat").select2({
+            placeholder: "Select the Category"
+        });
+        $("#position").select2({
+            placeholder: "Select the Position"
+        });
+        $("#client_id").select2({
+            placeholder: "Select the Client"
+        });
+    </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {
             $('#reload-category').on('click', '.category-edit', function () {
                 let id = $(this).attr('data-id');
 
                 $.ajax({
-                    url: "{{url('portfoliorestitemsdelete')}}/" + id + '/edit',
+                    url: "{{url('portfoliorestitemsedit')}}/" + id + '/edit',
                     method: "get",
                     data: {},
                     dataType: 'json',
@@ -215,6 +352,15 @@
         $("#ClientData").select2({
             placeholder: clientid
         });
+        $("#cat2").select2({
+            placeholder: clientid
+        });
+        $("#client_id2").select2({
+            placeholder: clientid
+        });
+        $("#position2").select2({
+            placeholder: clientid
+        });
     </script>
 
     <script>
@@ -241,6 +387,7 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
+                    $('#myModalSave').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
@@ -319,20 +466,29 @@
         });
     </script>
     <script>
+        //get portfolio category
         $(document).on('change', '.cat_selector', function (e) {
-                // e.preventDefault();
+                e.preventDefault();
                 let id = $(this).val();
                 console.log(id);
+                const $position_list = $(catservestore).parents('tr').find('.position_list');
+                // const $position_list = $(this).parents('tr').find('.position_list');
 
                 $.ajax({
                     method: 'get',
                     data: {
                         id
                     },
-                    url: '{{ url('out-category') }}/' + id,
+                    url: '{{ url('out-category-for-portfolio-position') }}/' + id,
                     success: function (result) {
                         console.log('result',result);
-                        $('#reloadId').find('#cat_input').val(result.portfolio_category_id);
+                        $('#myModalSave').find('#valuecat').val(result);
+                        $('#catservestore').find('.position_list').empty();
+                        $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
+                        // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
+                        $.each(result, function (key, value) {
+                            $('#catservestore').find('.position_list').append(`<option value="${value}">PositionTest ${value}</option>`);
+                        })
                     },
                     error: function (err) {
                         console.log(err)

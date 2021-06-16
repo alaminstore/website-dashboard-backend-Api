@@ -54,7 +54,7 @@
     <div class="row" id="okreload">
 
         <div class="col-md-12" id="reloadId">
-            <button type="button" class="btn btn-info waves-effect waves-light" title="Edit" data-toggle="modal"
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Info
             </button>
@@ -91,10 +91,10 @@
                             <td class="cat_img">
                                 <img src="{{$info->logo}}" class="img-fluid" alt="Info's logo">
                             </td>
-                            <td>{{$info->facebook_url}}</td>
-                            <td>{{$info->instagram_url}}</td>
-                            <td>{{$info->linkedin_url}}</td>
-                            <td>{{$info->youtube_url}}</td>
+                            <td><a href="{{$info->facebook_url}}" target="_blank">{{$info->facebook_url}}</a></td>
+                            <td><a href="{{$info->instagram_url}}" target="_blank">{{$info->instagram_url}}</a></td>
+                            <td><a href="{{$info->instagram_url}}" target="_blank">{{$info->linkedin_url}}</a></td>
+                            <td><a href="{{$info->youtube_url}}"  target="_blank">{{$info->youtube_url}}</a></td>
                             <td>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"

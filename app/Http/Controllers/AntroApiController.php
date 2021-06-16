@@ -35,11 +35,11 @@ class AntroApiController extends Controller
     }
 
     public function portfolioItemById($id){
-        $portfolio_items = PortfolioItem::find($id);
+        $portfolio_items = PortfolioItem::where('portfolio_category_id',$id)->get();
         if(is_null($portfolio_items)){
             return response()->json(['message'=>'Portfolio Position not found'],404);
         }
-        return response()->json($portfolio_items::find($id),200);
+        return response()->json($portfolio_items,200);
     }
 
 

@@ -16,8 +16,13 @@ class PortfolioItem extends Model
     {
         return $this->belongsTo(Client::class,'client_id');
     }
+    // public function getTag()
+    // {
+    //     return $this->hasMany(PortfolioTag::class,'portfolio_item_id');
+    // }
     public function getTag()
     {
-        return $this->hasMany(PortfolioTag::class,'portfolio_item_id');
+          return $this->belongsToMany(Tag::class,'portfolio_tags', 'portfolio_item_id', 'tag_id');
+
     }
 }

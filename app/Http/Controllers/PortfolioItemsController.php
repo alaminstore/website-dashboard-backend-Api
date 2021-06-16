@@ -10,6 +10,7 @@ use App\Models\PortfolioPosition;
 use App\Models\PortfolioTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use function unlink;
 
 class PortfolioItemsController extends Controller
@@ -30,6 +31,8 @@ class PortfolioItemsController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
         $request->validate([
             'title' => 'required',
             'url'=>'required',
@@ -64,25 +67,48 @@ class PortfolioItemsController extends Controller
         $position->position = $request->position;
         $position->save();
 
-        $tags = new PortfolioTag();
-        $tags->portfolio_item_id = $items_Id;
-        if($request->tag_id){
-            $tags->tag_id = json_encode($request->tag_id);
+        // $tags = new PortfolioTag();
+        // $tags->portfolio_item_id = $items_Id;
+        // if($request->tag_id){
+         //     $tags->tag_id = json_encode($request->tag_id);
+        // }
+        // $tags->save();
+        $req_tag = $request->tag_id;
+            foreach ($req_tag as $value) {
+               // dd($value);
+                $tag_id=$value;
+                $items->getTag()->attach($tag_id);
+
         }
-        $tags->save();
         return response()->json($items);
     }
 
     public function edit($id)
     {
-        $items = PortfolioItem::with('getTag')->find($id);
+        $items = PortfolioItem::find($id);
         // dd($items->getTag);
+        //  dd($items);
+
         $items['tags'] = $items->getTag;
         return response()->json($items);
+
+
+        //  $items = DB::table('portfolio_items')
+        //                                       ->join('portfolio_tags','portfolio_tags.portfolio_item_id','portfolio_items.portfolio_item_id')
+        //                                     //   ->join('tags','tags.tag_id','portfolio_tags.tag_id')
+        //                                       ->where('portfolio_items.portfolio_item_id',$id)->get();
+
+
+
+
     }
 
     public function updated(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'url'=>'required',
+        ]);
         $items = PortfolioItem::find($request->category_id);
         $items->title = $request->title;
         $items->url = $request->url;
@@ -108,6 +134,7 @@ class PortfolioItemsController extends Controller
         // return $items;
         $items->save();
         $items_Id = $items->portfolio_item_id;
+
         $position = PortfolioPosition::where('portfolio_item_id',$request->category_id)->first();
         $position->portfolio_category_id = $request->portfolio_category_id;
         $position->portfolio_item_id = $items_Id;
@@ -115,12 +142,29 @@ class PortfolioItemsController extends Controller
             $position->position = $request->position;
         }
         $position->save();
-        $tags = PortfolioTag::where('portfolio_item_id',$request->category_id)->first();
-        $tags->portfolio_item_id = $items_Id;
-        if($request->tag_id){
-            $tags->tag_id = json_encode($request->tag_id);
-        }
-        $tags->save();
+
+
+
+
+        // $tags = PortfolioTag::where('portfolio_item_id',$request->category_id)->first();
+        // $tags->portfolio_item_id = $items_Id;
+        // if($request->tag_id){
+        //     $tags->tag_id = json_encode($request->tag_id);
+        // }
+        // $tags->save();
+
+        $tagsId=$request->tag_id;
+
+             foreach ($tagsId as $id) {
+                $value[]=$id;
+
+                $items->getTag()->sync($value);
+
+            }
+
+
+
+
         return response()->json($items);
     }
 

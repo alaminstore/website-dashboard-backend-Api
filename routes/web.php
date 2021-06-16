@@ -14,6 +14,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\PortfolioItemsController;
 use App\Http\Controllers\TermsPoliciesController;
 use App\Models\CategoryRelatedServices;
+use App\Models\Client;
 use App\Models\PortfolioItem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -84,8 +85,6 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('tags/{id}/edit', [TagsController::class,'edit']);
     Route::post('tags/updated', [TagsController::class,'updated'])->name('tags.updated');
 
-
-
     //Info
     Route::post('infos/store', [InfosController::class,'store'])->name('infos.store');
     Route::get('infosdelete', [InfosController::class,'destroy'])->name('infos.destroy');
@@ -109,20 +108,15 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('terms/{id}/edit',[TermsPoliciesController::class,'edit']);
     Route::post('terms/updated', [TermsPoliciesController::class,'updated'])->name('terms.updated');
 
-    //Conditional Dropdown
+    //Conditional Dropdown/ajax call
     Route::get('out-category/{id}', [PortfolioItemsController::class,'catToItem']);
     Route::get('out-category-for-position/{id}', [CategoryRelatedServiceController::class,'catServices']);
     Route::get('out-category-for-portfolio-position/{id}', [PortfolioItemsController::class,'portfolioPositionSet']);
     Route::get('out-cat-value/{id}', [PortfolioItemsController::class,'portfolioPositionSetTwo']);
-
-
-
-
-
-
-
-
-
+    Route::get('client-level/{id}', [ClientsController::class,'clientPosition']);
+    Route::get('client-level-update/{id}', [ClientsController::class,'clientPositionUpdate']);
+    Route::get('get-precedence/{id}/{value}', [ClientsController::class,'quickPass']);
+    Route::get('get-precedence-update/{id}/{value}', [ClientsController::class,'quickPassUpdate']);
 
 
     //portfolio items

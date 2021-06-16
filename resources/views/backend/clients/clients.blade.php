@@ -11,9 +11,9 @@
    width: 50px;
    }
    .cat_img img {
-   height: 50px;
-   width: 50px;
-   border-radius: 50%;
+   height: 52px;
+   width: 52px;
+   border-radius: 5%;
    }
    .select_css {
    height: 40px;
@@ -46,6 +46,7 @@
                   <tr class="text-center">
                      <th>Name</th>
                      <th>Image</th>
+                     <th>Level</th>
                      <th>Precedence</th>
                      <th>Url</th>
                      <th>Action</th>
@@ -67,6 +68,7 @@
                         Level 3
                         @endif
                      </td>
+                     <td>{{$client->newposition}}</td>
                      <td><a href="{{$client->url}}" target="_blank">{{$client->url}}</a></td>
                      <td>
                         <button type="button"
@@ -107,29 +109,37 @@
                </div>
             </div>
             <div class="form-group row">
+                <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Level</label>
+                <div class="col-sm-10">
+                   <select style="width: 200px" id="position" name="precedence">
+                      <option></option>
+                      <option value="1">Level 1</option>
+                      <option value="2">Level 2</option>
+                      <option value="3">Level 3</option>
+                   </select>
+                </div>
+             </div>
+             <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Precedence</label>
+                <div class="col-sm-10">
+                   <input class="form-control" type="number" id="newPosition" name="newposition"
+                      placeholder="Precedence Here..." required>
+                </div>
+             </div>
+             <div class="form-group row">
+                <label for="url" class="col-sm-2 col-form-label">Url</label>
+                <div class="col-sm-10">
+                   <input class="form-control" type="text" id="url" name="url"
+                      placeholder="Url Here..." required>
+                </div>
+             </div>
+            <div class="form-group row">
                <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Image</label>
                <div class="col-sm-10">
                   <input type="file" name="image" id="portfolio_cat_icon" class="dropify" required>
                </div>
             </div>
-            <div class="form-group row">
-               <label for="url" class="col-sm-2 col-form-label">Url</label>
-               <div class="col-sm-10">
-                  <input class="form-control" type="text" id="url" name="url"
-                     placeholder="Url Here..." required>
-               </div>
-            </div>
-            <div class="form-group row">
-               <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Precedence</label>
-               <div class="col-sm-10">
-                  <select style="width: 200px" id="position" name="precedence">
-                     <option></option>
-                     <option value="1">Precedence 1</option>
-                     <option value="2">Precedence 2</option>
-                     <option value="3">Precedence 3</option>
-                  </select>
-               </div>
-            </div>
+
             <div class="form-group m-b-0">
                <div>
                   <button type="submit" class="btn btn-primary waves-effect waves-light">
@@ -163,18 +173,11 @@
                         placeholder="Client Name Here..." required>
                   </div>
                </div>
+
                <div class="form-group row">
-                  <label for="url" class="col-sm-2 col-form-label">Url</label>
-                  <div class="col-sm-10">
-                     <input class="form-control" type="text" id="url" name="url"
-                        placeholder="Url Here..." required>
-                  </div>
-               </div>
-               <div class="form-group row">
-                  <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Precedence</label>
+                  <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Level</label>
                   <div class="col-sm-10">
                      <select class="form-control" id="position2" name="precedence">
-                        <option></option>
                         @php($i=1)
                         @for($i=1;$i<=3;$i++)
                         <option value="{{$i}}">Precedence {{$i}}</option>
@@ -182,6 +185,22 @@
                      </select>
                   </div>
                </div>
+               <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Precedence</label>
+                <div class="col-sm-10">
+                   <input class="form-control" type="number" id="newPosition2" name="newposition"
+                      placeholder="Precedence Here..." required>
+                </div>
+             </div>
+
+             <div class="form-group row">
+                <label for="url" class="col-sm-2 col-form-label">Url</label>
+                <div class="col-sm-10">
+                   <input class="form-control" type="text" id="url" name="url"
+                      placeholder="Url Here..." required>
+                </div>
+             </div>
+
                <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                <div class="form-group row">
                   <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Image</label>
@@ -212,8 +231,9 @@
 @section('scripts')
 <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="assets/plugins/parsleyjs/parsley.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="assets/plugins/parsleyjs/parsley.min.js"></script>
+
 <script>
    $(document).ready(function () {
        $('#myTable').DataTable();
@@ -228,10 +248,10 @@
 </script>
 <script type="text/javascript">
    $("#position").select2({
-       placeholder: "Select the Position"
+       placeholder: "Select the Position",
    });
 </script>
-<script type="text/javascript">
+<script type="text/javascript"> //edit
    $(document).ready(function () {
        $('#reload-category').on('click', '.category-edit', function () {
            let id = $(this).attr('data-id');
@@ -247,7 +267,9 @@
                    $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
                    $('#tagsupdate').find('#category-edit-id').val(data.client_id);
                    $('#tagsupdate').find('#url').val(data.url);
-                   var positiondata = $('#tagsupdate').find('#position2').val(data.precedence);
+                //    var positiondata = $('#tagsupdate').find('#position2').val(data.precedence);
+                  $('#position2').val(data.precedence);
+                  $('#newPosition2').val(data.newposition);
 
                    if (data.image) {
                        $('#tagsupdate').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.image}"/>`);
@@ -267,9 +289,7 @@
 
 </script>
 <script type="text/javascript">
-   $("#position2").select2({
-       placeholder: positiondata
-   });
+   $("#position2").select2();
 </script>
 <script>
 
@@ -295,13 +315,20 @@
                     "timeOut": 5000,
                     "extendedTimeOut": 1000
                 };
-                $('#myModalSave').modal('hide');
-                setTimeout(function () {
-                    $("#loadnow").load(location.href + " #loadnow>*", "");
-                }, 1000);
-                toastr.success('Data Inserted Successfully');
 
-                $('#catservestore').trigger('reset');
+                if(data.errorMessage){
+                        toastr.error(data.errorMessage);
+                }else{
+                    toastr.success(data.message);
+                    $('#myModalSave').modal('hide');
+                    $('#catservestore').trigger('reset');
+                    setTimeout(function () {
+                    $("#loadnow").load(location.href + " #loadnow>*", "");
+                     }, 1000);
+                }
+
+
+                console.log(data.message);
             }
 
         });
@@ -374,5 +401,151 @@
 
     });
 </script>
+
+<script>
+    $(document).on('change', '#position', function (e) {
+        e.preventDefault();
+        let id = $(this).val();
+        console.log(id);
+
+        $.ajax({
+            method: 'get',
+            data: {
+                id
+            },
+            url: '{{ url('client-level') }}/' + id,
+            success: function (result) {
+
+                var value =Object.values(result);
+                var pass = parseInt(result)+1;
+                console.log(typeof(result));
+                if(value.length == 0){
+                    $('#myModalSave').find('#newPosition').val("1");
+                }else{
+                    $('#myModalSave').find('#newPosition').val(pass);
+                    $('#myModalSave').find('#newPosition').val(pass);
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+
+    });
+    $(document).on('change', '#position2', function (e) {
+        e.preventDefault();
+        let id = $(this).val();
+        console.log(id);
+
+        $.ajax({
+            method: 'get',
+            data: {
+                id
+            },
+            url: '{{ url('client-level-update') }}/' + id,
+            success: function (result) {
+
+                var value =Object.values(result);
+                var pass = parseInt(result)+1;
+                console.log(typeof(result));
+                if(value.length == 0){
+                    $('#myModal').find('#newPosition2').val("1");
+                }else{
+                    $('#myModal').find('#newPosition2').val(pass);
+                    $('#myModal').find('#newPosition2').val(pass);
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+
+    });
+</script>
+
+
+<script>
+
+$(document).ready(function() {
+    $("#newPosition").on("change keyup paste", function(){
+        // $(document).on('change', '#newPosition', function (e) {
+            let id = $(this).val();
+            console.log(id);
+           var value = $('#position').val();
+            // alert(pos);
+
+            $.ajax({
+                method: 'get',
+                data: {
+                    id,value
+                },
+                url: '{{ url('get-precedence') }}/'+id+'/'+value,
+                success: function (result) {
+                    console.log('keyup',result);
+                    toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-bottom-right",
+                    "onclick": null,
+                    "fadeIn": 200,
+                    "fadeOut": 3000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
+                };
+
+                 if(result.message){
+                    toastr.error(result.message);
+                    $('#catservestore').find('#newposition').val('');
+                 }
+            },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+
+        });
+  });
+
+
+$(document).ready(function() {
+    $("#newPosition2").on("change keyup paste", function(){
+        // $(document).on('change', '#newPosition', function (e) {
+            let id = $(this).val();
+            console.log(id);
+           var value = $('#position2').val();
+            // alert(pos);
+
+            $.ajax({
+                method: 'get',
+                data: {
+                    id,value
+                },
+                url: '{{ url('get-precedence-update') }}/'+id+'/'+value,
+                success: function (result) {
+                    console.log('keyup',result);
+                    toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-bottom-right",
+                    "onclick": null,
+                    "fadeIn": 200,
+                    "fadeOut": 1000,
+                    "timeOut": 1000,
+                    "extendedTimeOut": 1000
+                };
+
+                 if(result.message){
+                    toastr.error(result.message);
+                 }
+            },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+
+        });
+  });
+
+</script>
+
+
 
 @endsection

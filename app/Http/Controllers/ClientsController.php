@@ -16,14 +16,15 @@ class ClientsController extends Controller
             'name' => 'required | string | max: 200',
             'image'=>'required',
             'url'=>'required',
-            'precedence'=>'required'
+            'precedence'=>'required',
+            'newposition'=>'required'
         ]);
         $clients= new Client();
         $clients->name    = $request->name;
         $clients->image = $request->image;
         $clients->url = $request->url;
         $clients->precedence = $request->precedence;
-
+        $clients->newposition = $request->newposition;
         if ($request->hasFile('image')) {
             $path = 'images/clients/';
             if (!is_dir($path)) {
@@ -35,8 +36,24 @@ class ClientsController extends Controller
             $image->move($path, $imageName);
             $clients->image = $path . $imageName;
         }
-        $clients->save();
-        return response()->json($clients);
+
+
+        $exits = Client::where('precedence',$request->precedence)
+                        ->where('newposition','=',$request->newposition)->first();
+
+        if($exits){
+            return response()->json([
+                'errorMessage' =>"Change the Precendence"
+            ]);
+        }else{
+            $clients->save();
+            return response()->json([
+                'clients' =>$clients,
+                'message' =>"Data Insert Successfully!"
+            ]);
+        }
+
+
     }
 
 
@@ -49,15 +66,18 @@ class ClientsController extends Controller
 
       //Update Data
     public function updated(Request $request){
-        $request->validate([
+        $$request->validate([
             'name' => 'required | string | max: 200',
-            'url' => 'required',
-
+            'image'=>'required',
+            'url'=>'required',
+            'precedence'=>'required',
+            'newposition'=>'required'
         ]);
         $clients= Client::find($request->category_id);
         $clients->name    = $request->name;
+        $clients->image = $request->image;
         $clients->url = $request->url;
-        $clients->portfolio_category_id;
+
         if($request->hasFile('image'))
         {
             $path           = 'images/clients/';
@@ -76,6 +96,7 @@ class ClientsController extends Controller
         if($request->precedence){
             $clients->precedence = $request->position;
         }
+        $clients->newposition = $request->newposition;
 
         $clients->save();
         return response()->json($clients);
@@ -88,4 +109,36 @@ class ClientsController extends Controller
         $clients->delete();
         return response()->json('clients');
     }
+
+    public function clientPosition($id){
+        $setPosition = Client::where('precedence','=',$id)->max('newposition');
+        return response()->json($setPosition);
+    }
+    public function clientPositionUpdate($id){
+        $setPosition = Client::where('precedence','=',$id)->max('newposition');
+        return response()->json($setPosition);
+    }
+    public function quickPass($id , $value){
+        $inputVal = $id;
+        $dropDownVal = $value;
+         $result = Client::where('precedence',$dropDownVal)->where('newposition','=',$inputVal)->first();
+         if($result){
+            return response()->json([
+                'result' =>$result,
+                'message' =>"Already positioned,use another!"
+            ]);
+         }
+    }
+    public function quickPassUpdate($id , $value){
+        $inputVal = $id;
+        $dropDownVal = $value;
+         $result = Client::where('precedence',$dropDownVal)->where('newposition','=',$inputVal)->first();
+         if($result){
+            return response()->json([
+                'result' =>$result,
+                'message' =>"Already positioned,use another!"
+            ]);
+         }
+    }
+
 }

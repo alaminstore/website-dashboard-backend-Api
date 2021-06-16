@@ -82,11 +82,6 @@
         </div>
     </div>
     </div>
-
-
-
-
-
     <!--modal content  Save-->
     <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -164,13 +159,11 @@
                             <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple">
                                 <option></option>
                                 @foreach ($tags as $tag)
-                                <option value="{{$tag->tag}}">{{$tag->tag}}</option>
+                                <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-
-
                     <div class="form-group m-b-0">
                         <div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">
@@ -187,13 +180,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
     <!--modal content Update -->
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -209,7 +195,6 @@
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
                         <div class="col-sm-8">
                             <select class="cat_selector2 form-control" id="cat2"  name="portfolio_category_id">
-                                <option></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                                 @endforeach
@@ -228,7 +213,7 @@
                     <div class="form-group row flex_css">
                         <label for="image" class="col-sm-4 col-form-label">Image</label>
                         <div class="col-sm-8">
-                            <input type="file" name="image" id="image" class="dropify" required/>
+                            <input type="file" name="image" id="image" class="dropify"/>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -243,7 +228,6 @@
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Client</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="client_id2" name="client_id">
-                                <option></option>
                                 @foreach ($clients as $client)
                                 <option value="{{$client->client_id}}">{{$client->name}}</option>
                                 @endforeach
@@ -255,32 +239,28 @@
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-8">
                             <select class="position_list2 form-control" id="position2" name="position">
-                                <option value=""></option>
                                 @php($i=1)
-                                @for ($i=1;$i<=9;$i++)
-                                    <option disabled value="{{$i}}">Position {{$i}}</option>
-                                    @endfor
-
+                                  @for ($i=1;$i<=9;$i++)
+                                     <option disabled value="{{$i}}">Position {{$i}}</option>
+                                  @endfor
                             </select>
+                            <label id="positionresult"></label>
                         </div>
                     </div>
-
 
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Tags</label>
                         <div class="col-sm-8">
-                            <select class="form-control" class="tag_id2" id="tag_id" name="tag_id[]" multiple="multiple">
-                                <option></option>
+                            <select style="width: 200px" class="" id="newTagId" name="tag_id[]" multiple="multiple">
                                 @foreach ($tags as $tag)
-                                <option value="{{$tag->tag}}">{{$tag->tag}}</option>
+                                <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group m-b-0">
                         <div>
-                            <button type="submit" class="btn btn-success waves-effect waves-light">
+                            <button type="submit"  id="submit" class="btn btn-success waves-effect waves-light">
                                 Update
                             </button>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
@@ -304,9 +284,9 @@
     <script>
         $(document).ready(function() {
             $('.tag_id').select2();
-            $('.tag_id2').select2();
         });
     </script>
+
     <script>
         $('.dropify').dropify();
         $(document).ready(function () {
@@ -340,15 +320,54 @@
                     data: {},
                     dataType: 'json',
                     success: function (data) {
+
+
                         let url = window.location.origin;
-                        console.log('data', data);
+                        // console.log('data', data);
                         $('#tagsupdate').find('#title').val(data.title);
                         $('#tagsupdate').find('#url').val(data.url);
                        var catdata = $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
                         var clientid =  $('#tagsupdate').find('#client_id2').val(data.client_id);
+                        // var tagid2 =  $('#tagsupdate').find('#tag_id2').val(data.get_tag.tag_id);
                         var positiondata =  $('#tagsupdate').find('#position2').val(data.position_one);
+                        $("#newTagId").select2();
+
+
+                        var tagId = [];
+                        $.each(data.get_tag, function (key, value) {
+                            //    console.log(value);
+                            tagId.push(value.tag_id)
+
+
+                        })
+                        console.log(tagId);
+
+                        $('#newTagId').val(tagId);
+                        $('#newTagId').trigger('change');
+
+
+
+
+
+
                         $('#category-modal').modal('show');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     },
                     error: function (error) {
                         if (error.status == 404) {
@@ -371,6 +390,13 @@
             placeholder: positiondata
         });
     </script>
+    {{-- <script>
+        $(document).ready(function() {
+            $('.tag_id2').select2({
+                placeholder: tagid2
+            });
+        });
+    </script> --}}
 
     <script>
 
@@ -479,7 +505,7 @@
         $(document).on('change', '.cat_selector', function (e) {
                 e.preventDefault();
                 let id = $(this).val();
-                console.log(id);
+                // console.log(id);
                 const $position_list = $(catservestore).parents('tr').find('.position_list');
                 // const $position_list = $(this).parents('tr').find('.position_list');
 
@@ -490,7 +516,7 @@
                     },
                     url: '{{ url('out-category-for-portfolio-position') }}/' + id,
                     success: function (result) {
-                        console.log('result',result);
+                        // console.log('result',result);
                         $('#myModalSave').find('#valuecat').val(result);
                         $('#catservestore').find('.position_list').empty();
                         $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
@@ -515,7 +541,7 @@
     $(document).on('change', '.cat_selector2', function (e) {
             e.preventDefault();
             let id = $(this).val();
-            console.log(id);
+            // console.log(id);
             const $position_list = $(catservestore).parents('tr').find('.position_list2');
             // const $position_list = $(this).parents('tr').find('.position_list');
 
@@ -526,14 +552,28 @@
                 },
                 url: '{{ url('out-cat-value') }}/' + id,
                 success: function (result) {
-                    console.log('result',result);
+                    // console.log('result',result);
                     $('#myModalSave').find('#valuecat').val(result);
                     $('#tagsupdate').find('.position_list2').empty();
-                    $('#tagsupdate').find('.position_list2').append(`<option value="">Search & Select</option>`);
+                    $('#tagsupdate').find('.position_list2').append(`<option disabled value="">Select Here...</option>`);
                     // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
                     $.each(result, function (key, value) {
                         $('#tagsupdate').find('.position_list2').append(`<option value="${value}">Position ${value}</option>`);
                     })
+
+
+                        // var tagId = [];
+                        // $.each(result.items.tags, function (key, value) {
+                        //     //    console.log(value);
+                        //     tagId.push(value.tag_id)
+
+
+                        // })
+                        // console.log(tagId);
+                        // $('#technology_update').val(technologies_id);
+                        // $('#technology_update').trigger('change');
+
+
                 },
                 error: function (err) {
                     console.log(err)
@@ -544,7 +584,17 @@
         });
 </script>
 
-
+<script>
+    $document.ready(function(){
+        $("#submit").click(function(){
+            var position = $("#position2");
+            if(position.val() === ""){
+                document.getElementById("positionresult").innerHTML="Position Field required";
+                document.getElementById("positionresult").style.color="red";
+            }
+        });
+    })
+</script>
 
 
 

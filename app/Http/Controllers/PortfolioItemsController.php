@@ -145,7 +145,7 @@ class PortfolioItemsController extends Controller
     }
     public function portfolioPositionSetTwo(Request $request){
         $match_id=PortfolioPosition::where('portfolio_category_id',$request->id)
-        ->WhereBetween('position',[1,9])->pluck('position')->toArray();
+                                    ->WhereBetween('position',[1,9])->pluck('position')->toArray();
         $all = array("1", "2", "3", "4","5","6","7","8","9");
         $result = array_diff($all, $match_id);
         return response()->json($result);

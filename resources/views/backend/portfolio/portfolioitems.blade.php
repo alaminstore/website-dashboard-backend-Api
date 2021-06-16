@@ -151,9 +151,10 @@
                             <select class="position_list" id="position" name="position">
                                 <option></option>
                                 @php($i=1)
-                                @for($i=1;$i<=9;$i++)
+                                    @for ($i=1;$i<=9;$i++)
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
-                                @endfor
+                                    @endfor
+
                             </select>
                         </div>
                     </div>
@@ -207,7 +208,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="cat2" class="cat_selector2" name="portfolio_category_id">
+                            <select class="cat_selector2 form-control" id="cat2"  name="portfolio_category_id">
                                 <option></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
@@ -215,6 +216,7 @@
                             </select>
                         </div>
                     </div>
+                    <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Title</label>
                         <div class="col-sm-8">
@@ -223,7 +225,6 @@
                                    required>
                         </div>
                     </div>
-                    <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                     <div class="form-group row flex_css">
                         <label for="image" class="col-sm-4 col-form-label">Image</label>
                         <div class="col-sm-8">
@@ -250,20 +251,19 @@
                             <div id="feedback"></div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select class=" position_list form-control" id="position2" name="position">
-                                <option></option>
+                            <select class="position_list2 form-control" id="position2" name="position">
+                                <option value=""></option>
                                 @php($i=1)
-                                @for($i=1;$i<=9;$i++)
+                                @for ($i=1;$i<=9;$i++)
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
-                                @endfor
+                                    @endfor
+
                             </select>
                         </div>
                     </div>
-
-
 
 
                     <div class="form-group row">
@@ -344,11 +344,10 @@
                         console.log('data', data);
                         $('#tagsupdate').find('#title').val(data.title);
                         $('#tagsupdate').find('#url').val(data.url);
-                        $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
+                       var catdata = $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
-                       var positionData = $('#tagsupdate').find('#position2').val(data.position_one);
-
                         var clientid =  $('#tagsupdate').find('#client_id2').val(data.client_id);
+                        var positiondata =  $('#tagsupdate').find('#position2').val(data.position_one);
                         $('#category-modal').modal('show');
                     },
                     error: function (error) {
@@ -363,13 +362,13 @@
     </script>
     <script type="text/javascript">
         $("#cat2").select2({
-            placeholder: clientid
+            placeholder: catdata
         });
         $("#client_id2").select2({
             placeholder: clientid
         });
         $("#position2").select2({
-            placeholder: "select position"
+            placeholder: positiondata
         });
     </script>
 
@@ -511,15 +510,13 @@
 
 
 
-
-
 <script>
     //get portfolio category
     $(document).on('change', '.cat_selector2', function (e) {
             e.preventDefault();
             let id = $(this).val();
             console.log(id);
-            const $position_list = $(tagsupdate).parents('tr').find('.position_list');
+            const $position_list = $(catservestore).parents('tr').find('.position_list2');
             // const $position_list = $(this).parents('tr').find('.position_list');
 
             $.ajax({
@@ -527,15 +524,15 @@
                 data: {
                     id
                 },
-                url: '{{ url('out-category-for-portfolio-position') }}/' + id,
+                url: '{{ url('out-cat-value') }}/' + id,
                 success: function (result) {
                     console.log('result',result);
                     $('#myModalSave').find('#valuecat').val(result);
-                    $('#tagsupdate').find('.position_list').empty();
-                    $('#tagsupdate').find('.position_list').append(`<option value="">Search & Select</option>`);
+                    $('#tagsupdate').find('.position_list2').empty();
+                    $('#tagsupdate').find('.position_list2').append(`<option value="">Search & Select</option>`);
                     // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
                     $.each(result, function (key, value) {
-                        $('#tagsupdate').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
+                        $('#tagsupdate').find('.position_list2').append(`<option value="${value}">Position ${value}</option>`);
                     })
                 },
                 error: function (err) {
@@ -546,6 +543,10 @@
 
         });
 </script>
+
+
+
+
 
 
 @endsection

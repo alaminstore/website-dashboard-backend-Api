@@ -113,6 +113,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('out-category/{id}', [PortfolioItemsController::class,'catToItem']);
     Route::get('out-category-for-position/{id}', [CategoryRelatedServiceController::class,'catServices']);
     Route::get('out-category-for-portfolio-position/{id}', [PortfolioItemsController::class,'portfolioPositionSet']);
+    Route::get('out-category-for-portfolio-position2/{id}', [PortfolioItemsController::class,'portfolioPositionSetTwo']);
 
 
 

@@ -51,6 +51,9 @@ class PortfolioItemsController extends Controller
             $items->image = $path . $imageName;
         }
         $items->client_id = $request->client_id;
+        $items->position_one = $request->position;
+        $items->portfolio_category_id = $request->portfolio_category_id;
+
         // return $items;
         $items->save();
         $items_Id = $items->portfolio_item_id;
@@ -72,17 +75,14 @@ class PortfolioItemsController extends Controller
 
     public function edit($id)
     {
-        $items = PortfolioItem::find($id);
+        $items = PortfolioItem::with('getTag')->find($id);
+        // dd($items->getTag);
+        $items['tags'] = $items->getTag;
         return response()->json($items);
     }
 
     public function updated(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'url'=>'required',
-            'client_id'=>'required'
-        ]);
         $items = PortfolioItem::find($request->category_id);
         $items->title = $request->title;
         $items->url = $request->url;
@@ -101,12 +101,28 @@ class PortfolioItemsController extends Controller
             $image->move($path,$imageName);
             $items->image      = $path.$imageName;
         }
-        $items->client_id = $request->client_id;
+        if($request->client_id){
+            $items->client_id = $request->client_id;
+        }
+
         // return $items;
         $items->save();
+        $items_Id = $items->portfolio_item_id;
+        $position = PortfolioPosition::where('portfolio_item_id',$request->category_id)->first();
+        $position->portfolio_category_id = $request->portfolio_category_id;
+        $position->portfolio_item_id = $items_Id;
+        if($request->position){
+            $position->position = $request->position;
+        }
+        $position->save();
+        $tags = PortfolioTag::where('portfolio_item_id',$request->category_id)->first();
+        $tags->portfolio_item_id = $items_Id;
+        if($request->tag_id){
+            $tags->tag_id = json_encode($request->tag_id);
+        }
+        $tags->save();
         return response()->json($items);
     }
-
 
     public function destroy(Request $request){
         $items =  PortfolioItem::find($request->id);
@@ -120,9 +136,14 @@ class PortfolioItemsController extends Controller
         }
     }
 
-
-
     public function portfolioPositionSet(Request $request){
+        $match_id=PortfolioPosition::where('portfolio_category_id',$request->id)
+        ->WhereBetween('position',[1,9])->pluck('position')->toArray();
+        $all = array("1", "2", "3", "4","5","6","7","8","9");
+        $result = array_diff($all, $match_id);
+        return response()->json($result);
+    }
+    public function portfolioPositionSetTwo(Request $request){
         $match_id=PortfolioPosition::where('portfolio_category_id',$request->id)
         ->WhereBetween('position',[1,9])->pluck('position')->toArray();
         $all = array("1", "2", "3", "4","5","6","7","8","9");

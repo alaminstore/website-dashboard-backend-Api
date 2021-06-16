@@ -150,6 +150,10 @@
                         <div class="col-sm-8">
                             <select class="position_list" id="position" name="position">
                                 <option></option>
+                                @php($i=1)
+                                @for($i=1;$i<=9;$i++)
+                                    <option disabled value="{{$i}}">Position {{$i}}</option>
+                                @endfor
                             </select>
                         </div>
                     </div>
@@ -203,7 +207,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="cat2" class="cat_selector" name="portfolio_category_id">
+                            <select class="form-control" id="cat2" class="cat_selector2" name="portfolio_category_id">
                                 <option></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
@@ -219,6 +223,7 @@
                                    required>
                         </div>
                     </div>
+                    <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                     <div class="form-group row flex_css">
                         <label for="image" class="col-sm-4 col-form-label">Image</label>
                         <div class="col-sm-8">
@@ -245,14 +250,22 @@
                             <div id="feedback"></div>
                         </div>
                     </div>
-                    <div class="form-group row flex_css">
-                        <label for="position" class="col-sm-4 col-form-label">Position</label>
+                    <div class="form-group row">
+                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select class="position_list form-control" id="position2" name="position">
+                            <select class=" position_list form-control" id="position2" name="position">
                                 <option></option>
+                                @php($i=1)
+                                @for($i=1;$i<=9;$i++)
+                                    <option disabled value="{{$i}}">Position {{$i}}</option>
+                                @endfor
                             </select>
                         </div>
                     </div>
+
+
+
+
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Tags</label>
                         <div class="col-sm-8">
@@ -330,9 +343,12 @@
                         let url = window.location.origin;
                         console.log('data', data);
                         $('#tagsupdate').find('#title').val(data.title);
-                        $('#tagsupdate').find('#url').val(data.url).focus();
+                        $('#tagsupdate').find('#url').val(data.url);
+                        $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
-                        var clientid =  $('#tagsupdate').find('#ClientData').val(data.client_id);
+                       var positionData = $('#tagsupdate').find('#position2').val(data.position_one);
+
+                        var clientid =  $('#tagsupdate').find('#client_id2').val(data.client_id);
                         $('#category-modal').modal('show');
                     },
                     error: function (error) {
@@ -346,12 +362,6 @@
         });
     </script>
     <script type="text/javascript">
-        $("#cat").select2({
-            placeholder: "Select Portfolio Category"
-        });
-        $("#ClientData").select2({
-            placeholder: clientid
-        });
         $("#cat2").select2({
             placeholder: clientid
         });
@@ -359,7 +369,7 @@
             placeholder: clientid
         });
         $("#position2").select2({
-            placeholder: clientid
+            placeholder: "select position"
         });
     </script>
 
@@ -487,7 +497,7 @@
                         $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
                         // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
                         $.each(result, function (key, value) {
-                            $('#catservestore').find('.position_list').append(`<option value="${value}">PositionTest ${value}</option>`);
+                            $('#catservestore').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
                         })
                     },
                     error: function (err) {
@@ -498,4 +508,44 @@
 
             });
     </script>
+
+
+
+
+
+<script>
+    //get portfolio category
+    $(document).on('change', '.cat_selector2', function (e) {
+            e.preventDefault();
+            let id = $(this).val();
+            console.log(id);
+            const $position_list = $(tagsupdate).parents('tr').find('.position_list');
+            // const $position_list = $(this).parents('tr').find('.position_list');
+
+            $.ajax({
+                method: 'get',
+                data: {
+                    id
+                },
+                url: '{{ url('out-category-for-portfolio-position') }}/' + id,
+                success: function (result) {
+                    console.log('result',result);
+                    $('#myModalSave').find('#valuecat').val(result);
+                    $('#tagsupdate').find('.position_list').empty();
+                    $('#tagsupdate').find('.position_list').append(`<option value="">Search & Select</option>`);
+                    // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
+                    $.each(result, function (key, value) {
+                        $('#tagsupdate').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
+                    })
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+            $('.hideportion').show();
+
+        });
+</script>
+
+
 @endsection

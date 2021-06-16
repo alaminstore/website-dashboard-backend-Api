@@ -177,7 +177,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <select class="form-control" id="position2" name="position">
                                 <option></option>
                                 @php($i=1)
@@ -271,10 +271,10 @@
     </script>
     <script type="text/javascript">
         $("#cat2").select2({
-            placeholder: positiondata
+            placeholder:catdata
         });
         $("#position2").select2({
-            placeholder: catdata
+            placeholder:positiondata
         });
     </script>
 

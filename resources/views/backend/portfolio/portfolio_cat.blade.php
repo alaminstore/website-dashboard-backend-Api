@@ -53,8 +53,7 @@
                         <td>{{$cat->name}}</td>
                         <td class="cat_img"><img src="{{$cat->icon}}" class="img-fluid" alt="portfolio Category Image">
                         </td>
-                        {{-- <td>{{\Illuminate\Support\Str::limit($cat->description, 20, $end='...')}}</td> --}}
-                        <td>{{$cat->description}}</td>
+                        <td>{{ \Illuminate\Support\Str::limit($cat->description, 50, $end='...') }}</td>
                         <td>
                             <button type="button"
                                     class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
@@ -104,7 +103,6 @@
                             <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Icon</label>
                             <div class="col-sm-10">
                                 <input type="file" name="image" id="portfolio_cat_icon" class="dropify" required>
-                                {{-- <input type="file" name="image" id="input-file-now" class="dropify"/> --}}
                             </div>
                         </div>
                         <div class="form-group m-b-0">
@@ -235,7 +233,6 @@
 <script>
 
     //save data
-    $('#catservestore').on('submit', function (e) {
     $('#catservestore').on('submit', function (e) {
         e.preventDefault();
         $.ajax({

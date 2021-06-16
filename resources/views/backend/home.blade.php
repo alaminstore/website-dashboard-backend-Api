@@ -71,7 +71,7 @@
 <script src="{{asset('backend')}}/js/script.js"></script>
 <script src="assets/plugins/morris/morris.min.js"></script>
 <script src="assets/plugins/raphael/raphael-min.js"></script>
-<script src="assets/pages/dashboard.js"></script>
+{{-- <script src="assets/pages/dashboard.js"></script> --}}
 <script src="assets/js/app.js"></script>
 <script type="text/javascript">
     $(document).ajaxStart(function () {

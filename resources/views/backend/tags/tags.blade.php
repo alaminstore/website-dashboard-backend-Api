@@ -45,6 +45,12 @@
                         <td><b>{{$i+=1}}</b></td>
                         <td>{{$tag->tag}}</td>
                         <td>
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                    data-id="{{$tag->tag_id}}" data-toggle="modal"
+                                    data-target=".bs-example-modal-lg">
+                                <i class="fa fa-eye"></i>
+                            </button>
                             <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit" data-id="{{$tag->tag_id}}" title="Edit" data-toggle="modal" data-target="#myModal">
                                 <i class="mdi mdi-border-color"></i>
                             </button>
@@ -130,6 +136,27 @@
             </div>
         </div>
 
+        {{-- View Modal --}}
+        <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Tag Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="background: #f5f5f5;">
+
+                    <div class="Catname d-flex">
+                        <p><b>Tag Name:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewTag"></div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
 @endsection
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -147,7 +174,7 @@
         });
 
     </script>
-    <script type="text/javascript">
+    <script type="text/javascript"> //Edit data
         $(document).ready(function () {
             $('#reload-category').on('click', '.category-edit' , function () {
                 let id =  $(this).attr('data-id');
@@ -173,6 +200,29 @@
                     },
                     error: function (error) {
                         if(error.status == 404){
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
+            //View===============================================================
+            $('#reload-category').on('click', '.viewData', function () {
+                let id = $(this).attr('data-id');
+                console.log('id--', id);
+                $.ajax({
+                    url: "{{url('tag-view')}}/" + id,
+                    method: "get",
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
+                        $('#viewTag').html(data.tag);
+
+                    },
+                    error: function (error) {
+                        if (error.status == 404) {
                             toastr.error('Not found!');
                         }
                     }

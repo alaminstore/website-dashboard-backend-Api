@@ -40,6 +40,12 @@
                         <td>{{$service->service_name}}</td>
                         <td>
                             <button type="button"
+                                    class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                    data-id="{{$service->service_id}}" data-toggle="modal"
+                                    data-target=".bs-example-modal-lg">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button type="button"
                                     class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                     data-id="{{$service->service_id}}" title="Edit"
                                     data-toggle="modal" data-target="#myModal">
@@ -94,40 +100,62 @@
     </div>
 </div>
 
-        <!--modal content update-->
-        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Modal Heading</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<!--modal content update-->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">Modal Heading</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
+                    @csrf
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-2 col-form-label">Service Name</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="category-edit-name" name="service_name" placeholder="Service Name Here..." required>
+                            <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
-                            @csrf
-                            <div class="form-group row flex_css">
-                                <label for="name" class="col-sm-2 col-form-label">Service Name</label>
-                                <div class="col-sm-8">
-                                    <input class="form-control" type="text" id="category-edit-name" name="service_name" placeholder="Service Name Here..." required>
-                                    <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
-                                </div>
-                            </div>
 
-                            <div class="form-group m-b-0">
-                                <div>
-                                    <button type="submit" class="btn btn-success waves-effect waves-light">
-                                        Update
-                                    </button>
-                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
-                            {!!Form::close()!!}
+                    <div class="form-group m-b-0">
+                        <div>
+                            <button type="submit" class="btn btn-success waves-effect waves-light">
+                                Update
+                            </button>
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
+                                Cancel
+                            </button>
+                        </div>
                     </div>
-                </div>
+                    {!!Form::close()!!}
             </div>
         </div>
+    </div>
+</div>
+{{-- View Modal --}}
+<div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body" style="background: #f5f5f5;">
+
+            <div class="Catname d-flex">
+                <p><b>Service Name:&nbsp;&nbsp;&nbsp;</b></p>
+                <div id="viewService"></div>
+                <br>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
 
 @endsection
 @section('scripts')
@@ -147,7 +175,7 @@
         });
 
     </script>
-    <script type="text/javascript">
+    <script type="text/javascript"> // Edit data
         $(document).ready(function () {
             $('#reload-category').on('click', '.category-edit' , function () {
                 let id =  $(this).attr('data-id');
@@ -166,6 +194,30 @@
                     },
                     error: function (error) {
                         if(error.status == 404){
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
+
+             //View===============================================================
+             $('#reload-category').on('click', '.viewData', function () {
+                let id = $(this).attr('data-id');
+                console.log('id--', id);
+                $.ajax({
+                    url: "{{url('service-view')}}/" + id,
+                    method: "get",
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
+                        $('#viewService').html(data.service_name);
+
+                    },
+                    error: function (error) {
+                        if (error.status == 404) {
                             toastr.error('Not found!');
                         }
                     }

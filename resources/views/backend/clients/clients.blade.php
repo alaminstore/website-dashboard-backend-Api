@@ -232,24 +232,23 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Portfolio Item Details</h5>
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Client Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
 
                     <div class="Catname d-flex">
-                        <p><b>Title:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewTitle"></div>
+                        <p><b>Name:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewName"></div>
                         <br>
-                    </div>
-
-                    <div class="desc d-flex">
-                        <p><b>Client Name:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewClient"></div>
                     </div>
                     <div class="desc d-flex">
                         <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
                         <div id="viewLevel"></div>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Precedence:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewPrecedence"></div>
                     </div>
                     <div class="desc d-flex">
                         <p><b>Url:&nbsp;&nbsp;&nbsp;</b></p>
@@ -291,14 +290,7 @@
     </script>
     <script type="text/javascript"> //edit
         $(document).ready(function () {
-
-            //         $(document).on("click","#test-element",function() {
-            //     alert("click bound to document listening for #test-element");
-            // });
-
             $('#reload-category').on('click', '.category-edit', function () {
-                // $(document).on("click",".category-edit",function() {
-
                 let id = $(this).attr('data-id');
                 $.ajax({
                     url: "{{url('clients')}}/" + id + '/edit',
@@ -345,6 +337,35 @@
                     }
                 });
             });
+
+             //View===============================================================
+             $('#reload-category').on('click', '.viewData', function () {
+                let id = $(this).attr('data-id');
+                console.log('id--', id);
+                $.ajax({
+                    url: "{{url('client-view')}}/" + id,
+                    method: "get",
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
+                        $('#viewName').html(data.name);
+                        $('#viewLevel').html(data.precedence);
+                        $('#viewPrecedence').html(`<a href="${data.url}" target="__blank">${data.newposition}</a>`);
+                        $('#viewUrl').html(data.url);
+                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.image}" class="dropify"/>`);
+
+                    },
+                    error: function (error) {
+                        if (error.status == 404) {
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
+
 
         });
 

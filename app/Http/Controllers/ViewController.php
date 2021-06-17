@@ -9,6 +9,7 @@ use App\Models\Faq;
 use App\Models\Info;
 use App\Models\PortfolioCategories;
 use App\Models\PortfolioItem;
+use App\Models\Service;
 use App\Models\Tag;
 use App\Models\TermsPolicies;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class ViewController extends Controller
         return response()->json($clients);
     }
     public function viewService($id){
-        $services  = Client::find($id);
+        $services  = Service::find($id);
         return response()->json($services);
     }
     public function viewTag($id){

@@ -55,6 +55,9 @@
                         </td>
                         <td>{{ \Illuminate\Support\Str::limit($cat->description, 50, $end='...') }}</td>
                         <td>
+                            <button type="button" class="btn btn-sm btn-outline-info waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">
+                                <i class="fa fa-eye"></i>
+                            </button>
                             <button type="button"
                                     class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                     data-id="{{$cat->portfolio_category_id}}" title="Edit"
@@ -170,6 +173,22 @@
                 </div>
             </div>
         </div>
+
+
+        {{-- View Modal --}}
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myLargeModalLabel">Portfolio Category Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                           hello
+                    </div>
+                </div>
+            </div>
+            </div>
 
 @endsection
 @section('scripts')

@@ -324,16 +324,6 @@
             });
 
         });
-
-
-
-
-
-
-
-
-
-
         //Delete data
         $(document).on('click', '.deletetag', function (e) {
             e.preventDefault();
@@ -409,15 +399,6 @@
 
         });
 
-
-
-
-
-
-
-
-
-
     </script>
     <script>
         //get portfolio category
@@ -452,8 +433,6 @@
         $(document).on('change', '#cat', function (e) {
             e.preventDefault();
             let id = $(this).val();
-            // console.log(id);
-
             $.ajax({
                 method: 'get',
                 data: {
@@ -553,7 +532,7 @@
             $("#position2").on("change keyup paste", function () {
                 let id = $(this).val();
                 console.log(id);
-                var value = $('#position2').val();
+                var value = $('#cat2').val();
                 // alert(pos);
 
                 $.ajax({

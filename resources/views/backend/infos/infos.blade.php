@@ -1,7 +1,6 @@
 @extends('backend.home')
 @section('title','Infos')
 @section('style')
-    <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 @endsection
 @section('content')
@@ -10,13 +9,11 @@
             height: 50px;
             width: 50px;
         }
-
         .cat_img img {
             height: 50px;
             width: 50px;
             border-radius: 50%;
         }
-
         .select_css {
             height: 40px;
             width: 465px !important;
@@ -27,34 +24,12 @@
         .dataTables_wrapper {
             overflow-x: auto;
         }
-        /* width */
-            ::-webkit-scrollbar {
-            width: 20px;
-            height: 10px;
-            cursor: pointer!important;
-            }
 
-            /* Track */
-            ::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey;
-            border-radius: 10px;
-            }
-
-            /* Handle */
-            ::-webkit-scrollbar-thumb {
-            background: #b30000;
-            border-radius: 5px;
-            }
-
-            /* Handle on hover */
-            ::-webkit-scrollbar-thumb:hover {
-            background: #8d0000;
-            }
     </style>
     <div class="row" id="okreload">
 
         <div class="col-md-12" id="reloadId">
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
+            &nbsp;&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Info
             </button>
@@ -87,16 +62,14 @@
                             <td><b>{{$i+=1}}</b></td>
                             <td>{{$info->mobile}}</td>
                             <td>{{$info->email}}</td>
-                            <td>{{ \Illuminate\Support\Str::limit($info->address, 50, $end='...') }}</td>
-
+                            <td>{{$info->address}}</td>
                             <td class="cat_img">
                                 <img src="{{$info->logo}}" class="img-fluid" alt="Info's logo">
                             </td>
-
-                            <td><a href="{{$info->facebook_url}}" target="_blank">{{ \Illuminate\Support\Str::limit($info->facebook_url, 10, $end='...') }}</a></td>
-                            <td><a href="{{$info->instagram_url}}" target="_blank">{{$info->instagram_url}}</a></td>
-                            <td><a href="{{$info->instagram_url}}" target="_blank">{{$info->linkedin_url}}</a></td>
-                            <td><a href="{{$info->youtube_url}}"  target="_blank">{{$info->youtube_url}}</a></td>
+                            <td>{{$info->facebook_url}}</td>
+                            <td>{{$info->instagram_url}}</td>
+                            <td>{{$info->linkedin_url}}</td>
+                            <td>{{$info->youtube_url}}</td>
                             <td>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
@@ -306,7 +279,6 @@
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
         $('.dropify').dropify();
         $(document).ready(function () {
@@ -330,7 +302,6 @@
         $(document).ready(function () {
             $('#reload-category').on('click', '.category-edit', function () {
                 let id = $(this).attr('data-id');
-
                 $.ajax({
                     url: "{{url('infos')}}/" + id + '/edit',
                     method: "get",
@@ -347,11 +318,9 @@
                         $('#tagsupdate').find('#linkedin').val(data.linkedin_url).focus();
                         $('#tagsupdate').find('#youtube').val(data.youtube_url).focus();
                         $('#tagsupdate').find('#category-edit-id').val(data.info_id);
-
                         if (data.image) {
                             $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.logo}"/>`);
                         }
-
                         $('#category-modal').modal('show');
                     },
                     error: function (error) {
@@ -361,9 +330,7 @@
                     }
                 });
             });
-
         });
-
     </script>
     <script type="text/javascript">
         $("#cat2").select2({
@@ -374,5 +341,98 @@
         });
     </script>
 
+    <script>
+        //save data
+        $('#catservestore').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{route('infos.store')}}",
+                method: "POST",
+                data: new FormData(this),
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    console.log('save', data);
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-bottom-right",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    };
+                    $('#myModalSave').modal('hide');
+                    setTimeout(function () {
+                        $("#loadnow").load(location.href + " #loadnow>*", "");
+                    }, 1000);
+                    toastr.success('Data Inserted Successfully');
+                    $('#catservestore').trigger('reset');
+                }
+            });
+        });
+        //Delete data
+        $(document).on('click', '.deletetag', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            console.log('id: ', id);
+            //alert(role);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+            }).then(result => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "{!! route('infos.destroy') !!}",
+                            type: "get",
+                            data: {
+                                id: id,
+                            },
+                        });
+                        toastr.success('Data Deleted Successfully');
+                        $(this).closest('tr').hide();
+                    }
+                }
+            )
+        });
+        //Update data
+        $('#tagsupdate').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{route('infos.updated')}}",
+                method: "POST",
+                data: new FormData(this),
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    console.log('update', data);
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-bottom-right",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    };
+                    $('#myModal').modal('hide');
+                    setTimeout(function () {
 
+                        $("#loadnow").load(location.href + " #loadnow>*", "");
+                    }, 1000);
+                    toastr.success('Data Updated Successfully');
+                    $('#tagsupdate').trigger('reset');
+                }
+            });
+        });
+    </script>
 @endsection

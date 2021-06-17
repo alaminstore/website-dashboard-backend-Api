@@ -9,6 +9,15 @@ class InfosController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'mobile'=>'required',
+            'email'=>'required',
+            'address'=>'required',
+            'facebook_url'=>'required',
+            'instagram_url'=>'required',
+            'linkedin_url'=>'required',
+            'youtube_url'=>'required',
+        ]);
         $infos = new Info();
         $infos->mobile = $request->mobile;
         $infos->email = $request->email;

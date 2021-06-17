@@ -13,6 +13,7 @@ use App\Http\Controllers\InfosController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PortfolioItemsController;
 use App\Http\Controllers\TermsPoliciesController;
+use App\Http\Controllers\ViewController;
 use App\Models\CategoryRelatedServices;
 use App\Models\Client;
 use App\Models\PortfolioItem;
@@ -135,6 +136,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('portfoliorestitemsedit/{id}/edit', [PortfolioItemsController::class,'edit']);
     Route::post('portfolio-rest-items/updated', [PortfolioItemsController::class,'updated'])->name('portfolio.updated');
 
+
+//View Modal route
+Route::get('/', [ViewController::class,'viewCat']);
 
 
 

@@ -65,10 +65,9 @@ class CategoryRelatedServiceController extends Controller
         ]);
 
         $catservices = CategoryRelatedServices::find($request->category_id);
-        $catservices->portfolio_category_id = $request->portfolio_category_id;
         $catservices->name = $request->name;
         $catservices->level = $request->level;
-        $catservices->category_related_service_id;
+
         if($request->hasFile('image'))
         {
             $path           = 'images/portfolio_services/';
@@ -84,14 +83,19 @@ class CategoryRelatedServiceController extends Controller
             $image->move($path,$imageName);
             $catservices->icon      = $path.$imageName;
         }
-        $positionValue = $catservices->position;
-        if($request->position == null){
-           $catservices->position = $positionValue;
+        $exists = CategoryRelatedServices::where('portfolio_category_id', $request->portfolio_category_id)
+            ->where('position', '=', $request->position)->first();
+
+
+        if($exists){
+            $catservices->save();
+            return response()->json($catservices);
         }else{
+            $catservices->portfolio_category_id = $request->portfolio_category_id;
             $catservices->position = $request->position;
+            $catservices->save();
+            return response()->json($catservices);
         }
-        $catservices->save();
-        return response()->json($catservices);
     }
 
     public function destroy(Request $request)

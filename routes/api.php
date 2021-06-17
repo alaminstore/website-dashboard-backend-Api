@@ -26,6 +26,9 @@ Route::get('portfolio-categories/{id}',[AntroApiController::class,'getCategoryBy
 Route::get('portfolio-items',[AntroApiController::class,'portfolioItem']);
 Route::get('portfolio-items/{id}',[AntroApiController::class,'portfolioItemById']);
 
+
+Route::get('portfolio-category-by-level/{id}',[AntroApiController::class,'portfolioCategoryByLevel']);
+
 Route::get('portfolio-position',[AntroApiController::class,'portfolioPosition']);
 Route::get('portfolio-position/{id}',[AntroApiController::class,'portfolioPositionById']);
 

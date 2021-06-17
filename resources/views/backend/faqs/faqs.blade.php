@@ -78,8 +78,7 @@
                     <div class="form-group row flex_css">
                         <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
                         <div class="col-md-10">
-                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" required>
-                            </textarea>
+                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" required></textarea>
                         </div>
                     </div>
 
@@ -123,8 +122,7 @@
                     <div class="form-group row flex_css">
                         <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
                         <div class="col-md-10">
-                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" required>
-                            </textarea>
+                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" required></textarea>
                         </div>
                     </div>
 
@@ -287,9 +285,9 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
-
+                    $('#myModal').modal('hide');
                 setTimeout(function () {
-                        $('#myModal').modal('hide');
+
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
                     toastr.success('Data Updated Successfully');

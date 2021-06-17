@@ -10,6 +10,7 @@
             height: 50px;
             width: 50px;
         }
+
         .cat_img img {
             height: 52px;
             width: 52px;
@@ -20,7 +21,7 @@
         <div class="row">
             <div class="col-md-12">
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit"
+                <button type="button" class="btn btn-secondary waves-effect waves-light clientBtn" title="Edit"
                         data-toggle="modal"
                         data-target="#myModalSave">
                     <i class="ion-plus"></i> Add New Clients
@@ -200,7 +201,7 @@
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Image</label>
                         <div class="col-sm-10">
-                            <input type="file" name="image" id="portfolio_cat_icon" class="dropify">
+                            <input type="file" name="image" id="image2" class="dropify">
                         </div>
                     </div>
                     {{--
@@ -232,8 +233,10 @@
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable();
+            $(".clientBtn").on('click', function () {
+                $('.dropify-preview').hide();
+            });
         });
-
     </script>
     <script>
         $('.dropify').dropify();
@@ -248,15 +251,22 @@
     </script>
     <script type="text/javascript"> //edit
         $(document).ready(function () {
-            $('#reload-category').on('click', '.category-edit', function () {
-                let id = $(this).attr('data-id');
 
+            //         $(document).on("click","#test-element",function() {
+            //     alert("click bound to document listening for #test-element");
+            // });
+
+            $('#reload-category').on('click', '.category-edit', function () {
+                // $(document).on("click",".category-edit",function() {
+
+                let id = $(this).attr('data-id');
                 $.ajax({
                     url: "{{url('clients')}}/" + id + '/edit',
                     method: "get",
                     data: {},
                     dataType: 'json',
                     success: function (data) {
+                        console.log('data', data);
                         let url = window.location.origin;
                         console.log('data', data);
                         $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
@@ -264,10 +274,27 @@
                         $('#tagsupdate').find('#url').val(data.url);
                         $('#position2').val(data.precedence);
                         $('#newPosition2').val(data.newposition);
-
+                        //image clear(dropify)...
                         if (data.image) {
-                            $('#tagsupdate').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.image}"/>`);
+                            var img_url = '{!!URL::to('/')!!}' + "/" + data.image;
+                            console.log(img_url);
+
+                            $("#image2").attr("data-height", 100);
+                            $("#image2").attr("data-default-file", img_url);
+
+                            $(".dropify-wrapper").removeClass("dropify-wrapper").addClass("dropify-wrapper has-preview");
+                            $(".dropify-preview").css('display', 'block');
+                            $('.dropify-render').html('').html('<img src=" ' + img_url + '" style="max-height: 100px;">')
+                        } else {
+                            $(".dropify-preview .dropify-render img").attr("src", "");
                         }
+                        $("#image2").dropify();
+                        //end...
+
+                        console.log(data.name);
+
+                        $('#image').dropify();
+                        //
 
                         $('#category-modal').modal('show');
                     },

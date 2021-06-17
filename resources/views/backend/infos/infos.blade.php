@@ -1,26 +1,18 @@
 @extends('backend.home')
 @section('title','Infos')
-@section('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
-@endsection
 @section('content')
     <style>
         .cat_img {
             height: 50px;
             width: 50px;
         }
+
         .cat_img img {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
+            height: 52px;
+            width: 52px;
+            border-radius: 5%;
         }
-        .select_css {
-            height: 40px;
-            width: 465px !important;
-            padding: 8px;
-            opacity: .6;
-            border-radius: 7px;
-        }
+
         .dataTables_wrapper {
             overflow-x: auto;
         }
@@ -29,7 +21,9 @@
     <div class="row" id="okreload">
 
         <div class="col-md-12" id="reloadId">
-            &nbsp;&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary waves-effect waves-light clearData" title="Edit"
+                    data-toggle="modal"
                     data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Info
             </button>
@@ -98,7 +92,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Category Related Service Add</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Add New Info</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -189,7 +183,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Category Related Service Update</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Update Info</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -201,7 +195,7 @@
                             <input class="form-control" type="text" id="mobile" name="mobile"
                                    placeholder="Mobile Number..."
                                    required>
-                        <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
+                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -223,7 +217,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Logo</label>
                         <div class="col-sm-8">
-                            <input type="file" name="image" id="logo" class="dropify"/>
+                            <input type="file" name="image" id="image2" class="dropify"/>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -283,19 +277,14 @@
         $('.dropify').dropify();
         $(document).ready(function () {
             $('form').parsley();
+            $(".clearData").on('click', function () {
+                $('.dropify-preview').hide();
+            });
         });
     </script>
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable();
-        });
-    </script>
-    <script type="text/javascript">
-        $("#cat").select2({
-            placeholder: "Select the Category"
-        });
-        $("#position").select2({
-            placeholder: "Select the Position"
         });
     </script>
     <script type="text/javascript">   // Edit data
@@ -321,7 +310,22 @@
                         if (data.image) {
                             $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.logo}"/>`);
                         }
-                        $('#category-modal').modal('show');
+                        //===============================================
+                        if (data.logo) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + data.logo;
+                            console.log(img_url);
+
+                            $("#image2").attr("data-height", 100);
+                            $("#image2").attr("data-default-file", img_url);
+
+                            $(".dropify-wrapper").removeClass("dropify-wrapper").addClass("dropify-wrapper has-preview");
+                            $(".dropify-preview").css('display', 'block');
+                            $('.dropify-render').html('').html('<img src=" ' + img_url + '" style="max-height: 100px;">')
+                        } else {
+                            $(".dropify-preview .dropify-render img").attr("src", "");
+                        }
+                        $("#image2").dropify();
+                        //===========================
                     },
                     error: function (error) {
                         if (error.status == 404) {
@@ -330,14 +334,6 @@
                     }
                 });
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $("#cat2").select2({
-            placeholder: positiondata
-        });
-        $("#position2").select2({
-            placeholder: catdata
         });
     </script>
 
@@ -396,6 +392,9 @@
                                 id: id,
                             },
                         });
+                        setTimeout(function () {
+                            $("#loadnow").load(location.href + " #loadnow>*", "");
+                        }, 1000);
                         toastr.success('Data Deleted Successfully');
                         $(this).closest('tr').hide();
                     }

@@ -83,7 +83,7 @@
                         <button type="submit" class="btn btn-primary waves-effect waves-light">
                             Submit
                         </button>
-                        <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                             Cancel
                         </button>
                     </div>

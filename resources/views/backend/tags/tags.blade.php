@@ -73,7 +73,7 @@
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagstore'])!!}
                         @csrf
                         <div class="form-group row flex_css">
-                            <label for="name" class="col-sm-2 col-form-label">Tags</label>
+                            <label for="name" class="col-sm-2 col-form-label">Tag Name</label>
                             <div class="col-sm-8">
                                 <input class="form-control" type="text" id="name" name="tag" placeholder="Tag Name Here..." required>
                             </div>

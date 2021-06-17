@@ -2,7 +2,7 @@
 @section('title','Portfolio Items')
 @section('style')
     <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 @endsection
 @section('content')
     <style>
@@ -12,75 +12,73 @@
         }
 
         .cat_img img {
-            height: 50px;
-            width: 50px;
-            border-radius: 7%;
-        }
-        .hideportion{
-            display:none;
+            height: 52px;
+            width: 52px;
+            border-radius: 5%;
         }
     </style>
     <div class="row" id="okreload">
         <div class="col-md-12" id="reloadId">
 
 
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
-                    data-target="#myModalSave">
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light clearData"
+                                            title="Edit" data-toggle="modal"
+                                            data-target="#myModalSave">
                 <i class="ion-plus"></i>Add new Portfolio Item
             </button>
 
 
+            <div id="reload-category">
+                <div class="list text-center">
+                    <h6 class="display-4" style="font-size: 20px;">Portfolio Item List</h6>
+                </div>
+                <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
-           <div id="reload-category">
-            <div class="list text-center">
-                <h6 class="display-4" style="font-size: 20px;">Portfolio Item List</h6>
-            </div>
-            <table id="datatable" class="table table-bordered dt-responsive nowrap"
-                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-
-                <thead>
-                <tr class="text-center">
-                    <th>#SL</th>
-                    <th>Title</th>
-                    <th>Image</th>
-                    <th>Level</th>
-                    <th>Url</th>
-                    <th>Client</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody class="tbodytags" id="loadnow">
-                @php
-                    $i=0;
-                @endphp
-                @foreach($portfolioitems  as $item)
-                    <tr class="text-center unqtags{{$item->portfolio_item_id}}">
-                        <td><b>{{$i+=1}}</b></td>
-                        <td>{{$item->title}}</td>
-                        <td class="cat_img">
-                            <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
-                        </td>
-                        <td>{{$item->level}}</td>
-                        <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
-                        <td>
-                            {{$item->getClient->name}}
-                        </td>
-                        <td>
-                            <button type="button"
-                                    class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                    data-id="{{$item->portfolio_item_id}}" title="Edit"
-                                    data-toggle="modal" data-target="#myModal">
-                                <i class="mdi mdi-border-color"></i>
-                            </button>
-                            <a class="deletetag" data-id="{{$item->portfolio_item_id}}">
-                                <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i></button>
-                            </a>
-                        </td>
+                    <thead>
+                    <tr class="text-center">
+                        <th>#SL</th>
+                        <th>Title</th>
+                        <th>Image</th>
+                        <th>Level</th>
+                        <th>Url</th>
+                        <th>Client</th>
+                        <th>Action</th>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody class="tbodytags" id="loadnow">
+                    @php
+                        $i=0;
+                    @endphp
+                    @foreach($portfolioitems  as $item)
+                        <tr class="text-center unqtags{{$item->portfolio_item_id}}">
+                            <td><b>{{$i+=1}}</b></td>
+                            <td>{{$item->title}}</td>
+                            <td class="cat_img">
+                                <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
+                            </td>
+                            <td>{{$item->level}}</td>
+                            <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
+                            <td>
+                                {{$item->getClient->name}}
+                            </td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                        data-id="{{$item->portfolio_item_id}}" title="Edit"
+                                        data-toggle="modal" data-target="#myModal">
+                                    <i class="mdi mdi-border-color"></i>
+                                </button>
+                                <a class="deletetag" data-id="{{$item->portfolio_item_id}}">
+                                    <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
+                                            class="ti-trash"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     </div>
@@ -125,7 +123,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Level</label>
                         <div class="col-sm-8">
-                            <select class="cat_selector2 form-control" id="level"  name="level">
+                            <select class="cat_selector2 form-control" id="level" name="level">
                                 <option value="1">Level 1</option>
                                 <option value="2">Level 2</option>
                                 <option value="3">Level 3</option>
@@ -147,7 +145,7 @@
                             <select style="width: 200px" id="client_id" name="client_id">
                                 <option></option>
                                 @foreach ($clients as $client)
-                                <option value="{{$client->client_id}}">{{$client->name}}</option>
+                                    <option value="{{$client->client_id}}">{{$client->name}}</option>
                                 @endforeach
                             </select>
                             <div id="feedback"></div>
@@ -159,9 +157,9 @@
                             <select class="position_list" id="position" name="position">
                                 <option></option>
                                 @php($i=1)
-                                    @for ($i=1;$i<=9;$i++)
+                                @for ($i=1;$i<=9;$i++)
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
-                                    @endfor
+                                @endfor
 
                             </select>
                         </div>
@@ -172,7 +170,7 @@
                             <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple">
                                 <option></option>
                                 @foreach ($tags as $tag)
-                                <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
+                                    <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -202,12 +200,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
+                    {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
                         <div class="col-sm-8">
-                            <select class="cat_selector2 form-control" id="cat2"  name="portfolio_category_id">
+                            <select class="cat_selector2 form-control" id="cat2" name="portfolio_category_id">
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                                 @endforeach
@@ -226,13 +224,13 @@
                     <div class="form-group row flex_css">
                         <label for="image" class="col-sm-4 col-form-label">Image</label>
                         <div class="col-sm-8">
-                            <input type="file" name="image" id="image" class="dropify"/>
+                            <input type="file" name="image" id="image2" class="dropify"/>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Level</label>
                         <div class="col-sm-8">
-                            <select class="cat_selector2 form-control" id="level2"  name="level">
+                            <select class="cat_selector2 form-control" id="level2" name="level">
                                 <option value="1">Level 1</option>
                                 <option value="2">Level 2</option>
                                 <option value="3">Level 3</option>
@@ -253,7 +251,7 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="client_id2" name="client_id">
                                 @foreach ($clients as $client)
-                                <option value="{{$client->client_id}}">{{$client->name}}</option>
+                                    <option value="{{$client->client_id}}">{{$client->name}}</option>
                                 @endforeach
                             </select>
                             <div id="feedback"></div>
@@ -264,9 +262,9 @@
                         <div class="col-sm-8">
                             <select class="position_list2 form-control" id="position2" name="position">
                                 @php($i=1)
-                                  @for ($i=1;$i<=9;$i++)
-                                     <option disabled value="{{$i}}">Position {{$i}}</option>
-                                  @endfor
+                                @for ($i=1;$i<=9;$i++)
+                                    <option disabled value="{{$i}}">Position {{$i}}</option>
+                                @endfor
                             </select>
                             <label id="positionresult"></label>
                         </div>
@@ -277,14 +275,14 @@
                         <div class="col-sm-8">
                             <select style="width: 200px" class="" id="newTagId" name="tag_id[]" multiple="multiple">
                                 @foreach ($tags as $tag)
-                                <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
+                                    <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-group m-b-0">
                         <div>
-                            <button type="submit"  id="submit" class="btn btn-success waves-effect waves-light">
+                            <button type="submit" id="submit" class="btn btn-success waves-effect waves-light">
                                 Update
                             </button>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
@@ -306,7 +304,7 @@
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.tag_id').select2();
         });
     </script>
@@ -315,6 +313,9 @@
         $('.dropify').dropify();
         $(document).ready(function () {
             $('form').parsley();
+            $(".clearData").on('click', function () {
+                $('.dropify-preview').hide();
+            });
         });
     </script>
     <script>
@@ -347,27 +348,36 @@
                     data: {},
                     dataType: 'json',
                     success: function (data) {
-
-
-                        let url = window.location.origin;
-                        // console.log('data', data);
+                        // let url = window.location.origin;
+                        console.log('data', data);
                         $('#tagsupdate').find('#title').val(data.title);
                         $('#tagsupdate').find('#url').val(data.url);
-                       var catdata = $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
+                        var catdata = $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
-                        var clientid =  $('#tagsupdate').find('#client_id2').val(data.client_id);
+                        var clientid = $('#tagsupdate').find('#client_id2').val(data.client_id);
                         // var tagid2 =  $('#tagsupdate').find('#tag_id2').val(data.get_tag.tag_id);
-                        var positiondata =  $('#tagsupdate').find('#position2').val(data.position_one);
+                        var positiondata = $('#tagsupdate').find('#position2').val(data.position_one);
                         $("#newTagId").select2();
                         $('#level2').val(data.level);
+                        if (data.image) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + data.image;
+                            console.log(img_url);
 
+                            $("#image2").attr("data-height", 100);
+                            $("#image2").attr("data-default-file", img_url);
+
+                            $(".dropify-wrapper").removeClass("dropify-wrapper").addClass("dropify-wrapper has-preview");
+                            $(".dropify-preview").css('display', 'block');
+                            $('.dropify-render').html('').html('<img src=" ' + img_url + '" style="max-height: 100px;">')
+                        } else {
+                            $(".dropify-preview .dropify-render img").attr("src", "");
+                        }
+                        $("#image2").dropify();
 
                         var tagId = [];
                         $.each(data.get_tag, function (key, value) {
                             //    console.log(value);
                             tagId.push(value.tag_id)
-
-
                         })
                         console.log(tagId);
 
@@ -375,25 +385,7 @@
                         $('#newTagId').trigger('change');
 
 
-
-
-
-
                         $('#category-modal').modal('show');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                     },
@@ -531,42 +523,42 @@
     <script>
         //get portfolio category
         $(document).on('change', '.cat_selector', function (e) {
-                e.preventDefault();
-                let id = $(this).val();
-                // console.log(id);
-                const $position_list = $(catservestore).parents('tr').find('.position_list');
-                // const $position_list = $(this).parents('tr').find('.position_list');
+            e.preventDefault();
+            let id = $(this).val();
+            // console.log(id);
+            const $position_list = $(catservestore).parents('tr').find('.position_list');
+            // const $position_list = $(this).parents('tr').find('.position_list');
 
-                $.ajax({
-                    method: 'get',
-                    data: {
-                        id
-                    },
-                    url: '{{ url('out-category-for-portfolio-position') }}/' + id,
-                    success: function (result) {
-                        // console.log('result',result);
-                        $('#myModalSave').find('#valuecat').val(result);
-                        $('#catservestore').find('.position_list').empty();
-                        $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
-                        // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
-                        $.each(result, function (key, value) {
-                            $('#catservestore').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
-                        })
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    }
-                })
-                $('.hideportion').show();
+            $.ajax({
+                method: 'get',
+                data: {
+                    id
+                },
+                url: '{{ url('out-category-for-portfolio-position') }}/' + id,
+                success: function (result) {
+                    // console.log('result',result);
+                    $('#myModalSave').find('#valuecat').val(result);
+                    $('#catservestore').find('.position_list').empty();
+                    $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
+                    // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
+                    $.each(result, function (key, value) {
+                        $('#catservestore').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
+                    })
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+            $('.hideportion').show();
 
-            });
+        });
     </script>
 
 
 
-<script>
-    //get portfolio category
-    $(document).on('change', '.cat_selector2', function (e) {
+    <script>
+        //get portfolio category
+        $(document).on('change', '.cat_selector2', function (e) {
             e.preventDefault();
             let id = $(this).val();
             // console.log(id);
@@ -590,16 +582,16 @@
                     })
 
 
-                        // var tagId = [];
-                        // $.each(result.items.tags, function (key, value) {
-                        //     //    console.log(value);
-                        //     tagId.push(value.tag_id)
+                    // var tagId = [];
+                    // $.each(result.items.tags, function (key, value) {
+                    //     //    console.log(value);
+                    //     tagId.push(value.tag_id)
 
 
-                        // })
-                        // console.log(tagId);
-                        // $('#technology_update').val(technologies_id);
-                        // $('#technology_update').trigger('change');
+                    // })
+                    // console.log(tagId);
+                    // $('#technology_update').val(technologies_id);
+                    // $('#technology_update').trigger('change');
 
 
                 },
@@ -610,19 +602,19 @@
             $('.hideportion').show();
 
         });
-</script>
+    </script>
 
-<script>
-    $document.ready(function(){
-        $("#submit").click(function(){
-            var position = $("#position2");
-            if(position.val() === ""){
-                document.getElementById("positionresult").innerHTML="Position Field required";
-                document.getElementById("positionresult").style.color="red";
-            }
-        });
-    })
-</script>
+    <script>
+        $document.ready(function () {
+            $("#submit").click(function () {
+                var position = $("#position2");
+                if (position.val() === "") {
+                    document.getElementById("positionresult").innerHTML = "Position Field required";
+                    document.getElementById("positionresult").style.color = "red";
+                }
+            });
+        })
+    </script>
 
 
 

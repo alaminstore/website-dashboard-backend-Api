@@ -13,6 +13,7 @@ class InfosController extends Controller
             'mobile'=>'required',
             'email'=>'required',
             'address'=>'required',
+            'image'=>'required',
             'facebook_url'=>'required',
             'instagram_url'=>'required',
             'linkedin_url'=>'required',

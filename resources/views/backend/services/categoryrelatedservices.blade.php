@@ -11,15 +11,16 @@
         }
 
         .cat_img img {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
+            height: 52px;
+            width: 52px;
+            border-radius: 5%;
         }
     </style>
     <div class="row" id="okreload">
         <div class="col-md-12" id="reloadId">
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
-                    data-target="#myModalSave">
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light"
+                                            title="Edit" data-toggle="modal"
+                                            data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Category Services
             </button>
             <div id="reload-category">
@@ -183,7 +184,7 @@
                                 @for($i=1;$i<=9;$i++)
                                     @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
                                         <option disabled style="background: red" value="{{$i}}">Position {{$i}}</option>
-{{--                                                                                @continue--}}
+                                        {{--                                                                                @continue--}}
                                     @else
                                         <option value="{{$i}}">Position {{$i}}</option>
                                     @endif
@@ -270,10 +271,10 @@
     </script>
     <script type="text/javascript">
         $("#cat2").select2({
-            placeholder:catdata
+            placeholder: catdata
         });
         $("#position2").select2({
-            placeholder:positiondata
+            placeholder: positiondata
         });
     </script>
 
@@ -386,33 +387,33 @@
     <script>
         //get portfolio category
         $(document).on('change', '.cat_selector', function (e) {
-                e.preventDefault();
-                let id = $(this).val();
-                console.log(id);
-                // const $position_list = $(this).parents('tr').find('.position_list');
+            e.preventDefault();
+            let id = $(this).val();
+            console.log(id);
+            // const $position_list = $(this).parents('tr').find('.position_list');
 
-                $.ajax({
-                    method: 'get',
-                    data: {
-                        id
-                    },
-                    url: '{{ url('out-category-for-position') }}/' + id,
-                    success: function (result) {
-                        console.log('result',result);
-                        $('#myModalSave').find('#valuecat').val(result);
-                        $('#catservestore').find('.position_list').empty();
-                        $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
-                        // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
-                        $.each(result, function (key, value) {
-                            $('#catservestore').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
-                        })
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    }
-                })
-                $('.hideportion').show();
+            $.ajax({
+                method: 'get',
+                data: {
+                    id
+                },
+                url: '{{ url('out-category-for-position') }}/' + id,
+                success: function (result) {
+                    console.log('result', result);
+                    $('#myModalSave').find('#valuecat').val(result);
+                    $('#catservestore').find('.position_list').empty();
+                    $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
+                    // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
+                    $.each(result, function (key, value) {
+                        $('#catservestore').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
+                    })
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+            $('.hideportion').show();
 
-            });
+        });
     </script>
 @endsection

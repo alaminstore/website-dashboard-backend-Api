@@ -14,7 +14,7 @@ class CategoryRelatedServiceController extends Controller
         $request->validate([
             'portfolio_category_id'=>'required',
             'name'=>'required',
-            'image'=>'required | max:300',
+            'image'=>'required',
             'position'=>'required',
 
         ]);
@@ -22,6 +22,7 @@ class CategoryRelatedServiceController extends Controller
         $catservices = new CategoryRelatedServices();
         $catservices->portfolio_category_id = $request->portfolio_category_id;
         $catservices->name = $request->name;
+        $catservices->level = $request->level;
         if ($request->hasFile('image')) {
             $path = 'images/portfolio_services/';
             if (!is_dir($path)) {
@@ -34,8 +35,20 @@ class CategoryRelatedServiceController extends Controller
             $catservices->icon = $path . $imageName;
         }
         $catservices->position = $request->position;
-        $catservices->save();
-        return response()->json($catservices);
+
+        $exists = CategoryRelatedServices::where('portfolio_category_id', $request->portfolio_category_id)
+            ->where('position', '=', $request->position)->first();
+        if ($exists) {
+            return response()->json([
+                'errorMessage' => "Change the Precendence!"
+            ]);
+        } else {
+            $catservices->save();
+            return response()->json([
+                'catservices' => $catservices,
+                'message' => "Data Inserted Successfully!"
+            ]);
+        }
     }
 
     public function edit($id)
@@ -53,6 +66,7 @@ class CategoryRelatedServiceController extends Controller
         $catservices = CategoryRelatedServices::find($request->category_id);
         $catservices->portfolio_category_id = $request->portfolio_category_id;
         $catservices->name = $request->name;
+        $catservices->level = $request->level;
         $catservices->category_related_service_id;
         if($request->hasFile('image'))
         {
@@ -96,4 +110,42 @@ class CategoryRelatedServiceController extends Controller
         $result = array_diff($all, $match_id);
         return response()->json($result);
     }
+
+
+    public function relatedPosition($id)
+    {
+        $setPosition = CategoryRelatedServices::where('portfolio_category_id', '=', $id)->max('position');
+        return response()->json($setPosition);
+    }
+    public function relatedPositionUpdate($id)
+    {
+        $setPosition = CategoryRelatedServices::where('portfolio_category_id', '=', $id)->max('position');
+        return response()->json($setPosition);
+    }
+    public function quickPositionPass($id, $value)
+    {
+        $inputVal = $id;
+        $dropDownVal = $value;
+        $result = CategoryRelatedServices::where('portfolio_category_id', $dropDownVal)->where('position', '=', $inputVal)->first();
+        if ($result) {
+            return response()->json([
+                'result' => $result,
+                'message' => "Already positioned,use another!"
+            ]);
+        }
+    }
+    public function quickPositionPassUpdate($id, $value)
+    {
+        $inputVal = $id;
+        $dropDownVal = $value;
+        $result = CategoryRelatedServices::where('portfolio_category_id', $dropDownVal)->where('position', '=', $inputVal)->first();
+        if ($result) {
+            return response()->json([
+                'result' => $result,
+                'message' => "Already positioned,use another!"
+            ]);
+        }
+    }
+
+
 }

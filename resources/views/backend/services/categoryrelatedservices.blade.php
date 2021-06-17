@@ -35,6 +35,7 @@
                         <th>Portfolio Category</th>
                         <th>Name</th>
                         <th>Icon</th>
+                        <th>Level</th>
                         <th>Position</th>
                         <th>Action</th>
                     </tr>
@@ -51,6 +52,7 @@
                             <td class="cat_img">
                                 <img src="{{$catservice->icon}}" class="img-fluid" alt="portfolio Category Image">
                             </td>
+                            <td>{{$catservice->level}}</td>
                             <td>{{$catservice->position}}</td>
                             <td>
                                 <button type="button"
@@ -108,16 +110,26 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Icon</label>
                         <div class="col-sm-8">
-                            <input type="file" name="image" id="input-file-now" class="dropify"/>
+                            <input type="file" name="image" id="input-file-now" class="dropify" required/>
                         </div>
                     </div>
-                    {{-- <input type="text" id="valuecat" class="form-control"> --}}
                     <div class="form-group row flex_css">
-                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
+                        <label for="name" class="col-sm-4 col-form-label">Level</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" id="position" class="position_list" name="position">
-                                <option></option>
+                            <select class="cat_selector2 form-control" id="level"  name="level">
+                                <option value="1">Level 1</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
                             </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-2 col-form-label">Position</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="number" id="position" name="position"
+                                   placeholder="Position Here..." required>
                         </div>
                     </div>
 
@@ -153,7 +165,6 @@
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Category</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="cat2" name="portfolio_category_id">
-                                <option></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                                 @endforeach
@@ -175,25 +186,23 @@
                             <input type="file" name="image" id="category-edit-image" class="dropify"/>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Level</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="position2" name="position">
-                                <option></option>
-                                @php($i=1)
-                                @for($i=1;$i<=9;$i++)
-                                    @if(\App\Models\CategoryRelatedServices::where('position', '=', $i)->exists())
-                                        <option disabled style="background: red" value="{{$i}}">Position {{$i}}</option>
-                                        {{--                                                                                @continue--}}
-                                    @else
-                                        <option value="{{$i}}">Position {{$i}}</option>
-                                    @endif
-
-                                @endfor
+                            <select class="cat_selector2 form-control" id="level2"  name="level">
+                                <option value="1">Level 1</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
                             </select>
                         </div>
                     </div>
-
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-2 col-form-label">Position</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="number" id="position2" name="position"
+                                   placeholder="Position Here..." required>
+                        </div>
+                    </div>
                     <div class="form-group m-b-0">
                         <div>
                             <button type="submit" class="btn btn-success waves-effect waves-light">
@@ -233,6 +242,9 @@
         $("#position").select2({
             placeholder: "Select the Position"
         });
+        $("#level").select2({
+            placeholder: "Select the Level"
+        });
     </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {
@@ -246,10 +258,11 @@
                     success: function (data) {
                         let url = window.location.origin;
                         console.log('data', data);
-                        var catdata = $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
+                        $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
                         $('#tagsupdate').find('#category-edit-name').val(data.name);
                         $('#tagsupdate').find('#category-edit-id').val(data.category_related_service_id);
-                        var positiondata = $('#tagsupdate').find('#position2').val(data.position);
+                        $('#position2').val(data.position);
+                        $('#level2').val(data.level);
 
 
                         if (data.icon) {
@@ -268,14 +281,6 @@
 
         });
 
-    </script>
-    <script type="text/javascript">
-        $("#cat2").select2({
-            placeholder: catdata
-        });
-        $("#position2").select2({
-            placeholder: positiondata
-        });
     </script>
 
     <script>
@@ -302,18 +307,32 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
-                    $('#myModalSave').modal('hide');
-                    setTimeout(function () {
-                        $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
-                    toastr.success('Data Inserted Successfully');
 
-                    $('#tagstore').trigger('reset');
+                    if (data.errorMessage) {
+                        toastr.error(data.errorMessage);
+                    } else {
+                        toastr.success(data.message);
+                        $('#myModalSave').modal('hide');
+                        $('#catservestore').trigger('reset');
+                        setTimeout(function () {
+                            $("#loadnow").load(location.href + " #loadnow>*", "");
+                        }, 1000);
+                    }
+                    console.log(data.message);
                 }
 
             });
 
         });
+
+
+
+
+
+
+
+
+
 
         //Delete data
         $(document).on('click', '.deletetag', function (e) {
@@ -390,8 +409,6 @@
             e.preventDefault();
             let id = $(this).val();
             console.log(id);
-            // const $position_list = $(this).parents('tr').find('.position_list');
-
             $.ajax({
                 method: 'get',
                 data: {
@@ -403,7 +420,6 @@
                     $('#myModalSave').find('#valuecat').val(result);
                     $('#catservestore').find('.position_list').empty();
                     $('#catservestore').find('.position_list').append(`<option value="">Search & Select</option>`);
-                    // var position = $('#myModalSave').find('#valuecat').val(Object.values(result[0]));
                     $.each(result, function (key, value) {
                         $('#catservestore').find('.position_list').append(`<option value="${value}">Position ${value}</option>`);
                     })
@@ -414,6 +430,144 @@
             })
             $('.hideportion').show();
 
+        });
+    </script>
+    <script>
+        $(document).on('change', '#cat', function (e) {
+            e.preventDefault();
+            let id = $(this).val();
+            console.log(id);
+
+            $.ajax({
+                method: 'get',
+                data: {
+                    id
+                },
+                url: '{{ url('related-level') }}/' + id,
+                success: function (result) {
+
+                    var value = Object.values(result);
+                    var pass = parseInt(result) + 1;
+                    console.log(typeof (result));
+                    if (value.length == 0) {
+                        $('#myModalSave').find('#position').val("1");
+                    } else {
+                        $('#myModalSave').find('#position').val(pass);
+                        $('#myModalSave').find('#position').val(pass);
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+
+        });
+        $(document).on('change', '#cat2', function (e) {
+            e.preventDefault();
+            let id = $(this).val();
+            console.log(id);
+
+            $.ajax({
+                method: 'get',
+                data: {
+                    id
+                },
+                url: '{{ url('related-level-update') }}/' + id,
+                success: function (result) {
+
+                    var value = Object.values(result);
+                    var pass = parseInt(result) + 1;
+                    console.log(typeof (result));
+                    if (value.length == 0) {
+                        $('#myModal').find('#newPosition2').val("1");
+                    } else {
+                        $('#myModal').find('#newPosition2').val(pass);
+                        $('#myModal').find('#newPosition2').val(pass);
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+
+        });
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            $("#position").on("change keyup paste", function () {
+                let id = $(this).val();
+                console.log(id);
+                var value = $('#position').val();
+                // alert(pos);
+
+                $.ajax({
+                    method: 'get',
+                    data: {
+                        id, value
+                    },
+                    url: '{{ url('get-position') }}/' + id + '/' + value,
+                    success: function (result) {
+                        console.log('keyup', result);
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-bottom-right",
+                            "onclick": null,
+                            "fadeIn": 200,
+                            "fadeOut": 3000,
+                            "timeOut": 5000,
+                            "extendedTimeOut": 1000
+                        };
+
+                        if (result.message) {
+                            toastr.error(result.message);
+                            // $('#catservestore').find('#position').val('');
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+
+            });
+        });
+
+
+        $(document).ready(function () {
+            $("#position2").on("change keyup paste", function () {
+                let id = $(this).val();
+                console.log(id);
+                var value = $('#position2').val();
+                // alert(pos);
+
+                $.ajax({
+                    method: 'get',
+                    data: {
+                        id, value
+                    },
+                    url: '{{ url('get-position-update') }}/' + id + '/' + value,
+                    success: function (result) {
+                        console.log('keyup', result);
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-bottom-right",
+                            "onclick": null,
+                            "fadeIn": 200,
+                            "fadeOut": 1000,
+                            "timeOut": 1000,
+                            "extendedTimeOut": 1000
+                        };
+
+                        if (result.message) {
+                            toastr.error(result.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+
+            });
         });
     </script>
 @endsection

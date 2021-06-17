@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryRelatedServices;
 use App\Models\Client;
 use App\Models\PortfolioItem;
 use Illuminate\Http\Request;
@@ -75,11 +76,6 @@ class ClientsController extends Controller
         $exists = Client::where('precedence', $request->precedence)
             ->where('newposition', '=', $request->newposition)->first();
 
-
-
-
-
-
         if($exists){
             $clients->name = $request->name;
             $clients->image = $request->image;
@@ -132,33 +128,6 @@ class ClientsController extends Controller
             ]);
 
         }
-
-
-
-
-
-
-
-
-
-        // if ($exists) {
-        //     // return response()->json([
-        //     //     'errorMessage' => " Sorry! Change the Precendence"
-        //     // ]);
-        //     return response()->json([
-        //         'clients' => $clients,
-        //         'message' => "Data Updated Successfully!"
-        //     ]);
-        // }else {
-        //     $clients->precedence = $request->precedence;
-        //     $clients->newposition = $request->newposition;
-        //     $clients->save();
-        //     return response()->json([
-        //         'clients' => $clients,
-        //         'message' => "Data Updated Successfully!"
-        //     ]);
-        // }
-
     }
     //Delete Data
     public function destroy(Request $request)
@@ -171,6 +140,8 @@ class ClientsController extends Controller
     public function clientPosition($id)
     {
         $setPosition = Client::where('precedence', '=', $id)->max('newposition');
+        return response()->json($setPosition);
+        $setPosition = CategoryRelatedServices::where('portfolio_category_id', '=', $id)->max('position');
         return response()->json($setPosition);
     }
 

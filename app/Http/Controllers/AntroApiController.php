@@ -35,9 +35,9 @@ class AntroApiController extends Controller
     }
 
     public function portfolioItemById($id){
-        $portfolio_items = PortfolioItem::where('portfolio_category_id',$id)->get();
-        if(is_null($portfolio_items)){
-            return response()->json(['message'=>'Portfolio Position not found'],404);
+        $portfolio_items = PortfolioItem::where('level',$id)->get();
+        if(count($portfolio_items)==0){
+            return response()->json(['message'=>'Item not found'],404);
         }
         return response()->json($portfolio_items,200);
     }
@@ -84,8 +84,8 @@ class AntroApiController extends Controller
     }
 
     public function categoryRelatedServicesById($id){
-        $portfolio_categories = CategoryRelatedServices::where('portfolio_category_id',$id)->get();
-        if(is_null($portfolio_categories)){
+        $portfolio_categories = CategoryRelatedServices::where('level',$id)->get();
+        if(count($portfolio_categories) == 0){
             return response()->json(['message'=>'Category Service not found'],404);
         }
         return response()->json($portfolio_categories,200);

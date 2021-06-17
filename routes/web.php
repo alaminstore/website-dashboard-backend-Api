@@ -119,6 +119,14 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('get-precedence-update/{id}/{value}', [ClientsController::class,'quickPassUpdate']);
 
 
+    //Category related dropdown/ajax
+    Route::get('related-level/{id}', [CategoryRelatedServiceController::class,'relatedPosition']);
+    Route::get('related-level-update/{id}', [CategoryRelatedServiceController::class,'relatedPositionUpdate']);
+
+    Route::get('get-position/{id}/{value}', [CategoryRelatedServiceController::class,'quickPositionPass']);
+    Route::get('get-position-update/{id}/{value}', [CategoryRelatedServiceController::class,'quickPositionPassUpdate']);
+
+
     //portfolio items
     Route::post('portfolio-rest-items', [PortfolioItemsController::class,'dataPass'])->name('portfolioitem.passing');
 

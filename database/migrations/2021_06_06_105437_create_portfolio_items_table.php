@@ -18,6 +18,7 @@ class CreatePortfolioItemsTable extends Migration
             $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->string('url')->nullable();
+            $table->unsignedInteger('level')->nullable();
             $table->unsignedInteger('position_one')->nullable();
             $table->unsignedInteger('portfolio_category_id')->nullable();
             $table->unsignedInteger('client_id')->nullable();

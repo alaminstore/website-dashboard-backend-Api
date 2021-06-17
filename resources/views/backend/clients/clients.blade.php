@@ -100,7 +100,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Category Related Service Add</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Client's Info Add</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -178,7 +178,6 @@
                                    placeholder="Client Name Here..." required>
                         </div>
                     </div>
-                    <input type="text"  id="clientCatch" name="client_catch">
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Level</label>
                         <div class="col-sm-10">
@@ -271,11 +270,9 @@
                         console.log('data', data);
                         $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
                         $('#tagsupdate').find('#category-edit-id').val(data.client_id);
-                        // $('#tagsupdate').find('#clientCatch').val(data.newposition);
                         $('#tagsupdate').find('#url').val(data.url);
                         $('#position2').val(data.precedence);
                         $('#newPosition2').val(data.newposition);
-                        $('#clientCatch').val(data.newposition)
 
                         if (data.image) {
                             $('#tagsupdate').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.image}"/>`);
@@ -375,6 +372,11 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 url: "{{route('clients.updated')}}",
                 method: "POST",
@@ -479,7 +481,6 @@
 
         $(document).ready(function () {
             $("#newPosition").on("change keyup paste", function () {
-                // $(document).on('change', '#newPosition', function (e) {
                 let id = $(this).val();
                 console.log(id);
                 var value = $('#position').val();
@@ -505,7 +506,6 @@
 
                         if (result.message) {
                             toastr.error(result.message);
-                            $('#catservestore').find('#newposition').val('');
                         }
                     },
                     error: function (err) {

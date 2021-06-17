@@ -43,6 +43,7 @@
                     <th>#SL</th>
                     <th>Title</th>
                     <th>Image</th>
+                    <th>Level</th>
                     <th>Url</th>
                     <th>Client</th>
                     <th>Action</th>
@@ -59,6 +60,7 @@
                         <td class="cat_img">
                             <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
                         </td>
+                        <td>{{$item->level}}</td>
                         <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
                         <td>
                             {{$item->getClient->name}}
@@ -120,6 +122,17 @@
                             <input type="file" name="image" id="image" class="dropify" required/>
                         </div>
                     </div>
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Level</label>
+                        <div class="col-sm-8">
+                            <select class="cat_selector2 form-control" id="level"  name="level">
+                                <option value="1">Level 1</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Url</label>
                         <div class="col-sm-8">
@@ -217,6 +230,16 @@
                         </div>
                     </div>
                     <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Level</label>
+                        <div class="col-sm-8">
+                            <select class="cat_selector2 form-control" id="level2"  name="level">
+                                <option value="1">Level 1</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="url" name="url"
@@ -224,6 +247,7 @@
                                    required>
                         </div>
                     </div>
+
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Client</label>
                         <div class="col-sm-8">
@@ -308,6 +332,9 @@
         $("#client_id").select2({
             placeholder: "Select the Client"
         });
+        $("#level").select2({
+            placeholder: "Select the Level"
+        });
     </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {
@@ -332,6 +359,7 @@
                         // var tagid2 =  $('#tagsupdate').find('#tag_id2').val(data.get_tag.tag_id);
                         var positiondata =  $('#tagsupdate').find('#position2').val(data.position_one);
                         $("#newTagId").select2();
+                        $('#level2').val(data.level);
 
 
                         var tagId = [];

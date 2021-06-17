@@ -41,6 +41,7 @@ class PortfolioItemsController extends Controller
         $items = new PortfolioItem();
         $items->title = $request->title;
         $items->url = $request->url;
+        $items->level = $request->level;
 
         if ($request->hasFile('image')) {
             $path = 'images/portfolio-items/';
@@ -112,6 +113,7 @@ class PortfolioItemsController extends Controller
         $items = PortfolioItem::find($request->category_id);
         $items->title = $request->title;
         $items->url = $request->url;
+        $items->level = $request->level;
         if($request->hasFile('image'))
         {
             $path = 'images/portfolio-items/';

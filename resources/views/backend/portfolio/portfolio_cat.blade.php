@@ -15,6 +15,7 @@
             width: 50px;
             border-radius: 50%;
         }
+
     </style>
     <div class="row">
         <div class="col-md-12">
@@ -55,7 +56,7 @@
                         </td>
                         <td>{{ \Illuminate\Support\Str::limit($cat->description, 50, $end='...') }}</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-outline-info waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">
+                            <button type="button" class="btn btn-sm btn-outline-info waves-effect waves-light viewData"  data-id="{{$cat->portfolio_category_id}}" data-toggle="modal" data-target=".bs-example-modal-lg">
                                 <i class="fa fa-eye"></i>
                             </button>
                             <button type="button"
@@ -174,17 +175,29 @@
             </div>
         </div>
 
-
         {{-- View Modal --}}
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title mt-0" id="myLargeModalLabel">Portfolio Category Details</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
-                    <div class="modal-body">
-                           hello
+                    <div class="modal-body" style="background: #f5f5f5;">
+
+                            <div class="Catname d-flex">
+                                <p><b>Portfolio Category Name:&nbsp;&nbsp;&nbsp;</b></p>
+                                <div id="viewName"> </div> <br>
+                            </div>
+
+                            <div class="desc">
+                            <p><b>Portfolio Category Description:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewDescription"></div>
+                            </div>
+                            <div class="iconview">
+                                <p><b>Portfolio Category Icon:&nbsp;&nbsp;&nbsp;</b></p>
+                                <div id="viewIcon"></div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -228,12 +241,12 @@
                         $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_category_id);
                         $('#tagsupdate').find('#description-edit').val(data.description);
-                        // if(data.icon)
-                        //   {
-                        //     // $('#portfolio_cat_icon2').attr("data-default-file", `data.icon`);
-                        //     // $('#portfolio_cat_icon2').dropify():
-                        //       $('#tagsupdate').find('#portfolio_cat_icon2').html(`<img width="100%" height="200px"  src="${url}/${data.icon}" class="dropify"/>`);
-                        //   }
+                        if(data.icon)
+                          {
+                            // $('#portfolio_cat_icon2').attr("data-default-file", `data.icon`);
+                            // $('#portfolio_cat_icon2').dropify():
+                            //   $('#tagsupdate').find('#portfolio_cat_icon2').html(`<img width="100%" height="200px"  src="${url}/${data.icon}" class="dropify"/>`);
+                          }
 
                         $('#category-modal').modal('show');
                     },
@@ -245,7 +258,36 @@
                 });
             });
 
+                  //View===============================================================
+            $('#reload-category').on('click', '.viewData' , function () {
+                let id =  $(this).attr('data-id');
+                 console.log('id--',id);
+                $.ajax({
+                    url:"{{url('cat-view')}}/"+id,
+                    method:"get",
+                    data:{},
+                    dataType: 'json',
+                    success:function(data){
+                      let url = window.location.origin;
+                        console.log('data',data);
+                        $('#viewName').html(data.name);
+                        $('#viewDescription').html(data.description);
+
+                              $('#viewIcon').html(`<img width="100%;" height="auto"  src="${url}/${data.icon}" class="dropify"/>`);
+
+                    },
+                    error: function (error) {
+                        if(error.status == 404){
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
         });
+
+
+
 
     </script>
 

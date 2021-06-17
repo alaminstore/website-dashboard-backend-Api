@@ -138,7 +138,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
 
 //View Modal route
-Route::get('/', [ViewController::class,'viewCat']);
+Route::get('cat-view/{id}', [ViewController::class,'viewCat'])->name('cat.view');
 
 
 

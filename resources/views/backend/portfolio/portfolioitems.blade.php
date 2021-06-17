@@ -64,6 +64,12 @@
                             </td>
                             <td>
                                 <button type="button"
+                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                        data-id="{{$item->portfolio_item_id}}" data-toggle="modal"
+                                        data-target=".bs-example-modal-lg">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$item->portfolio_item_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
@@ -296,6 +302,44 @@
         </div>
     </div>
 
+    {{-- View Modal --}}
+    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Portfolio Item Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="background: #f5f5f5;">
+
+                    <div class="Catname d-flex">
+                        <p><b>Title:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewTitle"></div>
+                        <br>
+                    </div>
+
+                    <div class="desc d-flex">
+                        <p><b>Client Name:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewClient"></div>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewLevel"></div>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Url:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewUrl"></div>
+                    </div>
+                    <div class="iconview">
+                        <p><b>Image:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewImage" class="text-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('scripts')
 
@@ -387,6 +431,34 @@
 
                         $('#category-modal').modal('show');
 
+
+                    },
+                    error: function (error) {
+                        if (error.status == 404) {
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
+
+            //View===============================================================
+            $('#reload-category').on('click', '.viewData', function () {
+                let id = $(this).attr('data-id');
+                console.log('id--', id);
+                $.ajax({
+                    url: "{{url('item-view')}}/" + id,
+                    method: "get",
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
+                        $('#viewTitle').html(data.title);
+                        $('#viewClient').html(data.get_client.name);
+                        $('#viewUrl').html(`<a href="${data.url}" target="__blank">${data.url}</a>`);
+                        $('#viewLevel').html(data.level);
+                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.image}" class="dropify"/>`);
 
                     },
                     error: function (error) {

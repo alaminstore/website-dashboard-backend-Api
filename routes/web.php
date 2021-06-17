@@ -139,6 +139,15 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
 //View Modal route
 Route::get('cat-view/{id}', [ViewController::class,'viewCat'])->name('cat.view');
+Route::get('item-view/{id}', [ViewController::class,'viewItem'])->name('item.view');
+Route::get('client-view/{id}', [ViewController::class,'viewClient'])->name('client.view');
+Route::get('service-view/{id}', [ViewController::class,'viewService'])->name('service.view');
+Route::get('tag-view/{id}', [ViewController::class,'viewTag'])->name('tag.view');
+Route::get('catservice-view/{id}', [ViewController::class,'viewCatservice'])->name('catservice.view');
+Route::get('info-view/{id}', [ViewController::class,'viewInfo'])->name('info.view');
+Route::get('count-view/{id}', [ViewController::class,'viewCount'])->name('count.view');
+Route::get('faq-view/{id}', [ViewController::class,'viewFaq'])->name('faq.view');
+Route::get('term-view/{id}', [ViewController::class,'viewTerm'])->name('term.view');
 
 
 

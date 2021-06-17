@@ -68,6 +68,12 @@
                                 <td><a href="{{$client->url}}" target="_blank">{{$client->url}}</a></td>
                                 <td>
                                     <button type="button"
+                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                        data-id="{{$client->client_id}}" data-toggle="modal"
+                                        data-target=".bs-example-modal-lg">
+                                    <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button type="button"
                                             class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                             data-id="{{$client->client_id}}" title="Edit"
                                             data-toggle="modal" data-target="#myModal">
@@ -204,10 +210,6 @@
                             <input type="file" name="image" id="image2" class="dropify">
                         </div>
                     </div>
-                    {{--
-                    <div class="form-group" id="category-edit-image">
-                    </div>
-                    --}}
                     <div class="form-group m-b-0">
                         <div>
                             <button type="submit" id="#submit" class="btn btn-success waves-effect waves-light">
@@ -219,6 +221,44 @@
                         </div>
                     </div>
                     {!!Form::close()!!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- View Modal --}}
+    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Portfolio Item Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="background: #f5f5f5;">
+
+                    <div class="Catname d-flex">
+                        <p><b>Title:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewTitle"></div>
+                        <br>
+                    </div>
+
+                    <div class="desc d-flex">
+                        <p><b>Client Name:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewClient"></div>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewLevel"></div>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Url:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewUrl"></div>
+                    </div>
+                    <div class="iconview">
+                        <p><b>Image:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewImage" class="text-center"></div>
+                    </div>
                 </div>
             </div>
         </div>

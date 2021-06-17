@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="Admin Dashboard" name="description"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{asset('assets/images/users/avatar-1.jpg')}}">
     <link rel="stylesheet" href="assets/js/jquery-toast-plugin/jquery.toast.min.css">
     <link rel="stylesheet" href="assets/plugins/morris/morris.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">

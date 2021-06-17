@@ -1,21 +1,16 @@
 @extends('backend.home')
 @section('title','Categories')
-@section('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
-@endsection
 @section('content')
     <style>
         .cat_img {
             height: 50px;
             width: 50px;
         }
-
         .cat_img img {
             height: 52px;
             width: 52px;
             border-radius: 5%;
         }
-
     </style>
     <div class="row">
         <div class="col-md-12">

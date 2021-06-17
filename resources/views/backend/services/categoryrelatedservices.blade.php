@@ -371,6 +371,7 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+
             $.ajax({
                 url: "{{route('catservices.updated')}}",
                 method: "POST",
@@ -391,17 +392,32 @@
                         "extendedTimeOut": 1000
                     };
 
+                if (data.errorMessage) {
+                    toastr.error(data.errorMessage);
+                } else {
+                    toastr.success(data.message);
+                    $('#myModal').modal('hide');
+                    $('#tagsupdate').trigger('reset');
                     setTimeout(function () {
-                        $('#myModal').modal('hide');
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
-                    toastr.success('Data Updated Successfully');
-                    $('#tagsupdate').trigger('reset');
                 }
+
+            }
 
             });
 
         });
+
+
+
+
+
+
+
+
+
+
     </script>
     <script>
         //get portfolio category
@@ -436,7 +452,7 @@
         $(document).on('change', '#cat', function (e) {
             e.preventDefault();
             let id = $(this).val();
-            console.log(id);
+            // console.log(id);
 
             $.ajax({
                 method: 'get',
@@ -477,12 +493,12 @@
 
                     var value = Object.values(result);
                     var pass = parseInt(result) + 1;
-                    console.log(typeof (result));
+                    // console.log(typeof (result));
                     if (value.length == 0) {
-                        $('#myModal').find('#newPosition2').val("1");
+                        $('#myModal').find('#position2').val("1");
                     } else {
-                        $('#myModal').find('#newPosition2').val(pass);
-                        $('#myModal').find('#newPosition2').val(pass);
+                        $('#myModal').find('#position2').val(pass);
+                        $('#myModal').find('#position2').val(pass);
                     }
                 },
                 error: function (err) {

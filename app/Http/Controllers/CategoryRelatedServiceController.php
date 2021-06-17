@@ -61,6 +61,7 @@ class CategoryRelatedServiceController extends Controller
     {
         $request->validate([
             'name'=>'required',
+            'position'=>'required',
         ]);
 
         $catservices = CategoryRelatedServices::find($request->category_id);

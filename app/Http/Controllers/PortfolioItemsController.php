@@ -67,13 +67,6 @@ class PortfolioItemsController extends Controller
         $position->portfolio_item_id = $items_Id;
         $position->position = $request->position;
         $position->save();
-
-        // $tags = new PortfolioTag();
-        // $tags->portfolio_item_id = $items_Id;
-        // if($request->tag_id){
-         //     $tags->tag_id = json_encode($request->tag_id);
-        // }
-        // $tags->save();
         $req_tag = $request->tag_id;
             foreach ($req_tag as $value) {
                // dd($value);
@@ -92,16 +85,6 @@ class PortfolioItemsController extends Controller
 
         $items['tags'] = $items->getTag;
         return response()->json($items);
-
-
-        //  $items = DB::table('portfolio_items')
-        //                                       ->join('portfolio_tags','portfolio_tags.portfolio_item_id','portfolio_items.portfolio_item_id')
-        //                                     //   ->join('tags','tags.tag_id','portfolio_tags.tag_id')
-        //                                       ->where('portfolio_items.portfolio_item_id',$id)->get();
-
-
-
-
     }
 
     public function updated(Request $request)
@@ -144,17 +127,6 @@ class PortfolioItemsController extends Controller
             $position->position = $request->position;
         }
         $position->save();
-
-
-
-
-        // $tags = PortfolioTag::where('portfolio_item_id',$request->category_id)->first();
-        // $tags->portfolio_item_id = $items_Id;
-        // if($request->tag_id){
-        //     $tags->tag_id = json_encode($request->tag_id);
-        // }
-        // $tags->save();
-
         $tagsId=$request->tag_id;
 
              foreach ($tagsId as $id) {
@@ -163,10 +135,6 @@ class PortfolioItemsController extends Controller
                 $items->getTag()->sync($value);
 
             }
-
-
-
-
         return response()->json($items);
     }
 

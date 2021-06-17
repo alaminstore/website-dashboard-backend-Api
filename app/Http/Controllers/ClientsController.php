@@ -73,52 +73,38 @@ class ClientsController extends Controller
             'newposition' => 'required'
         ]);
         $clients = Client::find($request->category_id);
-        $exists = Client::where('precedence', $request->precedence)
-            ->where('newposition', '=', $request->newposition)->first();
+        $clients->name = $request->name;
+        $clients->url = $request->url;
 
-        if($exists){
-            $clients->name = $request->name;
-            $clients->image = $request->image;
-            $clients->url = $request->url;
-
-            if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $path = 'images/clients/';
-            @unlink($clients->image);
-            if (!is_dir($path))
-            {
+            @unlink($clients->icon);
+            if (!is_dir($path)) {
                 mkdir($path, 0755, true);
             }
 
-            $image              = $request->image;
-            $imageName          = rand(100,1000).$image->getClientOriginalName();
+            $image = $request->image;
+            $imageName = rand(100, 1000) . $image->getClientOriginalName();
 
-            $image->move($path,$imageName);
-            $clients->image      = $path.$imageName;
-            }
+            $image->move($path, $imageName);
+            $clients->image = $path . $imageName;
+        }
+        $clients->save();
+        return response()->json([
+            'clients' => $clients,
+            'message' => "Data Updated Successfully!"
+        ]);
+        $exists = Client::where('precedence', $request->precedence)
+            ->where('newposition', '=', $request->newposition)->first();
+
+        if ($exists) {
             $clients->save();
             return response()->json([
                 'clients' => $clients,
                 'message' => "Data Updated Successfully!"
             ]);
 
-        }else{
-            $clients->name = $request->name;
-            $clients->image = $request->image;
-            $clients->url = $request->url;
-            if($request->hasFile('image')){
-            $path = 'images/clients/';
-            @unlink($clients->image);
-            if (!is_dir($path))
-            {
-                mkdir($path, 0755, true);
-            }
-
-            $image              = $request->image;
-            $imageName          = rand(100,1000).$image->getClientOriginalName();
-
-            $image->move($path,$imageName);
-            $clients->image      = $path.$imageName;
-            }
+        } else {
             $clients->precedence = $request->precedence;
             $clients->newposition = $request->newposition;
             $clients->save();
@@ -126,9 +112,9 @@ class ClientsController extends Controller
                 'clients' => $clients,
                 'message' => "Data Updated Successfully!"
             ]);
-
         }
     }
+
     //Delete Data
     public function destroy(Request $request)
     {

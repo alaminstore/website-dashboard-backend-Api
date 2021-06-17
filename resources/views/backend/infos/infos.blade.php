@@ -87,11 +87,13 @@
                             <td><b>{{$i+=1}}</b></td>
                             <td>{{$info->mobile}}</td>
                             <td>{{$info->email}}</td>
-                            <td>{{$info->address}}</td>
+                            <td>{{ \Illuminate\Support\Str::limit($info->address, 50, $end='...') }}</td>
+
                             <td class="cat_img">
                                 <img src="{{$info->logo}}" class="img-fluid" alt="Info's logo">
                             </td>
-                            <td><a href="{{$info->facebook_url}}" target="_blank">{{$info->facebook_url}}</a></td>
+
+                            <td><a href="{{$info->facebook_url}}" target="_blank">{{ \Illuminate\Support\Str::limit($info->facebook_url, 10, $end='...') }}</a></td>
                             <td><a href="{{$info->instagram_url}}" target="_blank">{{$info->instagram_url}}</a></td>
                             <td><a href="{{$info->instagram_url}}" target="_blank">{{$info->linkedin_url}}</a></td>
                             <td><a href="{{$info->youtube_url}}"  target="_blank">{{$info->youtube_url}}</a></td>
@@ -372,5 +374,5 @@
         });
     </script>
 
-    
+
 @endsection

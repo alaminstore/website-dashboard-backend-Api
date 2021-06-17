@@ -10,19 +10,10 @@
             height: 50px;
             width: 50px;
         }
-
         .cat_img img {
             height: 52px;
             width: 52px;
             border-radius: 5%;
-        }
-
-        .select_css {
-            height: 40px;
-            width: 465px !important;
-            padding: 8px;
-            opacity: .6;
-            border-radius: 7px;
         }
     </style>
     <div class="row">
@@ -333,7 +324,7 @@
 
         });
 
-        $('#submit').on('click', function() {
+        $('#submit').on('click', function () {
             $('.dropify-preview').hide();
         });
 
@@ -372,11 +363,7 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+
             $.ajax({
                 url: "{{route('clients.updated')}}",
                 method: "POST",
@@ -397,18 +384,18 @@
                         "extendedTimeOut": 1000
                     };
 
-                if (data.errorMessage) {
-                    toastr.error(data.errorMessage);
-                } else {
-                    toastr.success(data.message);
-                    $('#myModal').modal('hide');
-                    $('#tagsupdate').trigger('reset');
-                    setTimeout(function () {
-                        $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
-                }
+                    if (data.errorMessage) {
+                        toastr.error(data.errorMessage);
+                    } else {
+                        toastr.success(data.message);
+                        $('#myModal').modal('hide');
+                        $('#tagsupdate').trigger('reset');
+                        setTimeout(function () {
+                            $("#loadnow").load(location.href + " #loadnow>*", "");
+                        }, 1000);
+                    }
 
-            }
+                }
 
             });
 
@@ -554,10 +541,6 @@
 
             });
         });
-
-
-
-
 
     </script>
 

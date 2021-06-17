@@ -35,7 +35,7 @@ class AntroApiController extends Controller
     }
 
     public function portfolioItemById($id){
-        $portfolio_items = PortfolioItem::where('level',$id)->get();
+        $portfolio_items = PortfolioItem::with('getClient','getTag','getCategory')->where('level',$id)->get();
         if(count($portfolio_items)==0){
             return response()->json(['message'=>'Item not found'],404);
         }

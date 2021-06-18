@@ -40,7 +40,7 @@
                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr class="text-center">
-                            <th>#SL</th>
+
                             <th>Name</th>
                             <th>Image</th>
                             <th>Level</th>
@@ -50,12 +50,10 @@
                         </tr>
                         </thead>
                         <tbody id="loadnow">
-                            @php
-                              $i=0;
-                            @endphp
+
                         @foreach($clients  as $client)
                             <tr class="text-center">
-                                <td><b>{{$i+=1}}</b></td>
+
                                 <td>{{$client->name}}</td>
                                 <td class="cat_img"><img src="{{$client->image}}" class="img-fluid"
                                                          alt="portfolio Category Image">
@@ -119,8 +117,8 @@
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Level</label>
                         <div class="col-sm-10">
-                            <select style="width: 200px" id="position" name="precedence">
-                                <option></option>
+                            <select style="width: 200px" id="position" name="precedence" required>
+                                <option value="">Choose Level</option>
                                 <option value="1">Level 1</option>
                                 <option value="2">Level 2</option>
                                 <option value="3">Level 3</option>
@@ -153,7 +151,7 @@
                             <button type="submit"  class="btn btn-primary waves-effect waves-light">
                                 Save
                             </button>
-                            <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                                 Cancel
                             </button>
                         </div>
@@ -308,7 +306,7 @@
                         console.log('data', data);
                         $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
                         $('#tagsupdate').find('#category-edit-id').val(data.client_id);
-                        $('#tagsupdate').find('#url').val(data.url);
+                        $('#url2').val(data.url);
                         $('#position2').val(data.precedence);
                         $('#newPosition2').val(data.newposition);
                         //image clear(dropify)...
@@ -408,7 +406,7 @@
                         $('#catservestore').trigger('reset');
                         setTimeout(function () {
                             $("#loadnow").load(location.href + " #loadnow>*", "");
-                        }, 1000);
+                        }, 1);
                     }
                     console.log(data.message);
                 }
@@ -480,7 +478,7 @@
                         $('#tagsupdate').trigger('reset');
                         setTimeout(function () {
                             $("#loadnow").load(location.href + " #loadnow>*", "");
-                        }, 1000);
+                        }, 1);
                     }
 
                 }

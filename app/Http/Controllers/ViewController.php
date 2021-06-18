@@ -21,7 +21,7 @@ class ViewController extends Controller
         return response()->json($catview);
     }
     public function viewItem($id){
-        $items  = PortfolioItem::with('getClient')->find($id);
+        $items  = PortfolioItem::with('getClient','getCategory','getTag')->find($id);
         return response()->json($items);
     }
     public function viewClient($id){

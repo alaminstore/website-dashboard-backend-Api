@@ -41,12 +41,10 @@
                     </tr>
                     </thead>
                     <tbody class="tbodytags" id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
+
                     @foreach($portfolio_cat  as $cat)
                         <tr class="text-center">
-                            <td><b>{{$i+=1}}</b></td>
+
                             <td>{{$cat->name}}</td>
                             <td class="cat_img"><img src="{{$cat->icon}}" class="img-fluid"
                                                      alt="portfolio Category Image">
@@ -325,7 +323,7 @@
                     $('#myModalSave').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Inserted Successfully');
 
                     $('#catservestore').trigger('reset');
@@ -394,7 +392,7 @@
                     $('#myModal').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
                 }

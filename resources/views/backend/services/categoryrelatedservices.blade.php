@@ -18,7 +18,7 @@
     </style>
     <div class="row" id="okreload">
         <div class="col-md-12" id="reloadId">
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light"
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light clearData"
                                             title="Edit" data-toggle="modal"
                                             data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Category Services
@@ -31,7 +31,6 @@
                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr class="text-center">
-                        <th>#SL</th>
                         <th>Portfolio Category</th>
                         <th>Name</th>
                         <th>Icon</th>
@@ -41,12 +40,9 @@
                     </tr>
                     </thead>
                     <tbody class="tbodytags" id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
+
                     @foreach($catservices  as $catservice)
                         <tr class="text-center unqtags{{$catservice->category_related_service_id}}">
-                            <td><b>{{$i+=1}}</b></td>
                             <td>{{$catservice->getPortfolioCategory->name}}</td>
                             <td>{{$catservice->name}}</td>
                             <td class="cat_img">
@@ -97,8 +93,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Category</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id">
-                                <option></option>
+                            <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id" required>
+                                <option value=""></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                                 @endforeach
@@ -122,7 +118,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Level</label>
                         <div class="col-sm-8">
-                            <select class="cat_selector2 form-control" id="level"  name="level">
+                            <select class="cat_selector2 form-control" id="level"  name="level" required>
+                                <option value="">Select level</option>
                                 <option value="1">Level 1</option>
                                 <option value="2">Level 2</option>
                                 <option value="3">Level 3</option>
@@ -170,7 +167,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Category</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="cat2" name="portfolio_category_id">
+                            <select class="form-control" id="cat2" name="portfolio_category_id" required>
+                                <option disabled value="">Select Portfolio Category... </option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                                 @endforeach
@@ -195,7 +193,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Level</label>
                         <div class="col-sm-8">
-                            <select class="cat_selector2 form-control" id="level2"  name="level">
+                            <select class="cat_selector2 form-control" id="level2"  name="level" required>
+                                <option disabled value="">Select Level</option>
                                 <option value="1">Level 1</option>
                                 <option value="2">Level 2</option>
                                 <option value="3">Level 3</option>
@@ -276,6 +275,14 @@
               placeholder: "Select the Category"
             });
         });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".clearData").on('click',function(){
+            $('.dropify-preview').hide();
+            });
+        });
+
     </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {
@@ -389,7 +396,7 @@
                         $('#catservestore').trigger('reset');
                         setTimeout(function () {
                             $("#loadnow").load(location.href + " #loadnow>*", "");
-                        }, 1000);
+                        }, 1);
                     }
                     console.log(data.message);
                 }
@@ -458,12 +465,12 @@
                 if (data.errorMessage) {
                     toastr.error(data.errorMessage);
                 } else {
-                    toastr.success(data.message);
+                    toastr.success('Data Updated Successfully');
                     $('#myModal').modal('hide');
                     $('#tagsupdate').trigger('reset');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                 }
 
             }

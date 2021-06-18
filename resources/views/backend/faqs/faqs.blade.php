@@ -18,19 +18,17 @@
                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr class="text-center">
-                        <th>#SL</th>
+
                         <th>Faqs Question</th>
                         <th>Faqs Answer</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody class="tbodytags" id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
+
                     @foreach($faqs  as $faq)
                         <tr class="text-center unqtags{{$faq->faq_id}}">
-                            <td><b>{{$i+=1}}</b></td>
+
                             <td>{{$faq->faq_question}}</td>
                             <td>{!! \Illuminate\Support\Str::limit($faq->faq_answer, 50, $end='...') !!}</td>
                             <td>
@@ -273,7 +271,7 @@
                     $('#myModalSave').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Inserted Successfully');
 
                     $('#catservestore').trigger('reset');
@@ -344,7 +342,7 @@
                 setTimeout(function () {
 
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
                 }

@@ -38,7 +38,7 @@
                        style="border-collapse: collapse; border-spacing: 0; width: 100%;overflow-x:auto;">
                     <thead>
                     <tr class="text-center">
-                        <th>#SL</th>
+
                         <th>Mobile</th>
                         <th>Email</th>
                         <th>Address</th>
@@ -47,12 +47,10 @@
                     </tr>
                     </thead>
                     <tbody class="tbodytags" id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
+
                     @foreach($infos  as $info)
                         <tr class="text-center unqtags{{$info->info_id}}">
-                            <td><b>{{$i+=1}}</b></td>
+
                             <td>{{$info->mobile}}</td>
                             <td>{{$info->email}}</td>
                             <td>{{ \Illuminate\Support\Str::limit($info->address, 30, $end='...') }}</td>
@@ -440,7 +438,7 @@
                     $('#myModalSave').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Inserted Successfully');
                 }
             });
@@ -503,7 +501,7 @@
                     setTimeout(function () {
 
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
                 }

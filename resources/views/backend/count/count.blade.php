@@ -38,7 +38,6 @@
                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr class="text-center">
-                        <th>#SL</th>
                         <th>Parameter</th>
                         <th>Value</th>
                         <th>Position</th>
@@ -46,12 +45,10 @@
                     </tr>
                     </thead>
                     <tbody class="tbodytags" id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
+
                     @foreach($counts  as $count)
                         <tr class="text-center unqtags{{$count->count_id}}">
-                            <td><b>{{$i+=1}}</b></td>
+                        
                             <td>{{$count->parameter}}</td>
                             <td>{{$count->value}}</td>
                             <td>{{$count->position}}</td>
@@ -115,8 +112,8 @@
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" id="position" name="position">
-                                <option></option>
+                            <select  id="position" name="position" class="form-control" required>
+                                <option  value="">Select Position</option>
                                 @php($i=1)
                                 @for($i=1;$i<=3;$i++)
                                     <option value="{{$i}}">Position {{$i}}</option>
@@ -174,7 +171,8 @@
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="position2" name="position">
+                            <select class="form-control" id="position2" name="position" required>
+                                <option disabled value="">Select Position</option>
                                 @php($i=1)
                                 @for($i=1;$i<=3;$i++)
                                     <option value="{{$i}}">Position {{$i}}</option>
@@ -250,9 +248,6 @@
         $("#cat").select2({
             placeholder: "Select the Category"
         });
-        $("#position").select2({
-            placeholder: "Select the Position"
-        });
     </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {
@@ -315,9 +310,7 @@
         });
 
     </script>
-    <script type="text/javascript">
-        $("#position2").select2();
-    </script>
+
 
     <script>
 
@@ -346,7 +339,7 @@
                     $('#myModalSave').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Inserted Successfully');
 
                     $('#catservestore').trigger('reset');
@@ -417,7 +410,7 @@
                     setTimeout(function () {
                         $('#myModal').modal('hide');
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
                 }

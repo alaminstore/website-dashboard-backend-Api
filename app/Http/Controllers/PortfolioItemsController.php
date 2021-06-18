@@ -36,9 +36,15 @@ class PortfolioItemsController extends Controller
 
         // dd($request->all());
         $request->validate([
+            'portfolio_category_id' => 'required',
             'title' => 'required',
             'url' => 'required',
             'image' => 'required',
+            'level' => 'required',
+            'url' => 'required',
+            'client_id' => 'required',
+            'position' => 'required',
+            'tag_id' => 'required',
         ]);
         $items = new PortfolioItem();
         $items->title = $request->title;
@@ -69,13 +75,17 @@ class PortfolioItemsController extends Controller
         $position->portfolio_item_id = $items_Id;
         $position->position = $request->position;
         $position->save();
-        $req_tag = $request->tag_id;
-        foreach ($req_tag as $value) {
-            // dd($value);
-            $tag_id = $value;
-            $items->getTag()->attach($tag_id);
 
+        if($request->tag_id){
+            $req_tag = $request->tag_id;
+            foreach ($req_tag as $value) {
+                // dd($value);
+                $tag_id = $value;
+                $items->getTag()->attach($tag_id);
+
+            }
         }
+
         return response()->json($items);
     }
 
@@ -92,8 +102,15 @@ class PortfolioItemsController extends Controller
     public function updated(Request $request)
     {
         $request->validate([
+            'portfolio_category_id' => 'required',
             'title' => 'required',
             'url' => 'required',
+            'image' => 'required',
+            'level' => 'required',
+            'url' => 'required',
+            'client_id' => 'required',
+            'position' => 'required',
+            'tag_id' => 'required',
         ]);
         $items = PortfolioItem::find($request->category_id);
         $items->title = $request->title;
@@ -127,14 +144,19 @@ class PortfolioItemsController extends Controller
             $position->position = $request->position;
         }
         $position->save();
-        $tagsId = $request->tag_id;
 
-        foreach ($tagsId as $id) {
-            $value[] = $id;
 
-            $items->getTag()->sync($value);
+        if($request->tag_id){
+            $tagsId = $request->tag_id;
 
+            foreach ($tagsId as $id) {
+                $value[] = $id;
+
+                $items->getTag()->sync($value);
+
+            }
         }
+
         return response()->json($items);
     }
 

@@ -37,7 +37,7 @@
 
                     <thead>
                     <tr class="text-center">
-                        <th>#SL</th>
+                        <th>Portfolio Category</th>
                         <th>Title</th>
                         <th>Image</th>
                         <th>Level</th>
@@ -47,12 +47,9 @@
                     </tr>
                     </thead>
                     <tbody class="tbodytags" id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
                     @foreach($portfolioitems  as $item)
                         <tr class="text-center unqtags{{$item->portfolio_item_id}}">
-                            <td><b>{{$i+=1}}</b></td>
+                            <td>{{$item->getCategory->name}}</td>
                             <td>{{$item->title}}</td>
                             <td class="cat_img">
                                 <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
@@ -104,8 +101,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id">
-                                <option></option>
+                            <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id" required>
+                                <option value=""></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                                 @endforeach
@@ -129,7 +126,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Level</label>
                         <div class="col-sm-8">
-                            <select class="cat_selector2 form-control" id="level" name="level">
+                            <select class="cat_selector2 form-control" id="level" name="level" required>
+                                <option value="">Select The Level</option>
                                 <option value="1">Level 1</option>
                                 <option value="2">Level 2</option>
                                 <option value="3">Level 3</option>
@@ -148,8 +146,8 @@
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Client</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" id="client_id" name="client_id">
-                                <option></option>
+                            <select style="width: 200px" id="client_id" name="client_id" required>
+                                <option value=""></option>
                                 @foreach ($clients as $client)
                                     <option value="{{$client->client_id}}">{{$client->name}}</option>
                                 @endforeach
@@ -160,8 +158,8 @@
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select class="position_list" id="position" name="position">
-                                <option></option>
+                            <select class="position_list" id="position" name="position" required>
+                                <option value=""></option>
                                 @php($i=1)
                                 @for ($i=1;$i<=9;$i++)
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
@@ -172,8 +170,8 @@
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Tags</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple">
-                                <option></option>
+                            <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple" required>
+                                <option value=""></option>
                                 @foreach ($tags as $tag)
                                     <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
                                 @endforeach
@@ -210,7 +208,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
                         <div class="col-sm-8">
-                            <select class="cat_selector2 form-control" id="cat2" name="portfolio_category_id">
+                            <select class="cat_selector2 form-control" id="cat2" name="portfolio_category_id" required>
+                                <option disabled value="">Select Category...</option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                                 @endforeach
@@ -235,7 +234,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Level</label>
                         <div class="col-sm-8">
-                            <select class="cat_selector2 form-control" id="level2" name="level">
+                            <select class="cat_selector2 form-control" id="level2" name="level" required>
+                                <option disabled value="">Select Level</option>
                                 <option value="1">Level 1</option>
                                 <option value="2">Level 2</option>
                                 <option value="3">Level 3</option>
@@ -254,18 +254,19 @@
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Client</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="client_id2" name="client_id">
+                            <select class="form-control" id="client_id2" name="client_id" required>
+                                <option disabled value="">Select Client...</option>
                                 @foreach ($clients as $client)
                                     <option value="{{$client->client_id}}">{{$client->name}}</option>
                                 @endforeach
                             </select>
-                            <div id="feedback"></div>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select class="position_list2 form-control" id="position2" name="position">
+                            <select class="position_list2 form-control" id="position2" name="position" required>
+                                <option value=""></option>
                                 @php($i=1)
                                 @for ($i=1;$i<=9;$i++)
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
@@ -278,6 +279,7 @@
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Tags</label>
                         <div class="col-sm-8">
                             <select style="width: 200px" class="" id="newTagId" name="tag_id[]" multiple="multiple">
+                                <option value=""></option>
                                 @foreach ($tags as $tag)
                                     <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
                                 @endforeach
@@ -312,6 +314,11 @@
                 <div class="modal-body" style="background: #f5f5f5;">
 
                     <div class="Catname d-flex">
+                        <p><b>Portfolio Category:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewCat"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
                         <p><b>Title:&nbsp;&nbsp;&nbsp;</b></p>
                         <div id="viewTitle"></div>
                         <br>
@@ -328,6 +335,12 @@
                     <div class="desc d-flex">
                         <p><b>Url:&nbsp;&nbsp;&nbsp;</b></p>
                         <div id="viewUrl"></div>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Tags:&nbsp;&nbsp;&nbsp;</b></p>
+
+                            <div class="viewTag"></div>
+
                     </div>
                     <div class="iconview">
                         <p><b>Image:&nbsp;&nbsp;&nbsp;</b></p>
@@ -379,9 +392,7 @@
         $("#client_id").select2({
             placeholder: "Select the Client"
         });
-        $("#level").select2({
-            placeholder: "Select the Level"
-        });
+
     </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {
@@ -468,6 +479,12 @@
                         $('#viewUrl').html(`<a href="${data.url}" target="__blank">${data.url}</a>`);
                         $('#viewLevel').html(data.level);
                         $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.image}" class="dropify"/>`);
+                        $('#viewCat').text(data.get_category.name);
+
+                        $.each(data.get_tag, function (key, value) {
+                            $('.viewTag').append(`<span>${value.tag}</span>,&nbsp;&nbsp;`);
+                            // console.log(value);
+                        })
 
                     },
                     error: function (error) {
@@ -507,7 +524,7 @@
                     $('#myModalSave').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Inserted Successfully');
                     $('#catservestore').trigger('reset');
 
@@ -575,7 +592,7 @@
                     $('#myModal').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
                 }

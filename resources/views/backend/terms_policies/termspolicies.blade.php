@@ -20,7 +20,6 @@
                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr class="text-center">
-                        <th>#SL</th>
                         <th>Title</th>
                         <th>Sub-Title</th>
                         <th>Description</th>
@@ -28,14 +27,11 @@
                     </tr>
                     </thead>
                     <tbody class="tbodytags" id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
                     @foreach($terms as $term)
                         <tr class="text-center unqtags{{$term->terms_policie_id}}">
-                            <td><b>{{$i+=1}}</b></td>
+
                             <td>{{$term->title}}</td>
-                            <td>{{$term->subtitle}}</td>
+                            <td>{{ \Illuminate\Support\Str::limit($term->subtitle, 40, $end='...') }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($term->description, 40, $end='...') }}</td>
                             <td>
                                 <button type="button"
@@ -232,10 +228,10 @@
                     success: function (data) {
                         let url = window.location.origin;
                         console.log('data', data);
-                        $('#tagsupdate').find('#title2').val(data.title).focus();
-                        $('#tagsupdate').find('#subtitle').val(data.subtitle);
-                        $('#tagsupdate').find('#description2').val(data.description)
-                        $('#tagsupdate').find('#category-edit-id').val(data.terms_policie_id);
+                        $('#title2').val(data.title).focus;
+                        $('#subtitle').val(data.subtitle);
+                        $('#description2').val(data.description)
+                        $('#category-edit-id').val(data.terms_policie_id);
 
                         $('#category-modal').modal('show');
                     },
@@ -303,7 +299,7 @@
                     setTimeout(function () {
                         $('#myModalSave').modal('hide');
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Inserted Successfully');
 
                     $('#catservestore').trigger('reset');
@@ -375,7 +371,7 @@
                     $('#myModal').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Updated Successfully');
                     $('#tagsupdate').trigger('reset');
                 }

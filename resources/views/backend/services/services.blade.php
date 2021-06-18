@@ -30,18 +30,16 @@
                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
                 <tr class="text-center">
-                    <th>#SL</th>
+
                     <th>Service Name</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody id="loadnow">
-                    @php
-                        $i=0;
-                    @endphp
+
                 @foreach($services  as $service)
                     <tr class="text-center">
-                        <td><b>{{$i+=1}}</b></td>
+                       
                         <td>{{$service->service_name}}</td>
                         <td>
                             <button type="button"
@@ -193,8 +191,8 @@
                     success:function(data){
                       let url = window.location.origin;
                         console.log('data',data);
-                        $('#tagsupdate').find('#category-edit-name').val(data.service_name).focus();
-                        $('#tagsupdate').find('#category-edit-id').val(data.service_id);
+                        $('#category-edit-name').val(data.service_name).focus();
+                        $('#category-edit-id').val(data.service_id);
                         $('#category-modal').modal('show');
                     },
                     error: function (error) {
@@ -259,7 +257,7 @@
                 $('#myModalSave').modal('hide');
                 setTimeout(function () {
                     $("#loadnow").load(location.href + " #loadnow>*", "");
-                }, 1000);
+                }, 1);
                 toastr.success('Data Inserted Successfully');
 
                 $('#catservestore').trigger('reset');
@@ -328,7 +326,7 @@
                     $('#myModal'). modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href+" #loadnow>*","");
-                    }, 1000);
+                    }, 1);
                     toastr.success('Data Updated Successfully');
 
                     $('#tagsupdate').trigger('reset');

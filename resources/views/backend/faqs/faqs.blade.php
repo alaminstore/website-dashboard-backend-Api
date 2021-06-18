@@ -1,62 +1,64 @@
 @extends('backend.home')
 @section('title','FAQS')
 @section('content')
+    <div class="card m-b-20">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12" id="reloadId">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light"
+                                                    title="Edit" data-toggle="modal"
+                                                    data-target="#myModalSave">
+                        <i class="ion-plus"></i> Add New Faqs
+                    </button>
+                    <div id="reload-category">
+                        <div class="list text-center">
+                            <h6 class="display-4" style="font-size: 20px;">Count List</h6>
+                        </div>
+                        <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                               style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr class="text-center">
 
-    <div class="row" id="okreload">
-        {{-- <div class="col-md-2">
-        </div> --}}
-        <div class="col-md-12" id="reloadId">
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
-                    data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Faqs
-            </button>
-            <div id="reload-category">
-                <div class="list text-center">
-                    <h6 class="display-4" style="font-size: 20px;">Count List</h6>
+                                <th>Faqs Question</th>
+                                <th>Faqs Answer</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbodytags" id="loadnow">
+
+                            @foreach($faqs  as $faq)
+                                <tr class="text-center unqtags{{$faq->faq_id}}">
+
+                                    <td>{{$faq->faq_question}}</td>
+                                    <td>{!! \Illuminate\Support\Str::limit($faq->faq_answer, 50, $end='...') !!}</td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                                data-id="{{$faq->faq_id}}" data-toggle="modal"
+                                                data-target=".bs-example-modal-lg">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                                data-id="{{$faq->faq_id}}" title="Edit"
+                                                data-toggle="modal" data-target="#myModal">
+                                            <i class="mdi mdi-border-color"></i>
+                                        </button>
+                                        <a class="deletetag" data-id="{{$faq->faq_id}}">
+                                            <button class="btn btn-outline-danger btn-sm category-delete"
+                                                    title="Delete"><i
+                                                    class="ti-trash"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <table id="myTable" class="table table-bordered dt-responsive nowrap"
-                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                    <tr class="text-center">
-
-                        <th>Faqs Question</th>
-                        <th>Faqs Answer</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody class="tbodytags" id="loadnow">
-
-                    @foreach($faqs  as $faq)
-                        <tr class="text-center unqtags{{$faq->faq_id}}">
-
-                            <td>{{$faq->faq_question}}</td>
-                            <td>{!! \Illuminate\Support\Str::limit($faq->faq_answer, 50, $end='...') !!}</td>
-                            <td>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                        data-id="{{$faq->faq_id}}" data-toggle="modal"
-                                        data-target=".bs-example-modal-lg">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                        data-id="{{$faq->faq_id}}" title="Edit"
-                                        data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i>
-                                </button>
-                                <a class="deletetag" data-id="{{$faq->faq_id}}">
-                                    <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
             </div>
         </div>
-    </div>
     </div>
 
     <!--modal content  Save-->
@@ -120,13 +122,14 @@
                             <input class="form-control" type="text" id="faq_question" name="faq_question"
                                    placeholder="Faq Question Here..."
                                    required>
-                            <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
+                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
                         <div class="col-md-10">
-                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" required></textarea>
+                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer"
+                                      required></textarea>
                         </div>
                     </div>
 
@@ -147,29 +150,29 @@
     </div>
 
     {{-- View Modal --}}
-<div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        </div>
-        <div class="modal-body" style="background: #f5f5f5;">
-            <div class="Catname">
-                <p><b>Faq Question:&nbsp;&nbsp;&nbsp;</b></p>
-                <div id="viewQues"></div>
-                <br>
-            </div>
-            <div class="Catname">
-                <p><b>Faq Answer:&nbsp;&nbsp;&nbsp;</b></p>
-                <div id="viewAns"></div>
-                <br>
+    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="background: #f5f5f5;">
+                    <div class="Catname">
+                        <p><b>Faq Question:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewQues"></div>
+                        <br>
+                    </div>
+                    <div class="Catname">
+                        <p><b>Faq Answer:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewAns"></div>
+                        <br>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-</div>
 
 @endsection
 @section('scripts')
@@ -339,7 +342,7 @@
                         "extendedTimeOut": 1000
                     };
                     $('#myModal').modal('hide');
-                setTimeout(function () {
+                    setTimeout(function () {
 
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1);

@@ -16,74 +16,78 @@
         .dataTables_wrapper {
             overflow-x: auto;
         }
+
         textarea.form-control {
             height: 100px;
         }
 
     </style>
-    <div class="row" id="okreload">
+    <div class="card m-b-20">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12" id="reloadId">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button {{$limit>0? "disabled":''}} type="button"
+                            class="btn btn-secondary waves-effect waves-light clearData addBtn" title="Edit"
+                            data-toggle="modal"
+                            data-target="#myModalSave">
+                        <i class="ion-plus"></i> Add New Info
+                    </button>
+                    <div id="reload-category">
+                        <div class="list text-center">
+                            <h6 class="display-4" style="font-size: 20px;">Info List</h6>
+                        </div>
+                        <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                               style="border-collapse: collapse; border-spacing: 0; width: 100%;overflow-x:auto;">
+                            <thead>
+                            <tr class="text-center">
 
-        <div class="col-md-12" id="reloadId">
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-secondary waves-effect waves-light clearData" title="Edit"
-                    data-toggle="modal"
-                    data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Info
-            </button>
-            <div id="reload-category">
-                <div class="list text-center">
-                    <h6 class="display-4" style="font-size: 20px;">Info List</h6>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Logo</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbodytags" id="loadnow">
+
+                            @foreach($infos  as $info)
+                                <tr class="text-center unqtags{{$info->info_id}}">
+                                    <td>{{$info->mobile}}</td>
+                                    <td>{{$info->email}}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($info->address, 30, $end='...') }}</td>
+                                    <td class="cat_img">
+                                        <img src="{{$info->logo}}" class="img-fluid" alt="Info's logo">
+                                    </td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                                data-id="{{$info->info_id}}" data-toggle="modal"
+                                                data-target=".bs-example-modal-lg">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                                data-id="{{$info->info_id}}" title="Edit"
+                                                data-toggle="modal" data-target="#myModal">
+                                            <i class="mdi mdi-border-color"></i>
+                                        </button>
+                                        <a class="deletetag" data-id="{{$info->info_id}}">
+                                            <button class="btn btn-outline-danger btn-sm category-delete"
+                                                    title="Delete"><i
+                                                    class="ti-trash"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <table id="myTable" class="table table-bordered dt-responsive nowrap"
-                       style="border-collapse: collapse; border-spacing: 0; width: 100%;overflow-x:auto;">
-                    <thead>
-                    <tr class="text-center">
-
-                        <th>Mobile</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Logo</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody class="tbodytags" id="loadnow">
-
-                    @foreach($infos  as $info)
-                        <tr class="text-center unqtags{{$info->info_id}}">
-
-                            <td>{{$info->mobile}}</td>
-                            <td>{{$info->email}}</td>
-                            <td>{{ \Illuminate\Support\Str::limit($info->address, 30, $end='...') }}</td>
-                            <td class="cat_img">
-                                <img src="{{$info->logo}}" class="img-fluid" alt="Info's logo">
-                            </td>
-                            <td>
-                                <button type="button"
-                                    class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                    data-id="{{$info->info_id}}" data-toggle="modal"
-                                    data-target=".bs-example-modal-lg">
-                                <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                        data-id="{{$info->info_id}}" title="Edit"
-                                        data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i>
-                                </button>
-                                <a class="deletetag" data-id="{{$info->info_id}}">
-                                    <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
             </div>
         </div>
-    </div>
-    </div>
+      </div>
 
     <!--modal content  Save-->
     <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -116,7 +120,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Address</label>
                         <div class="col-sm-8">
-                            <textarea name="address"  class="form-control" cols="30" rows="10" placeholder="Address Here..." required></textarea>
+                            <textarea name="address" class="form-control" cols="30" rows="10"
+                                      placeholder="Address Here..." required></textarea>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -128,14 +133,14 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Facebook Url</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text"  name="facebook_url"
+                            <input class="form-control" type="text" name="facebook_url"
                                    placeholder="Facebook Url Here...">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Instagram Url</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text"  name="instagram_url"
+                            <input class="form-control" type="text" name="instagram_url"
                                    placeholder="Instagram Url Here...">
                         </div>
                     </div>
@@ -144,7 +149,7 @@
                         <div class="col-sm-8">
                             <input class="form-control" type="text" name="linkedin_url"
                                    placeholder="Linkedin Url Here..."
-                                   >
+                            >
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -203,7 +208,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Address</label>
                         <div class="col-sm-8">
-                        <textarea name="address" style="height: 100px;"  class="form-control" id="address" cols="30" rows="10" placeholder="Address Here..." required></textarea>
+                            <textarea name="address" style="height: 100px;" class="form-control" id="address" cols="30"
+                                      rows="10" placeholder="Address Here..." required></textarea>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -379,7 +385,6 @@
             });
 
 
-
             //View===============================================================
             $('#reload-category').on('click', '.viewData', function () {
                 let id = $(this).attr('data-id');
@@ -425,7 +430,11 @@
                 cache: false,
                 processData: false,
                 success: function (data) {
-                    console.log('save', data);
+                    console.log(data.range);
+                    if (data.range == 1) {
+                        // alert('dd')
+                        $('.addBtn').attr('disabled', 'disabled');
+                    }
                     toastr.options = {
                         "debug": false,
                         "positionClass": "toast-bottom-right",
@@ -434,11 +443,13 @@
                         "fadeOut": 1000,
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
+                        // console.log();
                     };
                     $('#myModalSave').modal('hide');
                     setTimeout(function () {
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1);
+                    $('#catservestore').trigger('reset');
                     toastr.success('Data Inserted Successfully');
                 }
             });
@@ -449,6 +460,8 @@
             var id = $(this).data('id');
             console.log('id: ', id);
             //alert(role);
+
+
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -465,12 +478,22 @@
                             data: {
                                 id: id,
                             },
+                            success: function (data) {
+                                console.log(data);
+                                if (data == 0) {
+                                    $('.addBtn').removeAttr('disabled')
+                                }
+                            }
                         });
                         setTimeout(function () {
                             $("#loadnow").load(location.href + " #loadnow>*", "");
                         }, 1000);
                         toastr.success('Data Deleted Successfully');
                         $(this).closest('tr').hide();
+
+                        // console.log(typeof(result.range));
+
+
                     }
                 }
             )
@@ -503,7 +526,7 @@
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1);
                     toastr.success('Data Updated Successfully');
-                    $('#tagsupdate').trigger('reset');
+
                 }
             });
         });

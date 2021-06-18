@@ -15,69 +15,66 @@
             width: 50px;
             border-radius: 50%;
         }
-
-        .select_css {
-            height: 40px;
-            width: 465px !important;
-            padding: 8px;
-            opacity: .6;
-            border-radius: 7px;
-        }
     </style>
-    <div class="row" id="okreload">
-        <div class="col-md-12" id="reloadId">
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
-                    data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Count
-            </button>
-            <div id="reload-category">
-                <div class="list text-center">
-                    <h6 class="display-4" style="font-size: 20px;">Count List</h6>
-                </div>
-                <table id="myTable" class="table table-bordered dt-responsive nowrap"
-                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                    <tr class="text-center">
-                        <th>Parameter</th>
-                        <th>Value</th>
-                        <th>Position</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody class="tbodytags" id="loadnow">
+    <div class="card m-b-20">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12" id="reloadId">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light"
+                                                    title="Edit" data-toggle="modal"
+                                                    data-target="#myModalSave">
+                        <i class="ion-plus"></i> Add New Count
+                    </button>
+                    <div id="reload-category">
+                        <div class="list text-center">
+                            <h6 class="display-4" style="font-size: 20px;">Count List</h6>
+                        </div>
+                        <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                               style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr class="text-center">
+                                <th>Parameter</th>
+                                <th>Value</th>
+                                <th>Position</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbodytags" id="loadnow">
 
-                    @foreach($counts  as $count)
-                        <tr class="text-center unqtags{{$count->count_id}}">
-                        
-                            <td>{{$count->parameter}}</td>
-                            <td>{{$count->value}}</td>
-                            <td>{{$count->position}}</td>
-                            <td>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                        data-id="{{$count->count_id}}" data-toggle="modal"
-                                        data-target=".bs-example-modal-lg">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                        data-id="{{$count->count_id}}" title="Edit"
-                                        data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i>
-                                </button>
-                                <a class="deletetag" data-id="{{$count->count_id}}">
-                                    <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                            @foreach($counts  as $count)
+                                <tr class="text-center unqtags{{$count->count_id}}">
+
+                                    <td>{{$count->parameter}}</td>
+                                    <td>{{$count->value}}</td>
+                                    <td>{{$count->position}}</td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                                data-id="{{$count->count_id}}" data-toggle="modal"
+                                                data-target=".bs-example-modal-lg">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                                data-id="{{$count->count_id}}" title="Edit"
+                                                data-toggle="modal" data-target="#myModal">
+                                            <i class="mdi mdi-border-color"></i>
+                                        </button>
+                                        <a class="deletetag" data-id="{{$count->count_id}}">
+                                            <button class="btn btn-outline-danger btn-sm category-delete"
+                                                    title="Delete"><i
+                                                    class="ti-trash"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!--modal content  Save-->
@@ -112,8 +109,8 @@
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select  id="position" name="position" class="form-control" required>
-                                <option  value="">Select Position</option>
+                            <select id="position" name="position" class="form-control" required>
+                                <option value="">Select Position</option>
                                 @php($i=1)
                                 @for($i=1;$i<=3;$i++)
                                     <option value="{{$i}}">Position {{$i}}</option>
@@ -156,7 +153,7 @@
                             <input class="form-control" type="text" id="parameter" name="parameter"
                                    placeholder="Parameter Here..."
                                    required>
-                            <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
+                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -197,35 +194,35 @@
     </div>
 
     {{-- View Modal --}}
-<div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        </div>
-        <div class="modal-body" style="background: #f5f5f5;">
+    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="background: #f5f5f5;">
 
-            <div class="Catname d-flex">
-                <p><b>Parameter:&nbsp;&nbsp;&nbsp;</b></p>
-                <div id="viewParameter"></div>
-                <br>
-            </div>
-            <div class="Catname d-flex">
-                <p><b>Value:&nbsp;&nbsp;&nbsp;</b></p>
-                <div id="viewValue"></div>
-                <br>
-            </div>
-            <div class="Catname d-flex">
-                <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
-                <div id="viewPosition"></div>
-                <br>
+                    <div class="Catname d-flex">
+                        <p><b>Parameter:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewParameter"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
+                        <p><b>Value:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewValue"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
+                        <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewPosition"></div>
+                        <br>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-</div>
 
 @endsection
 @section('scripts')
@@ -381,7 +378,6 @@
                 }
             )
         });
-
 
 
         //Update data

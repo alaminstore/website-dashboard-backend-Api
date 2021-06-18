@@ -6,77 +6,81 @@
             height: 50px;
             width: 50px;
         }
+
         .cat_img img {
             height: 52px;
             width: 52px;
             border-radius: 5%;
         }
     </style>
-    <div class="row">
-        <div class="col-md-12">
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light clearData"
-                                            title="Edit" data-toggle="modal" data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Portfolio Categories
-            </button>
-        </div>
+    <div class="card m-b-20">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"
+                                                    class="btn btn-secondary waves-effect waves-light clearData"
+                                                    title="Edit" data-toggle="modal" data-target="#myModalSave">
+                        <i class="ion-plus"></i> Add New Portfolio Categories
+                    </button>
+                </div>
 
-    </div>
-    <div class="list text-center">
-        <h6 class="display-4" style="font-size: 20px;">Categories List</h6>
-    </div>
-    <div id="reload-category">
-        <div class="row">
-            <div class="col-md-12">
-
-                <table id="datatable" class="table table-bordered dt-responsive nowrap"
-                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-
-                    <thead>
-                    <tr class="text-center">
-                        <th>#SL</th>
-                        <th>Name</th>
-                        <th>Icon</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody class="tbodytags" id="loadnow">
-
-                    @foreach($portfolio_cat  as $cat)
-                        <tr class="text-center">
-
-                            <td>{{$cat->name}}</td>
-                            <td class="cat_img"><img src="{{$cat->icon}}" class="img-fluid"
-                                                     alt="portfolio Category Image">
-                            </td>
-                            <td>{{ \Illuminate\Support\Str::limit($cat->description, 50, $end='...') }}</td>
-                            <td>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                        data-id="{{$cat->portfolio_category_id}}" data-toggle="modal"
-                                        data-target=".bs-example-modal-lg">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                        data-id="{{$cat->portfolio_category_id}}" title="Edit"
-                                        data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i>
-                                </button>
-                                <a class="deletetag" data-id="{{$cat->portfolio_category_id}}">
-                                    <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i></button>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
             </div>
-            <div class="col-md-1"></div>
+            <div class="list text-center">
+                <h6 class="display-4" style="font-size: 20px;">Categories List</h6>
+            </div>
+            <div id="reload-category">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                               style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                            <thead>
+                            <tr class="text-center">
+                                <th>Name</th>
+                                <th>Icon</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbodytags" id="loadnow">
+
+                            @foreach($portfolio_cat  as $cat)
+                                <tr class="text-center">
+
+                                    <td>{{$cat->name}}</td>
+                                    <td class="cat_img"><img src="{{$cat->icon}}" class="img-fluid"
+                                                             alt="portfolio Category Image">
+                                    </td>
+                                    <td>{{ \Illuminate\Support\Str::limit($cat->description, 50, $end='...') }}</td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                                data-id="{{$cat->portfolio_category_id}}">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                                data-id="{{$cat->portfolio_category_id}}" title="Edit"
+                                                data-toggle="modal" data-target="#myModal">
+                                            <i class="mdi mdi-border-color"></i>
+                                        </button>
+                                        <a class="deletetag" data-id="{{$cat->portfolio_category_id}}">
+                                            <button class="btn btn-outline-danger btn-sm category-delete"
+                                                    title="Delete"><i
+                                                    class="ti-trash"></i></button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <!--modal content  Save-->
     <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -179,7 +183,7 @@
     </div>
 
     {{-- View Modal --}}
-    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+    <div id="viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -274,14 +278,13 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#viewName').html(data.name);
-                        $('#viewDescription').html(data.description);
-
-                        $('#viewIcon').html(`<img width="300" height="300"  src="${url}/${data.icon}" class="dropify"/>`);
-
+                        console.log(response.data.name);
+                        $('#viewName').text(response.data.name);
+                        $('#viewDescription').text(response.data.description);
+                        $('#viewIcon').html(`<img width="300" height="300"  src="${url}/${response.data.icon}" class="dropify"/>`);
+                        $('#viewModel').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {

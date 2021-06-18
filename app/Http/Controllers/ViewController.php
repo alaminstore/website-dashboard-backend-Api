@@ -16,9 +16,21 @@ use Illuminate\Http\Request;
 
 class ViewController extends Controller
 {
+
     public function viewCat($id){
-        $catview  = PortfolioCategories::find($id);
-        return response()->json($catview);
+        $data=PortfolioCategories::find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
     public function viewItem($id){
         $items  = PortfolioItem::with('getClient','getCategory','getTag')->find($id);
@@ -33,8 +45,19 @@ class ViewController extends Controller
         return response()->json($services);
     }
     public function viewTag($id){
-        $tags  = Tag::find($id);
-        return response()->json($tags);
+        $data=Tag::find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
     public function viewCatservice($id){
         $catServices  = CategoryRelatedServices::with('getCategory')->find($id);

@@ -17,76 +17,79 @@
             border-radius: 5%;
         }
     </style>
-    <div class="row" id="okreload">
-        <div class="col-md-12" id="reloadId">
+    <div class="card m-b-20">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12" id="reloadId">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"
+                                                    class="btn btn-secondary waves-effect waves-light clearData"
+                                                    title="Edit" data-toggle="modal"
+                                                    data-target="#myModalSave">
+                        <i class="ion-plus"></i> Add new Portfolio Item
+                    </button>
 
 
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light clearData"
-                                            title="Edit" data-toggle="modal"
-                                            data-target="#myModalSave">
-                <i class="ion-plus"></i> Add new Portfolio Item
-            </button>
+                    <div id="reload-category">
+                        <div class="list text-center">
+                            <h6 class="display-4" style="font-size: 20px;">Portfolio Item List</h6>
+                        </div>
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                               style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
-
-            <div id="reload-category">
-                <div class="list text-center">
-                    <h6 class="display-4" style="font-size: 20px;">Portfolio Item List</h6>
+                            <thead>
+                            <tr class="text-center">
+                                <th>Portfolio Category</th>
+                                <th>Title</th>
+                                <th>Image</th>
+                                <th>Level</th>
+                                <th>Url</th>
+                                <th>Client</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbodytags" id="loadnow">
+                            @foreach($portfolioitems  as $item)
+                                <tr class="text-center unqtags{{$item->portfolio_item_id}}">
+                                    <td>{{$item->getCategory->name}}</td>
+                                    <td>{{$item->title}}</td>
+                                    <td class="cat_img">
+                                        <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
+                                    </td>
+                                    <td>{{$item->level}}</td>
+                                    <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
+                                    <td>
+                                        {{$item->getClient->name}}
+                                    </td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                                data-id="{{$item->portfolio_item_id}}" data-toggle="modal"
+                                                data-target=".bs-example-modal-lg">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                                data-id="{{$item->portfolio_item_id}}" title="Edit"
+                                                data-toggle="modal" data-target="#myModal">
+                                            <i class="mdi mdi-border-color"></i>
+                                        </button>
+                                        <a class="deletetag" data-id="{{$item->portfolio_item_id}}">
+                                            <button class="btn btn-outline-danger btn-sm category-delete"
+                                                    title="Delete"><i
+                                                    class="ti-trash"></i></button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <table id="datatable" class="table table-bordered dt-responsive nowrap"
-                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-
-                    <thead>
-                    <tr class="text-center">
-                        <th>Portfolio Category</th>
-                        <th>Title</th>
-                        <th>Image</th>
-                        <th>Level</th>
-                        <th>Url</th>
-                        <th>Client</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody class="tbodytags" id="loadnow">
-                    @foreach($portfolioitems  as $item)
-                        <tr class="text-center unqtags{{$item->portfolio_item_id}}">
-                            <td>{{$item->getCategory->name}}</td>
-                            <td>{{$item->title}}</td>
-                            <td class="cat_img">
-                                <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
-                            </td>
-                            <td>{{$item->level}}</td>
-                            <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
-                            <td>
-                                {{$item->getClient->name}}
-                            </td>
-                            <td>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                        data-id="{{$item->portfolio_item_id}}" data-toggle="modal"
-                                        data-target=".bs-example-modal-lg">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                        data-id="{{$item->portfolio_item_id}}" title="Edit"
-                                        data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i>
-                                </button>
-                                <a class="deletetag" data-id="{{$item->portfolio_item_id}}">
-                                    <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                            class="ti-trash"></i></button>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
-    </div>
     <!--modal content  Save-->
-    <div id="myModalSave" class="modal fade"  role="dialog" aria-labelledby="myModalLabel"
+    <div id="myModalSave" class="modal fade" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -101,7 +104,8 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Portfolio Categories</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id" required>
+                            <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id"
+                                    required>
                                 <option value=""></option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
@@ -138,7 +142,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Url</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text"  name="url"
+                            <input class="form-control" type="text" name="url"
                                    placeholder="Url Here..."
                                    required>
                         </div>
@@ -170,7 +174,8 @@
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Tags</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple" required>
+                            <select style="width: 200px" class="tag_id" id="tag_id" name="tag_id[]" multiple="multiple"
+                                    required>
                                 <option value=""></option>
                                 @foreach ($tags as $tag)
                                     <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>
@@ -195,7 +200,7 @@
     </div>
 
     <!--modal content Update -->
-    <div id="myModal" class="modal fade"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -339,7 +344,7 @@
                     <div class="desc d-flex">
                         <p><b>Tags:&nbsp;&nbsp;&nbsp;</b></p>
 
-                            <div class="viewTag"></div>
+                        <div class="viewTag"></div>
 
                     </div>
                     <div class="iconview">
@@ -372,11 +377,11 @@
     </script>
     <script>
         $(document).ready(function () {
-	      $(".clearData").on('click',function(){
-              $('.dropify-preview').hide();
-           });
+            $(".clearData").on('click', function () {
+                $('.dropify-preview').hide();
+            });
         });
-        </script>
+    </script>
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable();

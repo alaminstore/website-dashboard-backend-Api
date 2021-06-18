@@ -5,7 +5,7 @@ use App\Http\Controllers\PortfolioCategoriesController;
 use App\Http\Controllers\PortfolioPositionController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\Sidebar;
-use App\Http\Controllers\tagsController;
+use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CategoryRelatedServiceController;
 use App\Http\Controllers\CountController;
 use App\Http\Controllers\FaqsController;

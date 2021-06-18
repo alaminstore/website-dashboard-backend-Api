@@ -14,111 +14,118 @@
             border-radius: 50%;
         }
     </style>
-    <div class="row">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-7">
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
-                    data-target="#myModalSave">
-                <i class="ion-plus"></i> Add New Service
-            </button>
-            <div id="reload-category">
-            <div class="list text-center">
-                <h6 class="display-4" style="font-size: 20px;">Services Information</h6>
-            </div>
-            <table id="myTable" class="table table-bordered dt-responsive nowrap"
-                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                <thead>
-                <tr class="text-center">
+    <div class="card m-b-20">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-7">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light"
+                                                    title="Edit" data-toggle="modal"
+                                                    data-target="#myModalSave">
+                        <i class="ion-plus"></i> Add New Service
+                    </button>
+                    <div id="reload-category">
+                        <div class="list text-center">
+                            <h6 class="display-4" style="font-size: 20px;">Services Information</h6>
+                        </div>
+                        <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                               style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr class="text-center">
 
-                    <th>Service Name</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody id="loadnow">
+                                <th>Service Name</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="loadnow">
 
-                @foreach($services  as $service)
-                    <tr class="text-center">
-                       
-                        <td>{{$service->service_name}}</td>
-                        <td>
-                            <button type="button"
-                                    class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                    data-id="{{$service->service_id}}" data-toggle="modal"
-                                    data-target=".bs-example-modal-lg">
-                                <i class="fa fa-eye"></i>
-                            </button>
-                            <button type="button"
-                                    class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                    data-id="{{$service->service_id}}" title="Edit"
-                                    data-toggle="modal" data-target="#myModal">
-                                    <i class="mdi mdi-border-color"></i>
-                            </button>
-                            <a class="deletetag" data-id="{{$service->service_id}}">
-                                <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i class="ti-trash"></i></button>
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-            </div>
-        </div>
-    </div>
-    </div>
+                            @foreach($services  as $service)
+                                <tr class="text-center">
 
-
-
-     <!--modal content  Save-->
-     <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title mt-0" id="myModalLabel">Count Add</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body">
-                {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
-                @csrf
-                <div class="form-group row flex_css">
-                    <label for="name" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" type="text" id="name" name="service_name" placeholder="Service Name Here..." required>
+                                    <td>{{$service->service_name}}</td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                                data-id="{{$service->service_id}}" data-toggle="modal"
+                                                data-target=".bs-example-modal-lg">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                                data-id="{{$service->service_id}}" title="Edit"
+                                                data-toggle="modal" data-target="#myModal">
+                                            <i class="mdi mdi-border-color"></i>
+                                        </button>
+                                        <a class="deletetag" data-id="{{$service->service_id}}">
+                                            <button class="btn btn-outline-danger btn-sm category-delete"
+                                                    title="Delete"><i class="ti-trash"></i></button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="form-group m-b-0">
-                    <div>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">
-                            Submit
-                        </button>
-                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-                {!!Form::close()!!}
             </div>
         </div>
     </div>
-</div>
 
-<!--modal content update-->
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title mt-0" id="myModalLabel">Modal Heading</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+
+    <!--modal content  Save-->
+    <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myModalLabel">Count Add</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
+                    @csrf
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="name" name="service_name"
+                                   placeholder="Service Name Here..." required>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                Submit
+                            </button>
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    {!!Form::close()!!}
+                </div>
             </div>
-            <div class="modal-body">
-                {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
+        </div>
+    </div>
+
+    <!--modal content update-->
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myModalLabel">Modal Heading</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Service Name</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="category-edit-name" name="service_name" placeholder="Service Name Here..." required>
-                            <input type="hidden"  name="category_id" id="category-edit-id" class="form-control" >
+                            <input class="form-control" type="text" id="category-edit-name" name="service_name"
+                                   placeholder="Service Name Here..." required>
+                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
 
@@ -133,30 +140,30 @@
                         </div>
                     </div>
                     {!!Form::close()!!}
+                </div>
             </div>
         </div>
     </div>
-</div>
-{{-- View Modal --}}
-<div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title mt-0" id="myLargeModalLabel"> Service Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        </div>
-        <div class="modal-body" style="background: #f5f5f5;">
+    {{-- View Modal --}}
+    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel"> Service Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="background: #f5f5f5;">
 
-            <div class="Catname d-flex">
-                <p><b>Service Name:&nbsp;&nbsp;&nbsp;</b></p>
-                <div id="viewService"></div>
-                <br>
+                    <div class="Catname d-flex">
+                        <p><b>Service Name:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewService"></div>
+                        <br>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-</div>
 
 
 
@@ -180,23 +187,23 @@
     </script>
     <script type="text/javascript"> // Edit data
         $(document).ready(function () {
-            $('#reload-category').on('click', '.category-edit' , function () {
-                let id =  $(this).attr('data-id');
+            $('#reload-category').on('click', '.category-edit', function () {
+                let id = $(this).attr('data-id');
 
                 $.ajax({
-                    url:"{{url('services')}}/"+id+'/edit',
-                    method:"get",
-                    data:{},
+                    url: "{{url('services')}}/" + id + '/edit',
+                    method: "get",
+                    data: {},
                     dataType: 'json',
-                    success:function(data){
-                      let url = window.location.origin;
-                        console.log('data',data);
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
                         $('#category-edit-name').val(data.service_name).focus();
                         $('#category-edit-id').val(data.service_id);
                         $('#category-modal').modal('show');
                     },
                     error: function (error) {
-                        if(error.status == 404){
+                        if (error.status == 404) {
                             toastr.error('Not found!');
                         }
                     }
@@ -204,8 +211,8 @@
             });
 
 
-             //View===============================================================
-             $('#reload-category').on('click', '.viewData', function () {
+            //View===============================================================
+            $('#reload-category').on('click', '.viewData', function () {
                 let id = $(this).attr('data-id');
                 console.log('id--', id);
                 $.ajax({
@@ -232,43 +239,43 @@
     </script>
 
     <script>
-    //save data
-    $('#catservestore').on('submit', function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: "{{route('services.store')}}",
-            method: "POST",
-            data: new FormData(this),
-            dataType: 'JSON',
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) {
-                console.log('save', data);
-                toastr.options = {
-                    "debug": false,
-                    "positionClass": "toast-bottom-right",
-                    "onclick": null,
-                    "fadeIn": 300,
-                    "fadeOut": 1000,
-                    "timeOut": 5000,
-                    "extendedTimeOut": 1000
-                };
-                $('#myModalSave').modal('hide');
-                setTimeout(function () {
-                    $("#loadnow").load(location.href + " #loadnow>*", "");
-                }, 1);
-                toastr.success('Data Inserted Successfully');
+        //save data
+        $('#catservestore').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{route('services.store')}}",
+                method: "POST",
+                data: new FormData(this),
+                dataType: 'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    console.log('save', data);
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-bottom-right",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    };
+                    $('#myModalSave').modal('hide');
+                    setTimeout(function () {
+                        $("#loadnow").load(location.href + " #loadnow>*", "");
+                    }, 1);
+                    toastr.success('Data Inserted Successfully');
 
-                $('#catservestore').trigger('reset');
-            }
+                    $('#catservestore').trigger('reset');
+                }
+
+            });
 
         });
 
-    });
-
-    //Delete data
-    $(document).on('click', '.deletetag', function (e) {
+        //Delete data
+        $(document).on('click', '.deletetag', function (e) {
             e.preventDefault();
             var id = $(this).data('id');
             console.log('id: ', id);
@@ -301,9 +308,9 @@
         });
 
 
-    //Update data
-    $('#tagsupdate').on('submit', function (e) {
-         e.preventDefault();
+        //Update data
+        $('#tagsupdate').on('submit', function (e) {
+            e.preventDefault();
             $.ajax({
                 url: "{{route('services.updated')}}",
                 method: "POST",
@@ -323,9 +330,9 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
-                    $('#myModal'). modal('hide');
+                    $('#myModal').modal('hide');
                     setTimeout(function () {
-                        $("#loadnow").load(location.href+" #loadnow>*","");
+                        $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1);
                     toastr.success('Data Updated Successfully');
 
@@ -336,6 +343,6 @@
 
         });
 
-</script>
+    </script>
 
 @endsection

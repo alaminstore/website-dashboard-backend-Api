@@ -35,7 +35,12 @@ class InfosController extends Controller
         $infos->linkedin_url = $request->linkedin_url;
         $infos->youtube_url = $request->youtube_url;
         $infos->save();
-        return response()->json($infos);
+
+        $range = Info::all()->count();
+        return response()->json([
+            "infos"=>$infos,"range"=>$range
+        ]);
+
     }
 
     public function edit($id)
@@ -81,7 +86,10 @@ class InfosController extends Controller
     public function destroy(Request $request)
     {
         $infos = Info::find($request->id);
+
         $infos->delete();
-        return response()->json('infos');
+        $range = Info::all()->count();
+
+        return response()->json($range);
     }
 }

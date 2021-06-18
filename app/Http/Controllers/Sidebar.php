@@ -53,7 +53,10 @@ class Sidebar extends Controller
 
     public function infos(){
         $infos = Info::all();
-        return view('backend.infos.infos',compact('infos'));
+        $limit = count($infos);
+        // dd($limit);
+
+        return view('backend.infos.infos',compact('infos','limit'));
     }
     public function counts(){
         $counts = Count::all();

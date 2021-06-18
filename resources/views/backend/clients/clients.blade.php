@@ -17,86 +17,90 @@
             border-radius: 5%;
         }
     </style>
-    <div class="row">
-        <div class="row">
-            <div class="col-md-12">
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="button" class="btn btn-secondary waves-effect waves-light clientBtn" title="Edit"
-                        data-toggle="modal"
-                        data-target="#myModalSave">
-                    <i class="ion-plus"></i> Add New Clients
-                </button>
+    <div class="card m-b-20">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-secondary waves-effect waves-light clientBtn" title="Edit"
+                            data-toggle="modal"
+                            data-target="#myModalSave">
+                        <i class="ion-plus"></i> Add New Clients
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>
-    <div id="reload-category">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="reload-category">
-                    <div class="list text-center">
-                        <h6 class="display-4" style="font-size: 20px;">Client's Information</h6>
+            <div id="reload-category">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="reload-category">
+                            <div class="list text-center">
+                                <h6 class="display-4" style="font-size: 20px;">Client's Information</h6>
+                            </div>
+                            <table id="myTable" class="table table-bordered dt-responsive nowrap"
+                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                <tr class="text-center">
+
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Level</th>
+                                    <th>Precedence</th>
+                                    <th>Url</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody id="loadnow">
+
+                                @foreach($clients  as $client)
+                                    <tr class="text-center">
+
+                                        <td>{{$client->name}}</td>
+                                        <td class="cat_img"><img src="{{$client->image}}" class="img-fluid"
+                                                                 alt="portfolio Category Image">
+                                        </td>
+                                        <td>
+                                            @if ($client->precedence == 1)
+                                                Level 1
+                                            @elseif ($client->precedence == 2)
+                                                Level 2
+                                            @else
+                                                Level 3
+                                            @endif
+                                        </td>
+                                        <td>{{$client->newposition}}</td>
+                                        <td><a href="{{$client->url}}" target="_blank">{{$client->url}}</a></td>
+                                        <td>
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                                    data-id="{{$client->client_id}}" data-toggle="modal"
+                                                    data-target=".bs-example-modal-lg">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
+                                                    data-id="{{$client->client_id}}" title="Edit"
+                                                    data-toggle="modal" data-target="#myModal">
+                                                <i class="mdi mdi-border-color"></i>
+                                            </button>
+                                            <a class="deletetag" data-id="{{$client->client_id}}">
+                                                <button class="btn btn-outline-danger btn-sm category-delete"
+                                                        title="Delete"><i
+                                                        class="ti-trash"></i></button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <table id="myTable" class="table table-bordered dt-responsive nowrap"
-                           style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead>
-                        <tr class="text-center">
-
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Level</th>
-                            <th>Precedence</th>
-                            <th>Url</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody id="loadnow">
-
-                        @foreach($clients  as $client)
-                            <tr class="text-center">
-
-                                <td>{{$client->name}}</td>
-                                <td class="cat_img"><img src="{{$client->image}}" class="img-fluid"
-                                                         alt="portfolio Category Image">
-                                </td>
-                                <td>
-                                    @if ($client->precedence == 1)
-                                        Level 1
-                                    @elseif ($client->precedence == 2)
-                                        Level 2
-                                    @else
-                                        Level 3
-                                    @endif
-                                </td>
-                                <td>{{$client->newposition}}</td>
-                                <td><a href="{{$client->url}}" target="_blank">{{$client->url}}</a></td>
-                                <td>
-                                    <button type="button"
-                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                        data-id="{{$client->client_id}}" data-toggle="modal"
-                                        data-target=".bs-example-modal-lg">
-                                    <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                            data-id="{{$client->client_id}}" title="Edit"
-                                            data-toggle="modal" data-target="#myModal">
-                                        <i class="mdi mdi-border-color"></i>
-                                    </button>
-                                    <a class="deletetag" data-id="{{$client->client_id}}">
-                                        <button class="btn btn-outline-danger btn-sm category-delete" title="Delete"><i
-                                                class="ti-trash"></i></button>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
+
     <!--modal content  Save-->
-    <div id="myModalSave" class="modal fade"  role="dialog" aria-labelledby="myModalLabel"
+    <div id="myModalSave" class="modal fade" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -148,7 +152,7 @@
 
                     <div class="form-group m-b-0">
                         <div>
-                            <button type="submit"  class="btn btn-primary waves-effect waves-light">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">
                                 Save
                             </button>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
@@ -341,8 +345,8 @@
                 });
             });
 
-             //View===============================================================
-             $('#reload-category').on('click', '.viewData', function () {
+            //View===============================================================
+            $('#reload-category').on('click', '.viewData', function () {
                 let id = $(this).attr('data-id');
                 console.log('id--', id);
                 $.ajax({
@@ -367,7 +371,6 @@
                     }
                 });
             });
-
 
 
         });

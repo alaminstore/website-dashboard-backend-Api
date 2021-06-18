@@ -56,6 +56,12 @@
                             <td>{{$catservice->position}}</td>
                             <td>
                                 <button type="button"
+                                    class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                    data-id="{{$catservice->category_related_service_id}}" data-toggle="modal"
+                                    data-target=".bs-example-modal-lg">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$catservice->category_related_service_id}}" title="Edit"
                                         data-toggle="modal" data-target="#myModal">
@@ -218,6 +224,43 @@
             </div>
         </div>
     </div>
+
+    {{-- View Modal --}}
+    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Category Related Service Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="background: #f5f5f5;">
+
+                    <div class="Catname d-flex">
+                        <p><b>Portfolio Category:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewCat"></div>
+                        <br>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Name:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewName"></div>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewLevel"></div>
+                    </div>
+                    <div class="desc d-flex">
+                        <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewPosition"></div>
+                    </div>
+                    <div class="iconview">
+                        <p><b>Icon:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewImage" class="text-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -225,25 +268,13 @@
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
-        $('.dropify').dropify();
         $(document).ready(function () {
+            $('.dropify').dropify();
             $('form').parsley();
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
             $('#myTable').DataTable();
-        });
-    </script>
-    <script type="text/javascript">
-        $("#cat").select2({
-            placeholder: "Select the Category"
-        });
-        $("#position").select2({
-            placeholder: "Select the Position"
-        });
-        $("#level").select2({
-            placeholder: "Select the Level"
+            $("#cat").select2({
+              placeholder: "Select the Category"
+            });
         });
     </script>
     <script type="text/javascript">   // Edit data
@@ -270,6 +301,33 @@
                         }
 
                         $('#category-modal').modal('show');
+                    },
+                    error: function (error) {
+                        if (error.status == 404) {
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
+            //View===============================================================
+            $('#reload-category').on('click', '.viewData', function () {
+                let id = $(this).attr('data-id');
+                console.log('id--', id);
+                $.ajax({
+                    url: "{{url('catservice-view')}}/" + id,
+                    method: "get",
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
+                        $('#viewName').html(data.name);
+                        $('#viewLevel').html(data.level);
+                        $('#viewCat').html(data.get_category.name);
+                        $('#viewPosition').html(data.position);
+                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.icon}" class="dropify"/>`);
+
                     },
                     error: function (error) {
                         if (error.status == 404) {

@@ -30,13 +30,18 @@
                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
                 <tr class="text-center">
+                    <th>#SL</th>
                     <th>Service Name</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody id="loadnow">
+                    @php
+                        $i=0;
+                    @endphp
                 @foreach($services  as $service)
                     <tr class="text-center">
+                        <td><b>{{$i+=1}}</b></td>
                         <td>{{$service->service_name}}</td>
                         <td>
                             <button type="button"
@@ -140,7 +145,7 @@
     <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
+            <h5 class="modal-title mt-0" id="myLargeModalLabel"> Service Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         </div>
         <div class="modal-body" style="background: #f5f5f5;">

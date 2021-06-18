@@ -10,7 +10,7 @@
         <div class="col-md-12" id="reloadId">
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
-                <i class="ion-plus"></i>Terms Policy
+                <i class="ion-plus"></i> Terms Policy
             </button>
             <div id="reload-category">
                 <div class="list text-center">
@@ -36,8 +36,14 @@
                             <td><b>{{$i+=1}}</b></td>
                             <td>{{$term->title}}</td>
                             <td>{{$term->subtitle}}</td>
-                            <td>{{ \Illuminate\Support\Str::limit($term->description, 50, $end='...') }}</td>
+                            <td>{{ \Illuminate\Support\Str::limit($term->description, 40, $end='...') }}</td>
                             <td>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                        data-id="{{$term->terms_policie_id}}" data-toggle="modal"
+                                        data-target=".bs-example-modal-lg">
+                                    <i class="fa fa-eye"></i>
+                                </button>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$term->terms_policie_id}}" title="Edit"
@@ -167,6 +173,36 @@
         </div>
     </div>
 
+    {{-- View Modal --}}
+<div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title mt-0" id="myLargeModalLabel">Terms & Policies Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body" style="background: #f5f5f5;">
+            <div class="Catname d-flex">
+                <p><b>Title:&nbsp;&nbsp;&nbsp;</b></p>
+                <div id="viewTitle"></div>
+                <br>
+            </div>
+            <div class="Catname d-flex">
+                <p><b>Subtitle:&nbsp;&nbsp;&nbsp;</b></p>
+                <div id="viewSub"></div>
+                <br>
+            </div>
+            <div class="Catname">
+                <p><b>Description:&nbsp;&nbsp;&nbsp;</b></p>
+                <div id="viewDesc"></div>
+                <br>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
 @endsection
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -202,6 +238,31 @@
                         $('#tagsupdate').find('#category-edit-id').val(data.terms_policie_id);
 
                         $('#category-modal').modal('show');
+                    },
+                    error: function (error) {
+                        if (error.status == 404) {
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
+            //View===============================================================
+            $('#reload-category').on('click', '.viewData', function () {
+                let id = $(this).attr('data-id');
+                console.log('id--', id);
+                $.ajax({
+                    url: "{{url('term-view')}}/" + id,
+                    method: "get",
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
+                        $('#viewTitle').html(data.title);
+                        $('#viewSub').html(data.subtitle);
+                        $('#viewDesc').html(data.description);
+
                     },
                     error: function (error) {
                         if (error.status == 404) {

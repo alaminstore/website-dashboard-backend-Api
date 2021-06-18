@@ -40,6 +40,7 @@
                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                         <tr class="text-center">
+                            <th>#SL</th>
                             <th>Name</th>
                             <th>Image</th>
                             <th>Level</th>
@@ -49,8 +50,12 @@
                         </tr>
                         </thead>
                         <tbody id="loadnow">
+                            @php
+                              $i=0;
+                            @endphp
                         @foreach($clients  as $client)
                             <tr class="text-center">
+                                <td><b>{{$i+=1}}</b></td>
                                 <td>{{$client->name}}</td>
                                 <td class="cat_img"><img src="{{$client->image}}" class="img-fluid"
                                                          alt="portfolio Category Image">
@@ -352,8 +357,8 @@
                         console.log('data', data);
                         $('#viewName').html(data.name);
                         $('#viewLevel').html(data.precedence);
-                        $('#viewPrecedence').html(`<a href="${data.url}" target="__blank">${data.newposition}</a>`);
-                        $('#viewUrl').html(data.url);
+                        $('#viewUrl').html(`<a href="${data.url}" target="__blank">${data.url}</a>`);
+                        $('#viewPrecedence').html(data.newposition);
                         $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.image}" class="dropify"/>`);
 
                     },

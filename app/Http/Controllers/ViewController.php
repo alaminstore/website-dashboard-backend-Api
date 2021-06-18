@@ -37,7 +37,7 @@ class ViewController extends Controller
         return response()->json($tags);
     }
     public function viewCatservice($id){
-        $catServices  = CategoryRelatedServices::find($id);
+        $catServices  = CategoryRelatedServices::with('getCategory')->find($id);
         return response()->json($catServices);
     }
     public function viewInfo($id){

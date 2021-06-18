@@ -119,14 +119,12 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('get-precedence/{id}/{value}', [ClientsController::class,'quickPass']);
     Route::get('get-precedence-update/{id}/{value}', [ClientsController::class,'quickPassUpdate']);
 
-
     //Category related dropdown/ajax
     Route::get('related-level/{id}', [CategoryRelatedServiceController::class,'relatedPosition']);
     Route::get('related-level-update/{id}', [CategoryRelatedServiceController::class,'relatedPositionUpdate']);
 
     Route::get('get-position/{id}/{value}', [CategoryRelatedServiceController::class,'quickPositionPass']);
     Route::get('get-position-update/{id}/{value}', [CategoryRelatedServiceController::class,'quickPositionPassUpdate']);
-
 
     //portfolio items
     Route::post('portfolio-rest-items', [PortfolioItemsController::class,'dataPass'])->name('portfolioitem.passing');
@@ -136,34 +134,17 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('portfoliorestitemsedit/{id}/edit', [PortfolioItemsController::class,'edit']);
     Route::post('portfolio-rest-items/updated', [PortfolioItemsController::class,'updated'])->name('portfolio.updated');
 
-
-//View Modal route
-Route::get('cat-view/{id}', [ViewController::class,'viewCat'])->name('cat.view');
-Route::get('item-view/{id}', [ViewController::class,'viewItem'])->name('item.view');
-Route::get('client-view/{id}', [ViewController::class,'viewClient'])->name('client.view');
-Route::get('service-view/{id}', [ViewController::class,'viewService'])->name('service.view');
-Route::get('tag-view/{id}', [ViewController::class,'viewTag'])->name('tag.view');
-Route::get('catservice-view/{id}', [ViewController::class,'viewCatservice'])->name('catservice.view');
-Route::get('info-view/{id}', [ViewController::class,'viewInfo'])->name('info.view');
-Route::get('count-view/{id}', [ViewController::class,'viewCount'])->name('count.view');
-Route::get('faq-view/{id}', [ViewController::class,'viewFaq'])->name('faq.view');
-Route::get('term-view/{id}', [ViewController::class,'viewTerm'])->name('term.view');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //View Modal route
+    Route::get('cat-view/{id}', [ViewController::class,'viewCat'])->name('cat.view');
+    Route::get('item-view/{id}', [ViewController::class,'viewItem'])->name('item.view');
+    Route::get('client-view/{id}', [ViewController::class,'viewClient'])->name('client.view');
+    Route::get('service-view/{id}', [ViewController::class,'viewService'])->name('service.view');
+    Route::get('tag-view/{id}', [ViewController::class,'viewTag'])->name('tag.view');
+    Route::get('catservice-view/{id}', [ViewController::class,'viewCatservice'])->name('catservice.view');
+    Route::get('info-view/{id}', [ViewController::class,'viewInfo'])->name('info.view');
+    Route::get('count-view/{id}', [ViewController::class,'viewCount'])->name('count.view');
+    Route::get('faq-view/{id}', [ViewController::class,'viewFaq'])->name('faq.view');
+    Route::get('term-view/{id}', [ViewController::class,'viewTerm'])->name('term.view');
 
 // Clients
     Route::post('clients/store', [ClientsController::class,'store'])->name('clients.store');

@@ -15,4 +15,8 @@ class CategoryRelatedServices extends Model
     public function getPortfolioCategory(){
         return $this->belongsTo(PortfolioCategories::class,'portfolio_category_id');
     }
+    public function getCategory()
+    {
+        return $this->belongsTo(PortfolioCategories::class,'portfolio_category_id');
+    }
 }

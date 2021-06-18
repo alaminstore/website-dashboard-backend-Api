@@ -25,9 +25,7 @@
         }
     </style>
     <div class="row" id="okreload">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-7" id="reloadId">
+        <div class="col-md-12" id="reloadId">
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light" title="Edit" data-toggle="modal"
                     data-target="#myModalSave">
                 <i class="ion-plus"></i> Add New Count
@@ -58,6 +56,12 @@
                             <td>{{$count->value}}</td>
                             <td>{{$count->position}}</td>
                             <td>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                        data-id="{{$count->count_id}}" data-toggle="modal"
+                                        data-target=".bs-example-modal-lg">
+                                    <i class="fa fa-eye"></i>
+                                </button>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$count->count_id}}" title="Edit"
@@ -171,7 +175,6 @@
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Position</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="position2" name="position">
-                                <option></option>
                                 @php($i=1)
                                 @for($i=1;$i<=3;$i++)
                                     <option value="{{$i}}">Position {{$i}}</option>
@@ -194,6 +197,37 @@
             </div>
         </div>
     </div>
+
+    {{-- View Modal --}}
+<div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body" style="background: #f5f5f5;">
+
+            <div class="Catname d-flex">
+                <p><b>Parameter:&nbsp;&nbsp;&nbsp;</b></p>
+                <div id="viewParameter"></div>
+                <br>
+            </div>
+            <div class="Catname d-flex">
+                <p><b>Value:&nbsp;&nbsp;&nbsp;</b></p>
+                <div id="viewValue"></div>
+                <br>
+            </div>
+            <div class="Catname d-flex">
+                <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
+                <div id="viewPosition"></div>
+                <br>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
 
 @endsection
 @section('scripts')
@@ -252,6 +286,32 @@
                 });
             });
 
+
+            //View===============================================================
+            $('#reload-category').on('click', '.viewData', function () {
+                let id = $(this).attr('data-id');
+                console.log('id--', id);
+                $.ajax({
+                    url: "{{url('count-view')}}/" + id,
+                    method: "get",
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
+                        $('#viewParameter').html(data.parameter);
+                        $('#viewValue').html(data.value);
+                        $('#viewPosition').html(data.position);
+
+                    },
+                    error: function (error) {
+                        if (error.status == 404) {
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
         });
 
     </script>
@@ -291,7 +351,7 @@
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
 
-                    $('#tagstore').trigger('reset');
+                    $('#catservestore').trigger('reset');
                 }
 
             });

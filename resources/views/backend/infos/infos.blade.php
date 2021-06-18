@@ -40,10 +40,6 @@
                         <th>Email</th>
                         <th>Address</th>
                         <th>Logo</th>
-                        <th>Facebook</th>
-                        <th>Instagram</th>
-                        <th>Linkedin</th>
-                        <th>Youtube</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -56,15 +52,17 @@
                             <td><b>{{$i+=1}}</b></td>
                             <td>{{$info->mobile}}</td>
                             <td>{{$info->email}}</td>
-                            <td>{{$info->address}}</td>
+                            <td>{{ \Illuminate\Support\Str::limit($info->address, 30, $end='...') }}</td>
                             <td class="cat_img">
                                 <img src="{{$info->logo}}" class="img-fluid" alt="Info's logo">
                             </td>
-                            <td>{{$info->facebook_url}}</td>
-                            <td>{{$info->instagram_url}}</td>
-                            <td>{{$info->linkedin_url}}</td>
-                            <td>{{$info->youtube_url}}</td>
                             <td>
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
+                                    data-id="{{$info->info_id}}" data-toggle="modal"
+                                    data-target=".bs-example-modal-lg">
+                                <i class="fa fa-eye"></i>
+                                </button>
                                 <button type="button"
                                         class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
                                         data-id="{{$info->info_id}}" title="Edit"
@@ -132,16 +130,14 @@
                         <label for="name" class="col-sm-4 col-form-label">Facebook Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="facebook_url"
-                                   placeholder="Facebook Url Here..."
-                                   required>
+                                   placeholder="Facebook Url Here...">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Instagram Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="instagram_url"
-                                   placeholder="Instagram Url Here..."
-                                   required>
+                                   placeholder="Instagram Url Here...">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -149,15 +145,14 @@
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="linkedin_url"
                                    placeholder="Linkedin Url Here..."
-                                   required>
+                                   >
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Youtube Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="youtube_url"
-                                   placeholder="Youtube Url Here..."
-                                   required>
+                                   placeholder="Youtube Url Here...">
                         </div>
                     </div>
 
@@ -224,32 +219,28 @@
                         <label for="name" class="col-sm-4 col-form-label">Facebook Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="facebook" name="facebook_url"
-                                   placeholder="Facebook Url Here..."
-                                   required>
+                                   placeholder="Facebook Url Here...">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Instagram Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="instagram" name="instagram_url"
-                                   placeholder="Instagram Url Here..."
-                                   required>
+                                   placeholder="Instagram Url Here...">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Linkedin Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="linkedin" name="linkedin_url"
-                                   placeholder="Linkedin Url Here..."
-                                   required>
+                                   placeholder="Linkedin Url Here...">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Youtube Url</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="youtube" name="youtube_url"
-                                   placeholder="Youtube Url Here..."
-                                   required>
+                                   placeholder="Youtube Url Here...">
                         </div>
                     </div>
                     <div class="form-group m-b-0">
@@ -263,6 +254,62 @@
                         </div>
                     </div>
                     {!!Form::close()!!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- View Modal --}}
+    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Details Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="background: #f5f5f5;">
+
+                    <div class="Catname d-flex">
+                        <p><b>Mobile:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewMobile"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
+                        <p><b>Email:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewEmail"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
+                        <p><b>Address:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewAddress"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
+                        <p><b>Facebook:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewFb"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
+                        <p><b>Instagram:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewInsta"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
+                        <p><b>Linkedin:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewLdin"></div>
+                        <br>
+                    </div>
+                    <div class="Catname d-flex">
+                        <p><b>Youtube:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewYtb"></div>
+                        <br>
+                    </div>
+
+                    <div class="iconview">
+                        <p><b>Image:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewImage" class="text-center"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -316,8 +363,7 @@
                             console.log(img_url);
 
                             $("#image2").attr("data-height", 100);
-                            $("#image2").attr("data-default-file", img_url);
-
+                            $("#image2").attr("data-default-file", img_url);dw
                             $(".dropify-wrapper").removeClass("dropify-wrapper").addClass("dropify-wrapper has-preview");
                             $(".dropify-preview").css('display', 'block');
                             $('.dropify-render').html('').html('<img src=" ' + img_url + '" style="max-height: 100px;">')
@@ -326,6 +372,38 @@
                         }
                         $("#image2").dropify();
                         //===========================
+                    },
+                    error: function (error) {
+                        if (error.status == 404) {
+                            toastr.error('Not found!');
+                        }
+                    }
+                });
+            });
+
+
+
+            //View===============================================================
+            $('#reload-category').on('click', '.viewData', function () {
+                let id = $(this).attr('data-id');
+                console.log('id--', id);
+                $.ajax({
+                    url: "{{url('info-view')}}/" + id,
+                    method: "get",
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        let url = window.location.origin;
+                        console.log('data', data);
+                        $('#viewMobile').html(data.mobile);
+                        $('#viewEmail').html(data.email);
+                        $('#viewAddress').html(data.address);
+                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.logo}" class="dropify"/>`);
+                        $('#viewFb').html(`<a href="${data.facebook_url}" target="__blank">${data.facebook_url}</a>`);
+                        $('#viewInsta').html(`<a href="${data.instagram_url}" target="__blank">${data.instagram_url}</a>`);
+                        $('#viewLdin').html(`<a href="${data.linkedin_url}" target="__blank">${data.linkedin_url}</a>`);
+                        $('#viewYtb').html(`<a href="${data.youtube_url}" target="__blank">${data.youtube_url}</a>`);
+
                     },
                     error: function (error) {
                         if (error.status == 404) {
@@ -365,7 +443,6 @@
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1000);
                     toastr.success('Data Inserted Successfully');
-                    $('#catservestore').trigger('reset');
                 }
             });
         });

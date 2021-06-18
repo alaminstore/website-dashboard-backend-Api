@@ -16,6 +16,9 @@
         .dataTables_wrapper {
             overflow-x: auto;
         }
+        textarea.form-control {
+            height: 100px;
+        }
 
     </style>
     <div class="row" id="okreload">
@@ -115,9 +118,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Address</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" name="address"
-                                   placeholder="Address Here..."
-                                   required>
+                            <textarea name="address"  class="form-control" cols="30" rows="10" placeholder="Address Here..." required></textarea>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
@@ -204,9 +205,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Address</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="address" name="address"
-                                   placeholder="Address Here..."
-                                   required>
+                        <textarea name="address" style="height: 100px;"  class="form-control" id="address" cols="30" rows="10" placeholder="Address Here..." required></textarea>
                         </div>
                     </div>
                     <div class="form-group row flex_css">

@@ -398,10 +398,18 @@
                         console.log('data', data);
                         $('#tagsupdate').find('#title').val(data.title);
                         $('#tagsupdate').find('#url').val(data.url);
-                        $('#cat2').val(data.portfolio_category_id);
+
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
                         $('#client_id2').val(data.client_id);
-                        $('#tagsupdate').find('#position2').val(data.position_one);
+                        var positiondata = $('#tagsupdate').find('#position2').val(data.position_one);
+                        var catData = $('#cat2').val(data.portfolio_category_id);
+                        $("#position2").select2({
+                            placeholder: positiondata
+                        });
+                        $("#position2").select2({
+                            placeholder: positiondata
+                        });
+                        $("#client_id2").select2();
                         $("#newTagId").select2();
                         $('#level2').val(data.level);
                         if (data.image) {
@@ -471,10 +479,6 @@
             });
 
         });
-    </script>
-    <script type="text/javascript">
-        $("#client_id2 , #cat2").select2();
-        $("#position2").select2();
     </script>
     <script>
 

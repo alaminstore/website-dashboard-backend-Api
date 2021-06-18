@@ -98,7 +98,7 @@
         </div>
     </div>
     <!--modal content  Save-->
-    <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="myModalSave" class="modal fade"  role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -150,7 +150,7 @@
 
                     <div class="form-group m-b-0">
                         <div>
-                            <button type="submit" id="#submit" class="btn btn-primary waves-effect waves-light">
+                            <button type="submit"  class="btn btn-primary waves-effect waves-light">
                                 Save
                             </button>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5">
@@ -164,7 +164,7 @@
         </div>
     </div>
     <!--modal content Update -->
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -203,7 +203,7 @@
                     <div class="form-group row">
                         <label for="url" class="col-sm-2 col-form-label">Url</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="url" name="url"
+                            <input class="form-control" type="text" id="url2" name="url"
                                    placeholder="Url Here..." required>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
                     </div>
                     <div class="form-group m-b-0">
                         <div>
-                            <button type="submit" id="#submit" class="btn btn-success waves-effect waves-light">
+                            <button type="submit" class="btn btn-success waves-effect waves-light">
                                 Update
                             </button>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
@@ -416,11 +416,6 @@
             });
 
         });
-
-        $('#submit').on('click', function () {
-            $('.dropify-preview').hide();
-        });
-
         //Delete data
         $(document).on('click', '.deletetag', function (e) {
             e.preventDefault();

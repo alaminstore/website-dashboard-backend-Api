@@ -99,7 +99,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Mobile</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="mobile"
+                            <input class="form-control" type="text" name="mobile"
                                    placeholder="Mobile Number..."
                                    required>
                         </div>
@@ -107,7 +107,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Email</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="email" id="name" name="email"
+                            <input class="form-control" type="email" name="email"
                                    placeholder="Email Here..."
                                    required>
                         </div>
@@ -115,7 +115,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Address</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="address"
+                            <input class="form-control" type="text" name="address"
                                    placeholder="Address Here..."
                                    required>
                         </div>
@@ -129,21 +129,21 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Facebook Url</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="facebook_url"
+                            <input class="form-control" type="text"  name="facebook_url"
                                    placeholder="Facebook Url Here...">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Instagram Url</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="instagram_url"
+                            <input class="form-control" type="text"  name="instagram_url"
                                    placeholder="Instagram Url Here...">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Linkedin Url</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="linkedin_url"
+                            <input class="form-control" type="text" name="linkedin_url"
                                    placeholder="Linkedin Url Here..."
                                    >
                         </div>
@@ -151,7 +151,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Youtube Url</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="youtube_url"
+                            <input class="form-control" type="text" name="youtube_url"
                                    placeholder="Youtube Url Here...">
                         </div>
                     </div>
@@ -363,7 +363,7 @@
                             console.log(img_url);
 
                             $("#image2").attr("data-height", 100);
-                            $("#image2").attr("data-default-file", img_url);dw
+                            $("#image2").attr("data-default-file", img_url);
                             $(".dropify-wrapper").removeClass("dropify-wrapper").addClass("dropify-wrapper has-preview");
                             $(".dropify-preview").css('display', 'block');
                             $('.dropify-render').html('').html('<img src=" ' + img_url + '" style="max-height: 100px;">')

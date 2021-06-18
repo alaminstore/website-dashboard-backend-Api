@@ -99,15 +99,12 @@
       <script src="{{asset('assets/js/jquery.min.js')}}"></script>
       <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
       <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
-      <script src="{{asset('assets/js/waves.js')}}"></script>
       <script src="{{asset('assets/js/jquery.min.js')}}"></script>
       <script src="{{asset('assets/js/jquery.nicescroll.js')}}"></script>
       <script src="{{asset('assets/js/jquery.scrollTo.min.js')}}"></script>
       <!-- Parsley js -->
       <script src="{{asset('assets/plugins/parsleyjs/parsley.min.js')}}"></script>
       <script src="{{asset('assets/js/jquery-toast-plugin/jquery.toast.min.js')}}"></script>
-      <!-- App js -->
-      <script src="{{asset('assets/js/app.js')}}"></script>
       <script>
          $(document).ready(function() {
              $('form').parsley();

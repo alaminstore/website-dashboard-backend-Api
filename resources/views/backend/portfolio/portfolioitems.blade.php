@@ -24,7 +24,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light clearData"
                                             title="Edit" data-toggle="modal"
                                             data-target="#myModalSave">
-                <i class="ion-plus"></i>Add new Portfolio Item
+                <i class="ion-plus"></i> Add new Portfolio Item
             </button>
 
 
@@ -89,7 +89,7 @@
     </div>
     </div>
     <!--modal content  Save-->
-    <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="myModalSave" class="modal fade"  role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -115,7 +115,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Title</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="title" name="title"
+                            <input class="form-control" type="text" name="title"
                                    placeholder="Title Here..."
                                    required>
                         </div>
@@ -140,7 +140,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Url</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="url" name="url"
+                            <input class="form-control" type="text"  name="url"
                                    placeholder="Url Here..."
                                    required>
                         </div>
@@ -166,7 +166,6 @@
                                 @for ($i=1;$i<=9;$i++)
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
                                 @endfor
-
                             </select>
                         </div>
                     </div>
@@ -183,7 +182,7 @@
                     </div>
                     <div class="form-group m-b-0">
                         <div>
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                            <button type="submit" id="submit" class="btn btn-primary waves-effect waves-light">
                                 Submit
                             </button>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
@@ -198,7 +197,7 @@
     </div>
 
     <!--modal content Update -->
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal fade"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -272,7 +271,6 @@
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
                                 @endfor
                             </select>
-                            <label id="positionresult"></label>
                         </div>
                     </div>
 
@@ -288,7 +286,7 @@
                     </div>
                     <div class="form-group m-b-0">
                         <div>
-                            <button type="submit" id="submit" class="btn btn-success waves-effect waves-light">
+                            <button type="submit" class="btn btn-success waves-effect waves-light">
                                 Update
                             </button>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
@@ -357,11 +355,15 @@
         $('.dropify').dropify();
         $(document).ready(function () {
             $('form').parsley();
-            $(".clearData").on('click', function () {
-                $('.dropify-preview').hide();
-            });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+	      $(".clearData").on('click',function(){
+              $('.dropify-preview').hide();
+           });
+        });
+        </script>
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable();
@@ -369,10 +371,10 @@
     </script>
     <script type="text/javascript">
         $("#cat").select2({
-            placeholder: "Select the Category"
+            placeholder: "Select the Portfolio Category",
         });
         $("#position").select2({
-            placeholder: "Select the Position"
+            placeholder: "Select the Portfolio Category First"
         });
         $("#client_id").select2({
             placeholder: "Select the Client"
@@ -396,11 +398,10 @@
                         console.log('data', data);
                         $('#tagsupdate').find('#title').val(data.title);
                         $('#tagsupdate').find('#url').val(data.url);
-                        var catdata = $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
+                        $('#cat2').val(data.portfolio_category_id);
                         $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
-                        var clientid = $('#tagsupdate').find('#client_id2').val(data.client_id);
-                        // var tagid2 =  $('#tagsupdate').find('#tag_id2').val(data.get_tag.tag_id);
-                        var positiondata = $('#tagsupdate').find('#position2').val(data.position_one);
+                        $('#client_id2').val(data.client_id);
+                        $('#tagsupdate').find('#position2').val(data.position_one);
                         $("#newTagId").select2();
                         $('#level2').val(data.level);
                         if (data.image) {
@@ -472,24 +473,9 @@
         });
     </script>
     <script type="text/javascript">
-        $("#cat2").select2({
-            placeholder: catdata
-        });
-        $("#client_id2").select2({
-            placeholder: clientid
-        });
-        $("#position2").select2({
-            placeholder: positiondata
-        });
+        $("#client_id2 , #cat2").select2();
+        $("#position2").select2();
     </script>
-    {{-- <script>
-        $(document).ready(function() {
-            $('.tag_id2').select2({
-                placeholder: tagid2
-            });
-        });
-    </script> --}}
-
     <script>
 
         //save data
@@ -652,20 +638,6 @@
                     $.each(result, function (key, value) {
                         $('#tagsupdate').find('.position_list2').append(`<option value="${value}">Position ${value}</option>`);
                     })
-
-
-                    // var tagId = [];
-                    // $.each(result.items.tags, function (key, value) {
-                    //     //    console.log(value);
-                    //     tagId.push(value.tag_id)
-
-
-                    // })
-                    // console.log(tagId);
-                    // $('#technology_update').val(technologies_id);
-                    // $('#technology_update').trigger('change');
-
-
                 },
                 error: function (err) {
                     console.log(err)
@@ -675,20 +647,5 @@
 
         });
     </script>
-
-    <script>
-        $document.ready(function () {
-            $("#submit").click(function () {
-                var position = $("#position2");
-                if (position.val() === "") {
-                    document.getElementById("positionresult").innerHTML = "Position Field required";
-                    document.getElementById("positionresult").style.color = "red";
-                }
-            });
-        })
-    </script>
-
-
-
 
 @endsection

@@ -57,10 +57,6 @@
 <!-- Responsive examples -->
 <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
 <script src="assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-
-<!-- Datatable init js -->
-<script src="assets/pages/datatables.init.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 <script src="assets/js/jquery-toast-plugin/jquery.toast.min.js"></script>
 <script src="assets/js/jquery.nicescroll.js"></script>
@@ -71,7 +67,7 @@
 <script src="assets/plugins/morris/morris.min.js"></script>
 <script src="assets/plugins/raphael/raphael-min.js"></script>
 {{-- <script src="assets/pages/dashboard.js"></script> --}}
-<script src="assets/js/app.js"></script>
+<script src="{{asset('assets/js/app.js')}}"></script>
 <script type="text/javascript">
     $(document).ajaxStart(function () {
         $("#overlay").show();

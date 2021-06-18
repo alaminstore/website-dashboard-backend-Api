@@ -84,7 +84,7 @@
     </div>
 
     <!--modal content  Save-->
-    <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="myModalSave" class="modal fade" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -98,7 +98,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Parameter</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="parameter" name="parameter"
+                            <input class="form-control" type="text" name="parameter"
                                    placeholder="Parameter Here..."
                                    required>
                         </div>
@@ -106,7 +106,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Value</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="value" name="value"
+                            <input class="form-control" type="text" name="value"
                                    placeholder="Value Here..."
                                    required>
                         </div>
@@ -143,7 +143,7 @@
 
 
     <!--modal content Update -->
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="myModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -270,7 +270,7 @@
                         $('#tagsupdate').find('#parameter').val(data.parameter).focus();
                         $('#tagsupdate').find('#value').val(data.value).focus();
                         $('#tagsupdate').find('#category-edit-id').val(data.count_id);
-                        var positiondata = $('#tagsupdate').find('#position2').val(data.position);
+                        $('#position2').val(data.position);
 
                         if (data.icon) {
                             $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.icon}"/>`);
@@ -316,9 +316,7 @@
 
     </script>
     <script type="text/javascript">
-        $("#position2").select2({
-            placeholder: positiondata
-        });
+        $("#position2").select2();
     </script>
 
     <script>

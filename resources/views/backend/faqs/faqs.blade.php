@@ -76,7 +76,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">Faqs Question</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="faq_question" name="faq_question"
+                            <input class="form-control" type="text" name="faq_question"
                                    placeholder="Faq Question Here..."
                                    required>
                         </div>
@@ -84,7 +84,7 @@
                     <div class="form-group row flex_css">
                         <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
                         <div class="col-md-10">
-                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" required></textarea>
+                            <textarea class="description_css form-control" name="faq_answer" required></textarea>
                         </div>
                     </div>
 

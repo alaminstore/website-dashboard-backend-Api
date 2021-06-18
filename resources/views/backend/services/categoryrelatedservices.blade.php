@@ -299,8 +299,23 @@
                         if (data.icon) {
                             $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.icon}"/>`);
                         }
+                        //===============================================
+                        if (data.icon) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + data.icon;
+                            console.log(img_url);
 
-                        $('#category-modal').modal('show');
+                            $("#image2").attr("data-height", 100);
+                            $("#image2").attr("data-default-file", img_url);
+
+                            $(".dropify-wrapper").removeClass("dropify-wrapper").addClass("dropify-wrapper has-preview");
+                            $(".dropify-preview").css('display', 'block');
+                            $('.dropify-render').html('').html('<img src=" ' + img_url + '" style="max-height: 100px;">')
+                        } else {
+                            $(".dropify-preview .dropify-render img").attr("src", "");
+                        }
+                        $("#image2").dropify();
+                        //===========================
+
                     },
                     error: function (error) {
                         if (error.status == 404) {

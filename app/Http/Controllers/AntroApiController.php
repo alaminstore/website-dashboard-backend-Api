@@ -42,14 +42,15 @@ class AntroApiController extends Controller
         return response()->json($portfolio_items,200);
     }
 
-
-
     public function portfolioCategoryByLevel($id){
         $portfolio_items = PortfolioItem::with('getCategory')->where('level',$id)->first();
+
+        $portfolio_categories=$portfolio_items->getCategory;
+        // dd($portfolio_categories);
         if(empty($portfolio_items)){
             return response()->json(['message'=>'Category name not found'],404);
         }
-        return response()->json($portfolio_items,200);
+        return response()->json($portfolio_categories,200);
     }
 
 

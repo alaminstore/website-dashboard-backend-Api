@@ -219,16 +219,11 @@
         $('.dropify').dropify();
         $(document).ready(function () {
             $('form').parsley();
+            $('#datatable').DataTable();
             $(".clearData").on('click', function () {
                 $('.dropify-preview').hide();
             });
         });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable();
-        });
-
     </script>
     <script>
         $(document).ready(function () {

@@ -88,7 +88,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Sub-Title</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" id="subtitle" name="subtitle"
+                            <input class="form-control" type="text"  name="subtitle"
                                    placeholder="Title Here..."
                                    required>
                         </div>

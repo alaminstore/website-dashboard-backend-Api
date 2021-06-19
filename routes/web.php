@@ -14,9 +14,6 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\PortfolioItemsController;
 use App\Http\Controllers\TermsPoliciesController;
 use App\Http\Controllers\ViewController;
-use App\Models\CategoryRelatedServices;
-use App\Models\Client;
-use App\Models\PortfolioItem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 

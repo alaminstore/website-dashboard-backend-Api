@@ -32,17 +32,57 @@ class ViewController extends Controller
             ]);
         }
     }
+
     public function viewItem($id){
-        $items  = PortfolioItem::with('getClient','getCategory','getTag')->find($id);
-        return response()->json($items);
+
+        $data = PortfolioItem::with('getClient','getCategory','getTag')->find($id);
+
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
+
     public function viewClient($id){
-        $clients  = Client::find($id);
-        return response()->json($clients);
+        $data = Client::find($id);
+
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
+
     public function viewService($id){
-        $services  = Service::find($id);
-        return response()->json($services);
+        $data = Service::find($id);
+
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
     public function viewTag($id){
         $data=Tag::find($id);
@@ -60,24 +100,79 @@ class ViewController extends Controller
         }
     }
     public function viewCatservice($id){
-        $catServices  = CategoryRelatedServices::with('getCategory')->find($id);
-        return response()->json($catServices);
+        $data=CategoryRelatedServices::with('getCategory')->find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
     public function viewInfo($id){
-        $infos  = Info::find($id);
-        return response()->json($infos);
+        $data  = Info::find($id);
+        if($data){
+            return response()->json([
+                'success' => true,
+                'data' => $data
+              ]);
+          }
+          else{
+            return response()->json([
+                'success' => false,
+                'data' => 'No information found'
+              ]);
+          }
     }
     public function viewCount($id){
-        $counts  = Count::find($id);
-        return response()->json($counts);
+        $data  = Count::find($id);
+        if($data){
+            return response()->json([
+                'success' => true,
+                'data' => $data
+              ]);
+          }
+          else{
+            return response()->json([
+                'success' => false,
+                'data' => 'No information found'
+              ]);
+          }
     }
     public function viewFaq($id){
-        $faqs  = Faq::find($id);
-        return response()->json($faqs);
+        $data  = Faq::find($id);
+        if($data){
+            return response()->json([
+                'success' => true,
+                'data' => $data
+              ]);
+          }
+          else{
+            return response()->json([
+                'success' => false,
+                'data' => 'No information found'
+              ]);
+          }
     }
     public function viewTerm($id){
-        $faqs  = TermsPolicies::find($id);
-        return response()->json($faqs);
+        $data  = TermsPolicies::find($id);
+        if($data){
+            return response()->json([
+                'success' => true,
+                'data' => $data
+              ]);
+          }
+          else{
+            return response()->json([
+                'success' => false,
+                'data' => 'No information found'
+              ]);
+          }
     }
 }
 

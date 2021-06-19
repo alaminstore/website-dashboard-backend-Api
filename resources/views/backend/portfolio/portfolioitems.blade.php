@@ -63,8 +63,7 @@
                                     <td>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                                data-id="{{$item->portfolio_item_id}}" data-toggle="modal"
-                                                data-target=".bs-example-modal-lg">
+                                                data-id="{{$item->portfolio_item_id}}">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                         <button type="button"
@@ -308,9 +307,9 @@
     </div>
 
     {{-- View Modal --}}
-    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+    <div id="viewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="myLargeModalLabel">Portfolio Item Details</h5>
@@ -476,20 +475,23 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#viewTitle').html(data.title);
-                        $('#viewClient').html(data.get_client.name);
-                        $('#viewUrl').html(`<a href="${data.url}" target="__blank">${data.url}</a>`);
-                        $('#viewLevel').html(data.level);
-                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.image}" class="dropify"/>`);
-                        $('#viewCat').text(data.get_category.name);
+                        // console.log('data', data);
+                        $('#viewTitle').html(response.data.title);
+                        $('#viewClient').html(response.data.get_client.name);
+                        $('#viewUrl').html(`<a href="${response.data.url}" target="__blank">${response.data.url}</a>`);
+                        $('#viewLevel').html(response.data.level);
+                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${response.data.image}"/>`);
+                        $('#viewCat').text(response.data.get_category.name);
 
-                        $.each(data.get_tag, function (key, value) {
+                        $.each(response.data.get_tag, function (key, value) {
                             $('.viewTag').append(`<span>${value.tag}</span>,&nbsp;&nbsp;`);
                             // console.log(value);
                         })
+                        $('#viewModal').modal('show');
+                        console.log(response);
+
 
                     },
                     error: function (error) {

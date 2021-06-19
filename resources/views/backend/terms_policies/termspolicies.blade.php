@@ -6,7 +6,6 @@
     }
 </style>
 @section('content')
-
     <div class="card m-b-20">
         <div class="card-body">
             <div class="row">
@@ -33,15 +32,13 @@
                             <tbody class="tbodytags" id="loadnow">
                             @foreach($terms as $term)
                                 <tr class="text-center unqtags{{$term->terms_policie_id}}">
-
-                                    <td>{{$term->title}}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($term->title, 20, $end='...') }}</td>
                                     <td>{{ \Illuminate\Support\Str::limit($term->subtitle, 40, $end='...') }}</td>
                                     <td>{{ \Illuminate\Support\Str::limit($term->description, 40, $end='...') }}</td>
                                     <td>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                                data-id="{{$term->terms_policie_id}}" data-toggle="modal"
-                                                data-target=".bs-example-modal-lg">
+                                                data-id="{{$term->terms_policie_id}}">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                         <button type="button"
@@ -53,8 +50,7 @@
                                         <a class="deletetag" data-id="{{$term->terms_policie_id}}">
                                             <button class="btn btn-outline-danger btn-sm category-delete"
                                                     title="Delete"><i
-                                                    class="ti-trash"></i>
-                                            </button>
+                                                    class="ti-trash"></i></button>
                                         </a>
                                     </td>
                                 </tr>
@@ -178,29 +174,50 @@
     </div>
 
     {{-- View Modal --}}
-    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+    <div id="viewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="myLargeModalLabel">Terms & Policies Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="Catname d-flex">
-                        <p><b>Title:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewTitle"></div>
-                        <br>
-                    </div>
-                    <div class="Catname d-flex">
-                        <p><b>Subtitle:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewSub"></div>
-                        <br>
-                    </div>
                     <div class="Catname">
-                        <p><b>Description:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewDesc"></div>
-                        <br>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Title:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewTitle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Subtitle:</b></p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div id="viewSub"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Description:</b></p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div id="viewDesc"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -260,12 +277,12 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
-                        let url = window.location.origin;
-                        console.log('data', data);
-                        $('#viewTitle').html(data.title);
-                        $('#viewSub').html(data.subtitle);
-                        $('#viewDesc').html(data.description);
+                    success: function (response) {
+                        console.log('data', response);
+                        $('#viewTitle').html(response.data.title);
+                        $('#viewSub').html(response.data.subtitle);
+                        $('#viewDesc').html(response.data.description);
+                        $('#viewModal').modal('show');
 
                     },
                     error: function (error) {

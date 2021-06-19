@@ -72,8 +72,7 @@
                                         <td>
                                             <button type="button"
                                                     class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                                    data-id="{{$client->client_id}}" data-toggle="modal"
-                                                    data-target=".bs-example-modal-lg">
+                                                    data-id="{{$client->client_id}}">
                                                 <i class="fa fa-eye"></i>
                                             </button>
                                             <button type="button"
@@ -234,9 +233,9 @@
     </div>
 
     {{-- View Modal --}}
-    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+    <div id="viewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="myLargeModalLabel">Client Details</h5>
@@ -354,14 +353,15 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#viewName').html(data.name);
-                        $('#viewLevel').html(data.precedence);
-                        $('#viewUrl').html(`<a href="${data.url}" target="__blank">${data.url}</a>`);
-                        $('#viewPrecedence').html(data.newposition);
-                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.image}" class="dropify"/>`);
+                        console.log('data', response);
+                        $('#viewName').html(response.data.name);
+                        $('#viewLevel').html(response.data.precedence);
+                        $('#viewUrl').html(`<a href="${response.data.url}" target="__blank">${response.data.url}</a>`);
+                        $('#viewPrecedence').html(response.data.newposition);
+                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${response.data.image}" class="dropify"/>`);
+                        $('#viewModal').modal('show');
 
                     },
                     error: function (error) {

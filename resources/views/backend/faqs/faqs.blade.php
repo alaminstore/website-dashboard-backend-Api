@@ -34,8 +34,7 @@
                                     <td>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                                data-id="{{$faq->faq_id}}" data-toggle="modal"
-                                                data-target=".bs-example-modal-lg">
+                                                data-id="{{$faq->faq_id}}">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                         <button type="button"
@@ -150,9 +149,9 @@
     </div>
 
     {{-- View Modal --}}
-    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+    <div id="viewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
@@ -227,11 +226,11 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
-                        let url = window.location.origin;
-                        console.log('data', data);
-                        $('#viewQues').html(data.faq_question);
-                        $('#viewAns').html(data.faq_answer);
+                    success: function (response) {
+                        console.log('data', response);
+                        $('#viewQues').html(response.data.faq_question);
+                        $('#viewAns').html(response.data.faq_answer);
+                        $('#viewModal').modal('show');
 
                     },
                     error: function (error) {

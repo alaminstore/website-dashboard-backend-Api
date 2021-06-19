@@ -57,9 +57,7 @@
                                     <td>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                                data-id="{{$catservice->category_related_service_id}}"
-                                                data-toggle="modal"
-                                                data-target=".bs-example-modal-lg">
+                                                data-id="{{$catservice->category_related_service_id}}">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                         <button type="button"
@@ -233,9 +231,9 @@
     </div>
 
     {{-- View Modal --}}
-    <div id="#viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+    <div id="viewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="myLargeModalLabel">Category Related Service Details</h5>
@@ -349,14 +347,15 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#viewName').html(data.name);
-                        $('#viewLevel').html(data.level);
-                        $('#viewCat').html(data.get_category.name);
-                        $('#viewPosition').html(data.position);
-                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${data.icon}" class="dropify"/>`);
+                        console.log('data', response);
+                        $('#viewName').html(response.data.name);
+                        $('#viewLevel').html(response.data.level);
+                        $('#viewCat').html(response.data.get_category.name);
+                        $('#viewPosition').html(response.data.position);
+                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${response.data.icon}"/>`);
+                        $('#viewModal').modal('show');
 
                     },
                     error: function (error) {

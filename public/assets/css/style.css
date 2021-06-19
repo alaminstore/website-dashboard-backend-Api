@@ -4064,3 +4064,29 @@ body.fixed-left .side-menu.left {
     }
 }
 /*# sourceMappingURL=style.css.map */
+
+.modal-header {
+    background: black !important;
+    color: #ffff !important;
+}
+.close:not(:disabled):not(.disabled) {
+    cursor: pointer;
+    color: #fff;
+}
+.close {
+    opacity: 0.8 !important;
+}
+.close:not(:disabled):not(.disabled):focus,
+.close:not(:disabled):not(.disabled):hover {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+.smModalCss {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    padding: 20px 16px;
+}
+.modal-body {
+    word-break: break-all;
+}

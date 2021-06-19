@@ -43,8 +43,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$term->terms_policie_id}}" title="Edit"
-                                                data-toggle="modal" data-target="#myModal">
+                                                data-id="{{$term->terms_policie_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$term->terms_policie_id}}">
@@ -250,15 +249,15 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#title2').val(data.title).focus;
-                        $('#subtitle').val(data.subtitle);
-                        $('#description2').val(data.description)
-                        $('#category-edit-id').val(data.terms_policie_id);
+                        console.log('data', response);
+                        $('#title2').val(response.data.title).focus;
+                        $('#subtitle').val(response.data.subtitle);
+                        $('#description2').val(response.data.description)
+                        $('#category-edit-id').val(response.data.terms_policie_id);
 
-                        $('#category-modal').modal('show');
+                        $('#myModal').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {

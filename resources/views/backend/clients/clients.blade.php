@@ -77,8 +77,7 @@
                                             </button>
                                             <button type="button"
                                                     class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                    data-id="{{$client->client_id}}" title="Edit"
-                                                    data-toggle="modal" data-target="#myModal">
+                                                    data-id="{{$client->client_id}}" title="Edit">
                                                 <i class="mdi mdi-border-color"></i>
                                             </button>
                                             <a class="deletetag" data-id="{{$client->client_id}}">
@@ -242,27 +241,28 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-
-                    <div class="Catname d-flex">
-                        <p><b>Name:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewName"></div>
-                        <br>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewLevel"></div>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Precedence:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewPrecedence"></div>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Url:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewUrl"></div>
-                    </div>
-                    <div class="iconview">
-                        <p><b>Image:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewImage" class="text-center"></div>
+                    <div class="card p-10">
+                        <div class="Catname d-flex">
+                            <p><b>Name:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewName"></div>
+                            <br>
+                        </div>
+                        <div class="desc d-flex">
+                            <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewLevel"></div>
+                        </div>
+                        <div class="desc d-flex">
+                            <p><b>Precedence:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewPrecedence"></div>
+                        </div>
+                        <div class="desc d-flex">
+                            <p><b>Url:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewUrl"></div>
+                        </div>
+                        <div class="iconview">
+                            <p><b>Image:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewImage" class="text-center"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -303,18 +303,17 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
-                        console.log('data', data);
+                    success: function (response) {
+                        console.log('data', response);
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
-                        $('#tagsupdate').find('#category-edit-id').val(data.client_id);
-                        $('#url2').val(data.url);
-                        $('#position2').val(data.precedence);
-                        $('#newPosition2').val(data.newposition);
+                        $('#category-edit-name').val(response.data.name).focus();
+                        $('#category-edit-id').val(response.data.client_id);
+                        $('#url2').val(response.data.url);
+                        $('#position2').val(response.data.precedence);
+                        $('#newPosition2').val(response.data.newposition);
                         //image clear(dropify)...
-                        if (data.image) {
-                            var img_url = '{!!URL::to('/')!!}' + "/" + data.image;
+                        if (response.data.image) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + response.data.image;
                             console.log(img_url);
 
                             $("#image2").attr("data-height", 100);
@@ -328,13 +327,7 @@
                         }
                         $("#image2").dropify();
                         //end...
-
-                        console.log(data.name);
-
-                        $('#image').dropify();
-                        //
-
-                        $('#category-modal').modal('show');
+                        $('#myModal').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {
@@ -360,7 +353,7 @@
                         $('#viewLevel').html(response.data.precedence);
                         $('#viewUrl').html(`<a href="${response.data.url}" target="__blank">${response.data.url}</a>`);
                         $('#viewPrecedence').html(response.data.newposition);
-                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${response.data.image}" class="dropify"/>`);
+                        $('#viewImage').html(`<img width="300" height="300" class='img-fluid'  src="${url}/${response.data.image}" class="dropify"/>`);
                         $('#viewModal').modal('show');
 
                     },

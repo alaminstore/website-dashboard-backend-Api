@@ -713,10 +713,9 @@ code {
 /* ==============
   Helper Classes
 ===================*/
-.p-0 {
-    padding: 0;
+.p-10 {
+    padding: 10px !important;
 }
-
 .p-t-10 {
     padding-top: 10px;
 }
@@ -4083,8 +4082,8 @@ body.fixed-left .side-menu.left {
 }
 .smModalCss {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: baseline;
     padding: 20px 16px;
 }
 .modal-body {

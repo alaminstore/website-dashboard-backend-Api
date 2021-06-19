@@ -61,8 +61,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$cat->portfolio_category_id}}" title="Edit"
-                                                data-toggle="modal" data-target="#myModal">
+                                                data-id="{{$cat->portfolio_category_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$cat->portfolio_category_id}}">
@@ -192,20 +191,21 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
+                    <div class="card p-10">
+                        <div class="Catname d-flex">
+                            <p><b>Portfolio Category Name:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewName"></div>
+                            <br>
+                        </div>
 
-                    <div class="Catname d-flex">
-                        <p><b>Portfolio Category Name:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewName"></div>
-                        <br>
-                    </div>
-
-                    <div class="desc">
-                        <p><b>Portfolio Category Description:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewDescription"></div>
-                    </div>
-                    <div class="iconview">
-                        <p><b>Portfolio Category Icon:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewIcon" class="text-center"></div>
+                        <div class="desc">
+                            <p><b>Portfolio Category Description:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewDescription"></div>
+                        </div>
+                        <div class="iconview">
+                            <p><b>Portfolio Category Icon:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewIcon" class="text-center"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -242,14 +242,13 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
-                        let url = window.location.origin;
-                        console.log('data', data);
-                        $('#tagsupdate').find('#category-edit-name').val(data.name).focus();
-                        $('#tagsupdate').find('#category-edit-id').val(data.portfolio_category_id);
-                        $('#tagsupdate').find('#description-edit').val(data.description);
-                        if (data.icon) {
-                            var img_url = '{!!URL::to('/')!!}' + "/" + data.icon;
+                    success: function (response) {
+                        console.log(response);
+                        $('#category-edit-name').val(response.data.name);
+                        $('#category-edit-id').val(response.data.portfolio_category_id);
+                        $('#description-edit').val(response.data.description);
+                        if (response.data.icon) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + response.data.icon;
                             console.log(img_url);
                             $("#icon2").attr("data-height", 100);
                             $("#icon2").attr("data-default-file", img_url);
@@ -260,6 +259,7 @@
                             $(".dropify-preview .dropify-render img").attr("src", "");
                         }
                         $("#icon2").dropify();
+                        $('#myModal').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {
@@ -283,7 +283,7 @@
                         console.log(response.data.name);
                         $('#viewName').text(response.data.name);
                         $('#viewDescription').text(response.data.description);
-                        $('#viewIcon').html(`<img width="300" height="300"  src="${url}/${response.data.icon}" class="dropify"/>`);
+                        $('#viewIcon').html(`<img width="300" height="300" class="img-fluid"  src="${url}/${response.data.icon}" class="dropify"/>`);
                         $('#viewModel').modal('show');
                     },
                     error: function (error) {
@@ -295,7 +295,6 @@
             });
 
         });
-
 
     </script>
 

@@ -53,8 +53,19 @@ class CategoryRelatedServiceController extends Controller
 
     public function edit($id)
     {
-        $category = CategoryRelatedServices::find($id);
-        return response()->json($category);
+        $data = CategoryRelatedServices::find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
 
     public function updated(Request $request)

@@ -58,8 +58,19 @@ class ClientsController extends Controller
     //Edit Data
     public function edit($id)
     {
-        $clients = Client::find($id);
-        return response()->json($clients);
+        $data = Client::find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
 
 

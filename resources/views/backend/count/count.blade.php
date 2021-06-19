@@ -55,8 +55,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$count->count_id}}" title="Edit"
-                                                data-toggle="modal" data-target="#myModal">
+                                                data-id="{{$count->count_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$count->count_id}}">
@@ -149,7 +148,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Parameter</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="parameter" name="parameter"
+                            <input class="form-control" type="text" id="parameter2" name="parameter"
                                    placeholder="Parameter Here..."
                                    required>
                             <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
@@ -202,21 +201,31 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-
-                    <div class="Catname d-flex">
-                        <p><b>Parameter:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewParameter"></div>
-                        <br>
-                    </div>
-                    <div class="Catname d-flex">
-                        <p><b>Value:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewValue"></div>
-                        <br>
-                    </div>
-                    <div class="Catname d-flex">
-                        <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewPosition"></div>
-                        <br>
+                    <div class="card p-10">
+                        <div class="Catname d-flex">
+                            <div class="col-md-3 p-0">
+                                <p><b>Parameter:&nbsp;&nbsp;&nbsp;</b></p>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div id="viewParameter"></div>
+                            </div>
+                        </div>
+                        <div class="Catname d-flex">
+                            <div class="col-md-3 p-0">
+                                <p><b>Value:&nbsp;&nbsp;&nbsp;</b></p>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div id="viewValue"></div>
+                            </div>
+                        </div>
+                        <div class="Catname d-flex">
+                            <div class="col-md-3 p-0">
+                                <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div id="viewPosition"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -244,6 +253,7 @@
         $("#cat").select2({
             placeholder: "Select the Category"
         });
+        $("#position2").select2();
     </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {
@@ -255,19 +265,19 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#tagsupdate').find('#parameter').val(data.parameter).focus();
-                        $('#tagsupdate').find('#value').val(data.value).focus();
-                        $('#tagsupdate').find('#category-edit-id').val(data.count_id);
-                        $('#position2').val(data.position);
+                        console.log('data', response);
+                        $('#parameter2').val(response.data.parameter);
+                        $('#value').val(response.data.value).focus();
+                        $('#category-edit-id').val(response.data.count_id);
+                        $('#position2').val(response.data.position);
 
-                        if (data.icon) {
-                            $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.icon}"/>`);
+                        if (response.data.icon) {
+                            $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${response.data.icon}"/>`);
                         }
 
-                        $('#category-modal').modal('show');
+                        $('#myModal').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {

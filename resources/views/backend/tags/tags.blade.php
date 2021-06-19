@@ -53,8 +53,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$tag->tag_id}}" title="Edit" data-toggle="modal"
-                                                data-target="#myModal">
+                                                data-id="{{$tag->tag_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$tag->tag_id}}">
@@ -147,18 +146,24 @@
     {{-- View Modal --}}
     <div id="viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="myLargeModalLabel">Tag Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-
-                    <div class="Catname d-flex">
-                        <p><b>Tag Name:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewTag"></div>
-                        <br>
+                    <div class="modal-body" style="background: #f5f5f5;">
+                        <div class="card p-10">
+                            <div class="smModalCss text-center">
+                                <div class="col-md-12">
+                                    <p><b>Tag Name:</b></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <div id="viewTag"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -192,18 +197,12 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#tagsupdate').find('#category-edit-name').val(data.tag).focus();
-                        $('#tagsupdate').find('#category-edit-id').val(data.tag_id);
-
-
-                        if (data.image) {
-                            $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.image}"/>`);
-                        }
-
-                        $('#category-modal').modal('show');
+                        console.log('data', response);
+                        $('#tagsupdate').find('#category-edit-name').val(response.data.tag).focus();
+                        $('#tagsupdate').find('#category-edit-id').val(response.data.tag_id);
+                        $('#myModal').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {

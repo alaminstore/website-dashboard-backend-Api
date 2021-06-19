@@ -67,8 +67,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$info->info_id}}" title="Edit"
-                                                data-toggle="modal" data-target="#myModal">
+                                                data-id="{{$info->info_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$info->info_id}}">
@@ -271,100 +270,101 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-
-                    <div class="Catname">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p><b>Mobile:</b></p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div id="viewMobile"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Catname">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p><b>Email:</b></p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div id="viewEmail"></div>
+                    <div class="card p-10">
+                        <div class="Catname">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p><b>Mobile:</b></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div id="viewMobile"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="Catname">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p><b>Address:</b></p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div id="viewAddress"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Catname">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p><b>Facebook:</b></p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div id="viewFb"></div>
+                        <div class="Catname">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p><b>Email:</b></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div id="viewEmail"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="Catname">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p><b>Instagram:</b></p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div id="viewInsta"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Catname">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p><b>Linkedin:</b></p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div id="viewLdin"></div>
+                        <div class="Catname">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p><b>Address:</b></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div id="viewAddress"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="Catname">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p><b>Youtube:</b></p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div id="viewYtb"></div>
+                        <div class="Catname">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p><b>Facebook:</b></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div id="viewFb"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <br>
-                    <div class="Catname">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p><b>Image:</b></p><br>
+                        <div class="Catname">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p><b>Instagram:</b></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div id="viewInsta"></div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div id="viewImage" class="text-center"></div>
+                            </div>
+                        </div>
+                        <div class="Catname">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p><b>Linkedin:</b></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div id="viewLdin"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Catname">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p><b>Youtube:</b></p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div id="viewYtb"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="Catname">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p><b>Image:</b></p><br>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div id="viewImage" class="text-center"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -402,23 +402,23 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        var catdata = $('#tagsupdate').find('#mobile').val(data.mobile);
-                        $('#tagsupdate').find('#email').val(data.email).focus();
-                        $('#tagsupdate').find('#address').val(data.address).focus();
-                        $('#tagsupdate').find('#facebook').val(data.facebook_url).focus();
-                        $('#tagsupdate').find('#instagram').val(data.instagram_url).focus();
-                        $('#tagsupdate').find('#linkedin').val(data.linkedin_url).focus();
-                        $('#tagsupdate').find('#youtube').val(data.youtube_url).focus();
-                        $('#tagsupdate').find('#category-edit-id').val(data.info_id);
-                        if (data.image) {
-                            $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.logo}"/>`);
+                        console.log('data', response);
+                        var catdata = $('#tagsupdate').find('#mobile').val(response.data.mobile);
+                        $('#tagsupdate').find('#email').val(response.data.email).focus();
+                        $('#tagsupdate').find('#address').val(response.data.address).focus();
+                        $('#tagsupdate').find('#facebook').val(response.data.facebook_url).focus();
+                        $('#tagsupdate').find('#instagram').val(response.data.instagram_url).focus();
+                        $('#tagsupdate').find('#linkedin').val(response.data.linkedin_url).focus();
+                        $('#tagsupdate').find('#youtube').val(response.data.youtube_url).focus();
+                        $('#tagsupdate').find('#category-edit-id').val(response.data.info_id);
+                        if (response.data.image) {
+                            $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px" class="img-fluid" src="${url}/${response.data.logo}"/>`);
                         }
                         //===============================================
-                        if (data.logo) {
-                            var img_url = '{!!URL::to('/')!!}' + "/" + data.logo;
+                        if (response.data.logo) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + response.data.logo;
                             console.log(img_url);
 
                             $("#image2").attr("data-height", 100);
@@ -431,6 +431,7 @@
                         }
                         $("#image2").dropify();
                         //===========================
+                        $('#myModal').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {

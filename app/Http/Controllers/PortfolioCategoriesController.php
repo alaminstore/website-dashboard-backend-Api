@@ -39,8 +39,19 @@ class PortfolioCategoriesController extends Controller
 
 
     public function portfolioEdit($id){
-        $category  = PortfolioCategories::find($id);
-        return response()->json($category);
+        $data = PortfolioCategories::find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
 
 

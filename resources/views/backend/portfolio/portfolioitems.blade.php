@@ -68,8 +68,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$item->portfolio_item_id}}" title="Edit"
-                                                data-toggle="modal" data-target="#myModal">
+                                                data-id="{{$item->portfolio_item_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$item->portfolio_item_id}}">
@@ -317,38 +316,75 @@
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
 
-                    <div class="Catname d-flex">
-                        <p><b>Portfolio Category:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewCat"></div>
-                        <br>
-                    </div>
-                    <div class="Catname d-flex">
-                        <p><b>Title:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewTitle"></div>
-                        <br>
-                    </div>
-
-                    <div class="desc d-flex">
-                        <p><b>Client Name:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewClient"></div>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewLevel"></div>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Url:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewUrl"></div>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Tags:&nbsp;&nbsp;&nbsp;</b></p>
-
-                        <div class="viewTag"></div>
-
-                    </div>
-                    <div class="iconview">
-                        <p><b>Image:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewImage" class="text-center"></div>
+                    <div class="card p-10">
+                        <div class="Catname">
+                            <div class="d-flex">
+                               <div class="col-md-4 p-0">
+                                  <p><b>Portfolio Category:</b></p>
+                               </div>
+                               <div class="col-md-8 p-0">
+                                  <div id="viewCat"></div>
+                               </div>
+                            </div>
+                         </div>
+                        <div class="Catname">
+                            <div class="d-flex">
+                               <div class="col-md-4 p-0">
+                                  <p><b>Title:</b></p>
+                               </div>
+                               <div class="col-md-8 p-0">
+                                  <div id="viewTitle"></div>
+                               </div>
+                            </div>
+                         </div>
+                        <div class="Catname">
+                            <div class="d-flex">
+                               <div class="col-md-4 p-0">
+                                  <p><b>Client Name:</b></p>
+                               </div>
+                               <div class="col-md-8 p-0">
+                                  <div id="viewClient"></div>
+                               </div>
+                            </div>
+                         </div>
+                        <div class="Catname">
+                            <div class="d-flex">
+                               <div class="col-md-4 p-0">
+                                  <p><b>Level:</b></p>
+                               </div>
+                               <div class="col-md-8 p-0">
+                                  <div id="viewLevel"></div>
+                               </div>
+                            </div>
+                         </div>
+                        <div class="Catname">
+                            <div class="d-flex">
+                               <div class="col-md-4 p-0">
+                                  <p><b>Url:</b></p>
+                               </div>
+                               <div class="col-md-8 p-0">
+                                  <div id="viewUrl"></div>
+                               </div>
+                            </div>
+                         </div>
+                        <div class="Catname">
+                            <div class="d-flex">
+                               <div class="col-md-4 p-0">
+                                  <p><b>Tags:</b></p>
+                               </div>
+                               <div class="col-md-8 p-0">
+                                <div class="viewTag"></div>
+                               </div>
+                            </div>
+                         </div>
+                        <div class="Catname">
+                               <div class="col-md-4 p-0">
+                                  <p><b>Image:</b></p>
+                               </div>
+                               <div class="col-md-12">
+                                <div id="viewImage" class="text-center"></div>
+                               </div>
+                         </div>
                     </div>
                 </div>
             </div>
@@ -408,27 +444,24 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         // let url = window.location.origin;
-                        console.log('data', data);
-                        $('#tagsupdate').find('#title').val(data.title);
-                        $('#tagsupdate').find('#url').val(data.url);
+                        console.log('data', response);
+                        $('#title').val(response.data.title);
+                        $('#url').val(response.data.url);
 
-                        $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
-                        $('#client_id2').val(data.client_id);
-                        var positiondata = $('#tagsupdate').find('#position2').val(data.position_one);
-                        var catData = $('#cat2').val(data.portfolio_category_id);
-                        $("#position2").select2({
-                            placeholder: positiondata
-                        });
-                        $("#position2").select2({
-                            placeholder: positiondata
-                        });
-                        $("#client_id2").select2();
+                        $('#category-edit-id').val(response.data.portfolio_item_id);
+                        $('#client_id2').val(response.data.client_id);
+                        $('#position2').val(response.data.position_one);
+                        var catData = $('#cat2').val(response.data.portfolio_category_id);
+                        // $("#position2").select2({
+                        //     placeholder: positiondata
+                        // });
+                        $("#client_id2, #position2").select2();
                         $("#newTagId").select2();
-                        $('#level2').val(data.level);
-                        if (data.image) {
-                            var img_url = '{!!URL::to('/')!!}' + "/" + data.image;
+                        $('#level2').val(response.data.level);
+                        if (response.data.image) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + response.data.image;
                             console.log(img_url);
 
                             $("#image2").attr("data-height", 100);
@@ -443,7 +476,7 @@
                         $("#image2").dropify();
 
                         var tagId = [];
-                        $.each(data.get_tag, function (key, value) {
+                        $.each(response.data.get_tag, function (key, value) {
                             //    console.log(value);
                             tagId.push(value.tag_id)
                         })
@@ -452,8 +485,7 @@
                         $('#newTagId').val(tagId);
                         $('#newTagId').trigger('change');
 
-
-                        $('#category-modal').modal('show');
+                        $('#myModal').modal('show');
 
 
                     },
@@ -482,7 +514,7 @@
                         $('#viewClient').html(response.data.get_client.name);
                         $('#viewUrl').html(`<a href="${response.data.url}" target="__blank">${response.data.url}</a>`);
                         $('#viewLevel').html(response.data.level);
-                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${response.data.image}"/>`);
+                        $('#viewImage').html(`<img width="300" height="300" class="img-fluid" src="${url}/${response.data.image}"/>`);
                         $('#viewCat').text(response.data.get_category.name);
 
                         $.each(response.data.get_tag, function (key, value) {

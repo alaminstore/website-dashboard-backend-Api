@@ -22,8 +22,19 @@ class FaqsController extends Controller
 
     public function edit($id)
     {
-        $faqs = Faq::find($id);
-        return response()->json($faqs);
+        $data  = Faq::find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
 
     public function updated(Request $request)

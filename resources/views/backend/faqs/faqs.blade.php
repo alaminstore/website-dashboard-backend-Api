@@ -28,8 +28,7 @@
 
                             @foreach($faqs  as $faq)
                                 <tr class="text-center unqtags{{$faq->faq_id}}">
-
-                                    <td>{{$faq->faq_question}}</td>
+                                    <td>{!! \Illuminate\Support\Str::limit($faq->faq_question, 50, $end='...') !!}</td>
                                     <td>{!! \Illuminate\Support\Str::limit($faq->faq_answer, 50, $end='...') !!}</td>
                                     <td>
                                         <button type="button"
@@ -39,8 +38,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$faq->faq_id}}" title="Edit"
-                                                data-toggle="modal" data-target="#myModal">
+                                                data-id="{{$faq->faq_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$faq->faq_id}}">
@@ -158,15 +156,17 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="Catname">
-                        <p><b>Faq Question:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewQues"></div>
-                        <br>
-                    </div>
-                    <div class="Catname">
-                        <p><b>Faq Answer:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewAns"></div>
-                        <br>
+                    <div class="card p-10">
+                        <div class="Catname">
+                            <p class="p-0"><b>Faq Question:</b></p>
+                            <div id="viewQues"></div>
+                            <br>
+                        </div>
+                        <div class="Catname p-0">
+                            <p class="p-0"><b>Faq Answer:</b></p>
+                            <div id="viewAns"></div>
+                            <br>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -199,15 +199,13 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#tagsupdate').find('#faq_question').val(data.faq_question);
-                        $('#tagsupdate').find('#faq_answer').val(data.faq_answer);
-                        $('#tagsupdate').find('#category-edit-id').val(data.faq_id);
-                        var positiondata = $('#tagsupdate').find('#position2').val(data.position);
-
-                        $('#category-modal').modal('show');
+                        console.log('data', response);
+                        $('#faq_question').val(response.data.faq_question);
+                        $('#faq_answer').val(response.data.faq_answer);
+                        $('#category-edit-id').val(response.data.faq_id);
+                        $('#myModal').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {

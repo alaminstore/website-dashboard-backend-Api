@@ -24,8 +24,19 @@ class TermsPoliciesController extends Controller
 
     public function edit($id)
     {
-        $terms = TermsPolicies::find($id);
-        return response()->json($terms);
+        $data  = TermsPolicies::find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
 
     public function updated(Request $request)

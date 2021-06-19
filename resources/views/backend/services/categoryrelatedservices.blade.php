@@ -240,27 +240,28 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-
-                    <div class="Catname d-flex">
-                        <p><b>Portfolio Category:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewCat"></div>
-                        <br>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Name:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewName"></div>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewLevel"></div>
-                    </div>
-                    <div class="desc d-flex">
-                        <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewPosition"></div>
-                    </div>
-                    <div class="iconview">
-                        <p><b>Icon:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewImage" class="text-center"></div>
+                    <div class="card p-10">
+                        <div class="Catname d-flex">
+                            <p><b>Portfolio Category:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewCat"></div>
+                            <br>
+                        </div>
+                        <div class="desc d-flex">
+                            <p><b>Name:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewName"></div>
+                        </div>
+                        <div class="desc d-flex">
+                            <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewLevel"></div>
+                        </div>
+                        <div class="desc d-flex">
+                            <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewPosition"></div>
+                        </div>
+                        <div class="iconview">
+                            <p><b>Icon:&nbsp;&nbsp;&nbsp;</b></p>
+                            <div id="viewImage" class="text-center"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -299,23 +300,22 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#tagsupdate').find('#cat2').val(data.portfolio_category_id);
-                        $('#tagsupdate').find('#category-edit-name').val(data.name);
-                        $('#tagsupdate').find('#category-edit-id').val(data.category_related_service_id);
-                        $('#position2').val(data.position);
-                        $('#level2').val(data.level);
+                        console.log('data', response);
+                        $('#tagsupdate').find('#cat2').val(response.data.portfolio_category_id);
+                        $('#tagsupdate').find('#category-edit-name').val(response.data.name);
+                        $('#tagsupdate').find('#category-edit-id').val(response.data.category_related_service_id);
+                        $('#position2').val(response.data.position);
+                        $('#level2').val(response.data.level);
 
 
-                        if (data.icon) {
-                            $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  src="${url}/${data.icon}"/>`);
+                        if (response.data.icon) {
+                            $('#category-edit-form').find('#category-edit-image').html(`<img width="100%" height="200px"  class='img-fluid' src="${url}/${response.data.icon}"/>`);
                         }
                         //===============================================
-                        if (data.icon) {
-                            var img_url = '{!!URL::to('/')!!}' + "/" + data.icon;
-                            console.log(img_url);
+                        if (response.data.icon) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + response.data.icon;
 
                             $("#image2").attr("data-height", 100);
                             $("#image2").attr("data-default-file", img_url);
@@ -328,6 +328,7 @@
                         }
                         $("#image2").dropify();
                         //===========================
+                        $('#myModal').modal('show');
 
                     },
                     error: function (error) {

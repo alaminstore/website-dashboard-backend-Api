@@ -52,8 +52,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$service->service_id}}" title="Edit"
-                                                data-toggle="modal" data-target="#myModal">
+                                                data-id="{{$service->service_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$service->service_id}}">
@@ -153,11 +152,15 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-
-                    <div class="smModalCss">
-                        <p><b>Service Name:&nbsp;&nbsp;&nbsp;</b></p>
-                        <div id="viewService"></div>
-                        <br>
+                    <div class="card p-10">
+                        <div class="smModalCss text-center">
+                            <div class="col-md-12">
+                                <p><b>Service Name:</b></p>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="viewService"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,12 +197,12 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         let url = window.location.origin;
-                        console.log('data', data);
-                        $('#category-edit-name').val(data.service_name).focus();
-                        $('#category-edit-id').val(data.service_id);
-                        $('#category-modal').modal('show');
+                        console.log('data', response);
+                        $('#category-edit-name').val(response.data.service_name).focus();
+                        $('#category-edit-id').val(response.data.service_id);
+                        $('#myModal').modal('show');
                     },
                     error: function (error) {
                         if (error.status == 404) {

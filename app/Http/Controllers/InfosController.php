@@ -45,8 +45,19 @@ class InfosController extends Controller
 
     public function edit($id)
     {
-        $category = Info::find($id);
-        return response()->json($category);
+        $data  = Info::find($id);
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
     }
 
     public function updated(Request $request)

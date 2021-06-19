@@ -4089,3 +4089,6 @@ body.fixed-left .side-menu.left {
 .modal-body {
     word-break: break-all;
 }
+.modal-title {
+    font-size: 16px;
+}

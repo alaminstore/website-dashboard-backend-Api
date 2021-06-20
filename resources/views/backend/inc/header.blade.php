@@ -10,10 +10,13 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <a class="dropdown-item" href="{{route('auth.logout')}}"><i class="dripicons-exit text-muted"></i> Logout</a>
+                    <a class="dropdown-item" href="{{route('auth.settings')}}"><i class="mdi mdi-account-settings-variant"></i> Settings</a>
+                </div>
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
                 </div>
             </li>
         </ul>
-
         <!-- Page title -->
         <ul class="list-inline menu-left mb-0">
             <li class="list-inline-item">

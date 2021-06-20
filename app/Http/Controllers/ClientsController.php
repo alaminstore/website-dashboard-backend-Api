@@ -100,13 +100,10 @@ class ClientsController extends Controller
             $image->move($path, $imageName);
             $clients->image = $path . $imageName;
         }
-        $clients->save();
-        return response()->json([
-            'clients' => $clients,
-            'message' => "Data Updated Successfully!"
-        ]);
         $exists = Client::where('precedence', $request->precedence)
             ->where('newposition', '=', $request->newposition)->first();
+
+        
 
         if ($exists) {
             $clients->save();

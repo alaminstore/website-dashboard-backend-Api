@@ -161,9 +161,6 @@
                             <input type="file" name="image" id="icon2" class="dropify">
                         </div>
                     </div>
-                    {{-- <div class="form-group" id="category-edit-image">
-
-                    </div> --}}
                     <div class="form-group m-b-0">
                         <div>
                             <button type="submit" class="btn btn-success waves-effect waves-light">
@@ -183,7 +180,8 @@
 
     {{-- View Modal --}}
 
-    <div id="viewModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="viewModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -191,21 +189,20 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="card p-10">
-                        <div class="Catname d-flex">
-                            <p><b>Portfolio Category Name:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewName"></div>
-                            <br>
-                        </div>
 
-                        <div class="desc">
-                            <p><b>Portfolio Category Description:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewDescription"></div>
-                        </div>
-                        <div class="iconview">
-                            <p><b>Portfolio Category Icon:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewIcon" class="text-center"></div>
-                        </div>
+                    <div class="Catname d-flex">
+                        <p><b>Portfolio Category Name:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewName"></div>
+                        <br>
+                    </div>
+
+                    <div class="desc">
+                        <p><b>Portfolio Category Description:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewDescription"></div>
+                    </div>
+                    <div class="iconview">
+                        <p><b>Portfolio Category Icon:&nbsp;&nbsp;&nbsp;</b></p>
+                        <div id="viewIcon" class="text-center"></div>
                     </div>
                 </div>
             </div>

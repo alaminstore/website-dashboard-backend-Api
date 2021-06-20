@@ -69,12 +69,6 @@
                         <input type="password" class="form-control" id="userpassword" name="password" placeholder="Enter password" required>
                         <span class="text-danger">@error('password'){{ $message }} @enderror</span>
                     </div>
-
-
-
-
-
-
                      <div class="form-group row m-t-20">
                         <div class="col-sm-6">
                            {{-- <div class="custom-control custom-checkbox">

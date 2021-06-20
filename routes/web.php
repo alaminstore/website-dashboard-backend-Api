@@ -12,6 +12,7 @@ use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\InfosController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PortfolioItemsController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TermsPoliciesController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Artisan;
@@ -56,6 +57,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/counts', [Sidebar::class,'counts'])->name('backend.counts');
     Route::get('/faqs', [Sidebar::class,'faqs'])->name('backend.faqs');
     Route::get('/terms-policies', [Sidebar::class,'terms'])->name('backend.terms');
+    Route::get('/settings', [Sidebar::class,'settings'])->name('auth.settings');
 
 
      //Portfolio categories
@@ -155,5 +157,10 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('catservicesdelete', [CategoryRelatedServiceController::class,'destroy'])->name('catservices.destroy');
     Route::get('catservices/{id}/edit', [CategoryRelatedServiceController::class,'edit']);
     Route::post('catservices/updated', [CategoryRelatedServiceController::class,'updated'])->name('catservices.updated');
+
+
+    Route::post('old-password', [ResetPasswordController::class,'oldPass'])->name('reset.check');
+    Route::post('change-password', [ResetPasswordController::class,'newPass'])->name('newPass.change');
+
 
 });

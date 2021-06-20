@@ -31,17 +31,18 @@ class AntroApiController extends Controller
     }
 //
     public function portfolioItem(){
-        return response()->json(PortfolioItem::all(),200);
+        $clientList = PortfolioItem::orderBy('position_one', 'ASC')->get();
+        return response()->json($clientList,200);
+
     }
 
     public function portfolioItemById($id){
-        $portfolio_items = PortfolioItem::with('getClient','getTag','getCategory')->where('level',$id)->get();
+        $portfolio_items = PortfolioItem::with('getClient','getTag','getCategory')->where('level',$id)->orderBy('position_one','ASC')->get();
         if(count($portfolio_items)==0){
             return response()->json(['message'=>'Item not found'],404);
         }
         return response()->json($portfolio_items,200);
     }
-
     public function portfolioCategoryByLevel($id){
         $portfolio_items = PortfolioItem::with('getCategory')->where('level',$id)->first();
 
@@ -70,12 +71,6 @@ class AntroApiController extends Controller
     public function portfolioTags(){
         return response()->json(PortfolioTag::with("getPortfolioItem")->get(),200);
     }
-    // public function portfolioTags(){
-    //     $tags = PortfolioTag::with("getPortfolioItem")->get();
-    //     $tags->tag_id = json_decode($tags->tag_id);
-    //     return response()->json($tags,200);
-    // }
-
     public function portfolioTagsById($id){
 
         $portfolio_tags = PortfolioTag::with("getPortfolioItem")
@@ -89,13 +84,13 @@ class AntroApiController extends Controller
         }
     }
 
-
     public function categoryRelatedServices(){
-        return response()->json(CategoryRelatedServices::all(),200);
+        $catServiceList = CategoryRelatedServices::orderBy('position', 'ASC')->get();
+        return response()->json($catServiceList,200);
     }
 
     public function categoryRelatedServicesById($id){
-        $portfolio_categories = CategoryRelatedServices::where('level',$id)->get();
+        $portfolio_categories = CategoryRelatedServices::where('level',$id)->orderBy('position','ASC')->get();
         if(count($portfolio_categories) == 0){
             return response()->json(['message'=>'Category Service not found'],404);
         }
@@ -114,19 +109,20 @@ class AntroApiController extends Controller
     }
 
     public function clients(){
-        return response()->json(Client::all(),200);
+        $clientList = Client::orderBy('newPosition', 'ASC')->get();
+        return response()->json($clientList,200);
     }
 
     public function clientsById($id){
-        $clients = Client::where('precedence','=', $id)->get();
+        $clients = Client::where('precedence','=', $id)->orderBy('newPosition', 'ASC')->get();
         if(empty($clients)){
             return response()->json(['message'=>'Sorry Client Info has not been found'],404);
         }
         return response()->json($clients,200);
     }
-
     public function counts(){
-        return response()->json(Count::all(),200);
+        $count=Count::orderBy('position', 'ASC')->get();
+        return response()->json($count,200);
     }
     public function countsById($id){
         $portfolio_categories = Count::find($id);

@@ -152,11 +152,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Faq Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="card p-10">
                         <div class="Catname">
                             <p class="p-0"><b>Faq Question:</b></p>
                             <div id="viewQues"></div>
@@ -167,7 +166,6 @@
                             <div id="viewAns"></div>
                             <br>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

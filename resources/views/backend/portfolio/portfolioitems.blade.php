@@ -315,76 +315,73 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-
-                    <div class="card p-10">
-                        <div class="Catname">
-                            <div class="d-flex">
-                               <div class="col-md-4 p-0">
-                                  <p><b>Portfolio Category:</b></p>
-                               </div>
-                               <div class="col-md-8 p-0">
-                                  <div id="viewCat"></div>
-                               </div>
+                    <div class="Catname">
+                        <div class="d-flex">
+                            <div class="col-md-4 p-0">
+                                <p><b>Portfolio Category:</b></p>
                             </div>
-                         </div>
-                        <div class="Catname">
-                            <div class="d-flex">
-                               <div class="col-md-4 p-0">
-                                  <p><b>Title:</b></p>
-                               </div>
-                               <div class="col-md-8 p-0">
-                                  <div id="viewTitle"></div>
-                               </div>
+                            <div class="col-md-8 p-0">
+                                <div id="viewCat"></div>
                             </div>
-                         </div>
-                        <div class="Catname">
-                            <div class="d-flex">
-                               <div class="col-md-4 p-0">
-                                  <p><b>Client Name:</b></p>
-                               </div>
-                               <div class="col-md-8 p-0">
-                                  <div id="viewClient"></div>
-                               </div>
+                        </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="d-flex">
+                            <div class="col-md-4 p-0">
+                                <p><b>Title:</b></p>
                             </div>
-                         </div>
-                        <div class="Catname">
-                            <div class="d-flex">
-                               <div class="col-md-4 p-0">
-                                  <p><b>Level:</b></p>
-                               </div>
-                               <div class="col-md-8 p-0">
-                                  <div id="viewLevel"></div>
-                               </div>
+                            <div class="col-md-8 p-0">
+                                <div id="viewTitle"></div>
                             </div>
-                         </div>
-                        <div class="Catname">
-                            <div class="d-flex">
-                               <div class="col-md-4 p-0">
-                                  <p><b>Url:</b></p>
-                               </div>
-                               <div class="col-md-8 p-0">
-                                  <div id="viewUrl"></div>
-                               </div>
+                        </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="d-flex">
+                            <div class="col-md-4 p-0">
+                                <p><b>Client Name:</b></p>
                             </div>
-                         </div>
-                        <div class="Catname">
-                            <div class="d-flex">
-                               <div class="col-md-4 p-0">
-                                  <p><b>Tags:</b></p>
-                               </div>
-                               <div class="col-md-8 p-0">
+                            <div class="col-md-8 p-0">
+                                <div id="viewClient"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="d-flex">
+                            <div class="col-md-4 p-0">
+                                <p><b>Level:</b></p>
+                            </div>
+                            <div class="col-md-8 p-0">
+                                <div id="viewLevel"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="d-flex">
+                            <div class="col-md-4 p-0">
+                                <p><b>Url:</b></p>
+                            </div>
+                            <div class="col-md-8 p-0">
+                                <div id="viewUrl"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="d-flex">
+                            <div class="col-md-4 p-0">
+                                <p><b>Tags:</b></p>
+                            </div>
+                            <div class="col-md-8 p-0">
                                 <div class="viewTag"></div>
-                               </div>
                             </div>
-                         </div>
-                        <div class="Catname">
-                               <div class="col-md-4 p-0">
-                                  <p><b>Image:</b></p>
-                               </div>
-                               <div class="col-md-12">
-                                <div id="viewImage" class="text-center"></div>
-                               </div>
-                         </div>
+                        </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="col-md-4 p-0">
+                            <p><b>Image:</b></p>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="viewImage" class="text-center"></div>
+                        </div>
                     </div>
                 </div>
             </div>

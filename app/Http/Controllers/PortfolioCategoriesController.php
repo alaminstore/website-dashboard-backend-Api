@@ -11,7 +11,6 @@ class PortfolioCategoriesController extends Controller
     public function index(){
         return view('backend.dashboard');
     }
-
     //Store Data
     public function portfolioStore(Request $request){
         $request->validate([

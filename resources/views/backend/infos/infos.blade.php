@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-      </div>
+    </div>
 
     <!--modal content  Save-->
     <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -270,101 +270,99 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="card p-10">
-                        <div class="Catname">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p><b>Mobile:</b></p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div id="viewMobile"></div>
-                                    </div>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Mobile:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewMobile"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="Catname">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p><b>Email:</b></p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div id="viewEmail"></div>
-                                    </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Email:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewEmail"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="Catname">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p><b>Address:</b></p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div id="viewAddress"></div>
-                                    </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Address:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewAddress"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="Catname">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p><b>Facebook:</b></p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div id="viewFb"></div>
-                                    </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Facebook:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewFb"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="Catname">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p><b>Instagram:</b></p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div id="viewInsta"></div>
-                                    </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Instagram:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewInsta"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="Catname">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p><b>Linkedin:</b></p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div id="viewLdin"></div>
-                                    </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Linkedin:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewLdin"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="Catname">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p><b>Youtube:</b></p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div id="viewYtb"></div>
-                                    </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Youtube:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewYtb"></div>
                                 </div>
                             </div>
                         </div>
-                        <br>
-                        <div class="Catname">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p><b>Image:</b></p><br>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div id="viewImage" class="text-center"></div>
-                                    </div>
+                    </div>
+                    <br>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Image:</b></p><br>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div id="viewImage" class="text-center"></div>
                                 </div>
                             </div>
                         </div>

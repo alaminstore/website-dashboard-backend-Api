@@ -197,34 +197,32 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Service Details</h5>
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Count Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="card p-10">
-                        <div class="Catname d-flex">
-                            <div class="col-md-3 p-0">
-                                <p><b>Parameter:&nbsp;&nbsp;&nbsp;</b></p>
-                            </div>
-                            <div class="col-md-9 p-0">
-                                <div id="viewParameter"></div>
-                            </div>
+                    <div class="Catname d-flex">
+                        <div class="col-md-3 p-0">
+                            <p><b>Parameter:&nbsp;&nbsp;&nbsp;</b></p>
                         </div>
-                        <div class="Catname d-flex">
-                            <div class="col-md-3 p-0">
-                                <p><b>Value:&nbsp;&nbsp;&nbsp;</b></p>
-                            </div>
-                            <div class="col-md-9 p-0">
-                                <div id="viewValue"></div>
-                            </div>
+                        <div class="col-md-9 p-0">
+                            <div id="viewParameter"></div>
                         </div>
-                        <div class="Catname d-flex">
-                            <div class="col-md-3 p-0">
-                                <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
-                            </div>
-                            <div class="col-md-9 p-0">
-                                <div id="viewPosition"></div>
-                            </div>
+                    </div>
+                    <div class="Catname d-flex">
+                        <div class="col-md-3 p-0">
+                            <p><b>Value:&nbsp;&nbsp;&nbsp;</b></p>
+                        </div>
+                        <div class="col-md-9 p-0">
+                            <div id="viewValue"></div>
+                        </div>
+                    </div>
+                    <div class="Catname d-flex">
+                        <div class="col-md-3 p-0">
+                            <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
+                        </div>
+                        <div class="col-md-9 p-0">
+                            <div id="viewPosition"></div>
                         </div>
                     </div>
                 </div>

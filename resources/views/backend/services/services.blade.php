@@ -152,7 +152,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="card p-10">
                         <div class="smModalCss text-center">
                             <div class="col-md-12">
                                 <p><b>Service Name:</b></p>
@@ -161,7 +160,6 @@
                                 <div id="viewService"></div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

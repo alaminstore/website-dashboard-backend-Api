@@ -15,6 +15,7 @@
             width: 52px;
             border-radius: 5%;
         }
+        .p-0{padding: 0;}
     </style>
     <div class="card m-b-20">
         <div class="card-body">
@@ -132,8 +133,6 @@
                             </select>
                         </div>
                     </div>
-
-
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-2 col-form-label">Position</label>
                         <div class="col-sm-8">
@@ -240,27 +239,67 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="card p-10">
-                        <div class="Catname d-flex">
-                            <p><b>Portfolio Category:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewCat"></div>
-                            <br>
+                    <div class="Catname">
+                        <div class="container">
+                            <div class="row">
+                                <div  class="col-md-4 p-0">
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Portfolio Category:</b>
+                                </div>
+                                <div class="col-md-8">
+                                    <div id="viewCat"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="desc d-flex">
-                            <p><b>Name:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewName"></div>
+                    </div>
+
+                    <div class="catDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Name:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewName"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="desc d-flex">
-                            <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewLevel"></div>
+                    </div>
+
+                    <div class="catDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Level:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewLevel"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="desc d-flex">
-                            <p><b>Position:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewPosition"></div>
+                    </div>
+
+                    <div class="catDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Position:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewPosition"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="iconview">
-                            <p><b>Icon:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewImage" class="text-center"></div>
+                    </div>
+                    <div class="catDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Icon:</b></p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div id="viewImage" class="text-center"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -355,7 +394,7 @@
                         $('#viewLevel').html(response.data.level);
                         $('#viewCat').html(response.data.get_category.name);
                         $('#viewPosition').html(response.data.position);
-                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${response.data.icon}"/>`);
+                        $('#viewImage').html(`<img width="300" height="300" class="img-fluid" src="${url}/${response.data.icon}"/>`);
                         $('#viewModal').modal('show');
 
                     },

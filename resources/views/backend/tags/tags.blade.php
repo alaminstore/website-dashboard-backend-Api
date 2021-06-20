@@ -154,14 +154,12 @@
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
                     <div class="modal-body" style="background: #f5f5f5;">
-                        <div class="card p-10">
-                            <div class="smModalCss text-center">
-                                <div class="col-md-12">
-                                    <p><b>Tag Name:</b></p>
-                                </div>
-                                <div class="col-md-12">
-                                    <div id="viewTag"></div>
-                                </div>
+                        <div class="smModalCss text-center">
+                            <div class="col-md-12">
+                                <p><b>Tag Name:</b></p>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="viewTag"></div>
                             </div>
                         </div>
                     </div>

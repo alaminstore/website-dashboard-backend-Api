@@ -110,15 +110,15 @@
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
+                        <label for="name" class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="name" name="name"
                                    placeholder="Client Name Here..." required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Level</label>
-                        <div class="col-sm-10">
+                        <label for="portfolio_cat_icon" class="col-sm-3 col-form-label">Level</label>
+                        <div class="col-sm-9">
                             <select style="width: 200px" id="position" name="precedence" required>
                                 <option value="">Choose Level</option>
                                 <option value="1">Level 1</option>
@@ -128,22 +128,22 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Precedence</label>
-                        <div class="col-sm-10">
+                        <label for="name" class="col-sm-3 col-form-label">Precedence</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="number" id="newPosition" name="newposition"
                                    placeholder="Precedence Here..." required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="url" class="col-sm-2 col-form-label">Url</label>
-                        <div class="col-sm-10">
+                        <label for="url" class="col-sm-3 col-form-label">Url</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="url" name="url"
                                    placeholder="Url Here..." required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Image</label>
-                        <div class="col-sm-10">
+                        <label for="portfolio_cat_icon" class="col-sm-3 col-form-label">Image</label>
+                        <div class="col-sm-9">
                             <input type="file" name="image" id="portfolio_cat_icon" class="dropify" required>
                         </div>
                     </div>
@@ -241,27 +241,64 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="card p-10">
-                        <div class="Catname d-flex">
-                            <p><b>Name:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewName"></div>
-                            <br>
+
+                    <div class="clientDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3"><p><b>Name:</b></p></div>
+                                <div class="col-sm-9">
+                                    <div id="viewName"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="desc d-flex">
-                            <p><b>Level:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewLevel"></div>
+                    </div>
+                    <div class="clientDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Level:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewLevel"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="desc d-flex">
-                            <p><b>Precedence:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewPrecedence"></div>
+                    </div>
+
+                    <div class="clientDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Precedence:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewPrecedence"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="desc d-flex">
-                            <p><b>Url:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewUrl"></div>
+                    </div>
+                    <div class="clientDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Url:</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div id="viewUrl"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="iconview">
-                            <p><b>Image:&nbsp;&nbsp;&nbsp;</b></p>
-                            <div id="viewImage" class="text-center"></div>
+                    </div>
+                    <div class="clientDetails">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p><b>Image:</b></p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div id="viewImage" class="text-center"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -81,5 +81,8 @@ class Sidebar extends Controller
         return view('backend.portfolio.portfolioitems',compact('portfolioitems','portfolio_cat','clients','tags'));
     }
 
+    public function settings(){
+        return view('backend.settings.passwordChange');
+    }
 
 }

@@ -319,13 +319,20 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
-                    $('#myModalSave').modal('hide');
-                    setTimeout(function () {
-                        $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1);
-                    toastr.success('Data Inserted Successfully');
 
-                    $('#catservestore').trigger('reset');
+                    if(data.status == 0){
+                    // toastr.error('Password must contain minimum 8 character!');
+                    $.each(data.error,function(key,value){
+                    toastr.error(value);
+                    })
+                    }else{
+                        $('#myModalSave').modal('hide');
+                        toastr.success('Data Inserted Successfully');
+                        $('#catservestore').trigger('reset');
+                        setTimeout(function () {
+                            $("#loadnow").load(location.href + " #loadnow>*", "");
+                        }, 1000);
+                    }
                 }
 
             });
@@ -388,12 +395,19 @@
                         "timeOut": 5000,
                         "extendedTimeOut": 1000
                     };
-                    $('#myModal').modal('hide');
-                    setTimeout(function () {
-                        $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1);
-                    toastr.success('Data Updated Successfully');
-                    $('#tagsupdate').trigger('reset');
+                    if(data.status == 0){
+                    // toastr.error('Password must contain minimum 8 character!');
+                    $.each(data.error,function(key,value){
+                    toastr.error(value);
+                    })
+                    }else{
+                        $('#myModal').modal('hide');
+                        setTimeout(function () {
+                            $("#loadnow").load(location.href + " #loadnow>*", "");
+                        }, 1);
+                        toastr.success('Data Updated Successfully');
+                        $('#tagsupdate').trigger('reset');
+                    }
                 }
             });
 

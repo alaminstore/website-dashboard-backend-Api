@@ -42,6 +42,7 @@
                                 <th>Title</th>
                                 <th>Image</th>
                                 <th>Level</th>
+                                <th>Position</th>
                                 <th>Url</th>
                                 <th>Client</th>
                                 <th>Action</th>
@@ -51,11 +52,12 @@
                             @foreach($portfolioitems  as $item)
                                 <tr class="text-center unqtags{{$item->portfolio_item_id}}">
                                     <td>{{$item->getCategory->name}}</td>
-                                    <td>{{$item->title}}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($item->title, 20, $end='...') }}</td>
                                     <td class="cat_img">
                                         <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
                                     </td>
                                     <td>{{$item->level}}</td>
+                                    <td>{{$item->position_one}}</td>
                                     <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
                                     <td>
                                         {{$item->getClient->name}}
@@ -68,7 +70,8 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$item->portfolio_item_id}}" title="Edit">
+                                                data-id="{{$item->portfolio_item_id}}" title="Edit"
+                                                data-toggle="modal" data-target="#myModal">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$item->portfolio_item_id}}">
@@ -268,8 +271,7 @@
                     <div class="form-group row flex_css">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-8">
-                            <select class="position_list2 form-control" id="position2" name="position" required>
-                                <option value=""></option>
+                            <select class="position_list2 form-control" id="position2" name="position">
                                 @php($i=1)
                                 @for ($i=1;$i<=9;$i++)
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
@@ -352,6 +354,16 @@
                             </div>
                             <div class="col-md-8 p-0">
                                 <div id="viewLevel"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Catname">
+                        <div class="d-flex">
+                            <div class="col-md-4 p-0">
+                                <p><b>Position:</b></p>
+                            </div>
+                            <div class="col-md-8 p-0">
+                                <div id="viewPosition"></div>
                             </div>
                         </div>
                     </div>
@@ -441,24 +453,27 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (response) {
+                    success: function (data) {
                         // let url = window.location.origin;
-                        console.log('data', response);
-                        $('#title').val(response.data.title);
-                        $('#url').val(response.data.url);
+                        console.log('data', data);
+                        $('#tagsupdate').find('#title').val(data.title);
+                        $('#tagsupdate').find('#url').val(data.url);
 
-                        $('#category-edit-id').val(response.data.portfolio_item_id);
-                        $('#client_id2').val(response.data.client_id);
-                        $('#position2').val(response.data.position_one);
-                        var catData = $('#cat2').val(response.data.portfolio_category_id);
-                        // $("#position2").select2({
-                        //     placeholder: positiondata
-                        // });
-                        $("#client_id2, #position2").select2();
+                        $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
+                        $('#client_id2').val(data.client_id);
+                        var positiondata = $('#tagsupdate').find('#position2').val(data.position_one);
+                        var catData = $('#cat2').val(data.portfolio_category_id);
+                        $("#position2").select2({
+                            placeholder: positiondata
+                        });
+                        $("#position2").select2({
+                            placeholder: positiondata
+                        });
+                        $("#client_id2").select2();
                         $("#newTagId").select2();
-                        $('#level2').val(response.data.level);
-                        if (response.data.image) {
-                            var img_url = '{!!URL::to('/')!!}' + "/" + response.data.image;
+                        $('#level2').val(data.level);
+                        if (data.image) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + data.image;
                             console.log(img_url);
 
                             $("#image2").attr("data-height", 100);
@@ -473,7 +488,7 @@
                         $("#image2").dropify();
 
                         var tagId = [];
-                        $.each(response.data.get_tag, function (key, value) {
+                        $.each(data.get_tag, function (key, value) {
                             //    console.log(value);
                             tagId.push(value.tag_id)
                         })
@@ -482,7 +497,8 @@
                         $('#newTagId').val(tagId);
                         $('#newTagId').trigger('change');
 
-                        $('#myModal').modal('show');
+
+                        $('#category-modal').modal('show');
 
 
                     },
@@ -511,8 +527,9 @@
                         $('#viewClient').html(response.data.get_client.name);
                         $('#viewUrl').html(`<a href="${response.data.url}" target="__blank">${response.data.url}</a>`);
                         $('#viewLevel').html(response.data.level);
-                        $('#viewImage').html(`<img width="300" height="300" class="img-fluid" src="${url}/${response.data.image}"/>`);
+                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${response.data.image}"/>`);
                         $('#viewCat').text(response.data.get_category.name);
+                        $('#viewPosition').text(response.data.position_one);
 
                         $.each(response.data.get_tag, function (key, value) {
                             $('.viewTag').append(`<span>${value.tag}</span>,&nbsp;&nbsp;`);

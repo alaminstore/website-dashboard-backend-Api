@@ -33,6 +33,8 @@ class PortfolioItemsController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
         $request->validate([
             'portfolio_category_id' => 'required',
             'title' => 'required',
@@ -89,19 +91,12 @@ class PortfolioItemsController extends Controller
 
     public function edit($id)
     {
-        $data = PortfolioItem::find($id);
-        if($data){
-          return response()->json([
-              'success' => true,
-              'data' => $data
-            ]);
-        }
-        else{
-          return response()->json([
-              'success' => false,
-              'data' => 'No information found'
-            ]);
-        }
+        $items = PortfolioItem::find($id);
+        // dd($items->getTag);
+        //  dd($items);
+
+        $items['tags'] = $items->getTag;
+        return response()->json($items);
     }
 
     public function updated(Request $request)
@@ -110,11 +105,9 @@ class PortfolioItemsController extends Controller
             'portfolio_category_id' => 'required',
             'title' => 'required',
             'url' => 'required',
-            'image' => 'required',
             'level' => 'required',
             'url' => 'required',
             'client_id' => 'required',
-            'position' => 'required',
             'tag_id' => 'required',
         ]);
         $items = PortfolioItem::find($request->category_id);

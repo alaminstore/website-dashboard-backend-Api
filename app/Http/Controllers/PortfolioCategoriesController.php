@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PortfolioCategories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 use function unlink;
 use Illuminate\Validation\Rule;
 class PortfolioCategoriesController extends Controller
@@ -13,27 +15,32 @@ class PortfolioCategoriesController extends Controller
     }
     //Store Data
     public function portfolioStore(Request $request){
-        $request->validate([
+
+        $validator = Validator::make($request->all(),[
             'name' => 'required | string | max: 200  | unique:portfolio_categories',
             'description'=>'required',
             'image'=>'required'
         ]);
-        $category= new PortfolioCategories();
-        $category->name    = $request->name;
-        $category->description = $request->description;
+        if(!$validator->passes()){
+            return response()->json(['status'=> 0,'error'=>$validator->errors()->toArray()]);
+        }else{
+            $category= new PortfolioCategories();
+            $category->name    = $request->name;
+            $category->description = $request->description;
 
-        if ($request->hasFile('image')) {
-            $path = 'images/portfolio_Cat/';
-            if (!is_dir($path)) {
-                mkdir($path, 0755, true);
+            if ($request->hasFile('image')) {
+                $path = 'images/portfolio_Cat/';
+                if (!is_dir($path)) {
+                    mkdir($path, 0755, true);
+                }
+                $image = $request->image;
+                $imageName = rand(100, 1000) . $image->getClientOriginalName();
+                $image->move($path, $imageName);
+                $category->icon = $path . $imageName;
             }
-            $image = $request->image;
-            $imageName = rand(100, 1000) . $image->getClientOriginalName();
-            $image->move($path, $imageName);
-            $category->icon = $path . $imageName;
-        }
-        $category->save();
-        return response()->json($category);
+            $category->save();
+            return response()->json($category);
+            }
     }
 
 
@@ -57,34 +64,38 @@ class PortfolioCategoriesController extends Controller
     //Update Data
     public function portfolioUpdated(Request $request)
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(),[
             'name' => ['required',  'string' , 'max: 200' ,Rule::unique('portfolio_categories', 'name')->ignore($request->name, 'name')->where(function ($query) use ($request) {
                 $query->where('name', $request->name);
             })],
             'description'=>'required',
         ]);
-
-        $category= PortfolioCategories::find($request->category_id);
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->portfolio_category_id;
-        if($request->hasFile('image'))
-        {
-            $path           = 'images/portfolio_Cat/';
-            @unlink($category->image);
-            if (!is_dir($path))
+        if(!$validator->passes()){
+            return response()->json(['status'=> 0,'error'=>$validator->errors()->toArray()]);
+        }else{
+            $category= PortfolioCategories::find($request->category_id);
+            $category->name = $request->name;
+            $category->description = $request->description;
+            $category->portfolio_category_id;
+            if($request->hasFile('image'))
             {
-                mkdir($path, 0755, true);
+                $path           = 'images/portfolio_Cat/';
+                @unlink($category->image);
+                if (!is_dir($path))
+                {
+                    mkdir($path, 0755, true);
+                }
+
+                $image              = $request->image;
+                $imageName          = rand(100,1000).$image->getClientOriginalName();
+
+                $image->move($path,$imageName);
+                $category->icon      = $path.$imageName;
             }
-
-            $image              = $request->image;
-            $imageName          = rand(100,1000).$image->getClientOriginalName();
-
-            $image->move($path,$imageName);
-            $category->icon      = $path.$imageName;
+            $category->save();
+            return response()->json($category);
         }
-        $category->save();
-        return response()->json($category);
     }
 
     //Delete Data

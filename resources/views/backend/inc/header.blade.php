@@ -9,8 +9,8 @@
                     <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="user" class="rounded-circle border">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                    <a class="dropdown-item" href="{{route('auth.logout')}}"><i class="dripicons-exit text-muted"></i> Logout</a>
                     <a class="dropdown-item" href="{{route('auth.settings')}}"><i class="mdi mdi-account-settings-variant"></i> Settings</a>
+                    <a class="dropdown-item" href="{{route('auth.logout')}}"><i class="dripicons-exit text-muted"></i> Logout</a>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
 

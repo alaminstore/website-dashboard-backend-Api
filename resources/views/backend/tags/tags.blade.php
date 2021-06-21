@@ -120,8 +120,8 @@
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Tags Name</label>
-                        <div class="col-sm-8">
+                        <label for="name" class="col-sm-3 col-form-label">Tags Name</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="category-edit-name" name="tag"
                                    placeholder="Tags Name Here..." required>
                             <input type="hidden" name="category_id" id="category-edit-id" class="form-control">

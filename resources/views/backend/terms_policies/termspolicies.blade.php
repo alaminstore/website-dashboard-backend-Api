@@ -75,16 +75,16 @@
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Title</label>
-                        <div class="col-sm-10">
+                        <label for="name" class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="title" name="title"
                                    placeholder="Title Here..."
                                    required>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Sub-Title</label>
-                        <div class="col-sm-10">
+                        <label for="name" class="col-sm-3 col-form-label">Sub-Title</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" name="subtitle"
                                    placeholder="Title Here..."
                                    required>
@@ -92,8 +92,8 @@
                     </div>
 
                     <div class="form-group row flex_Css">
-                        <label for="description" class="col-sm-2 col-form-label">Description</label>
-                        <div class="col-md-10">
+                        <label for="description" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-md-9">
                             <textarea class="description_css form-control" name="description" id="description"
                                       placeholder="Description Here..." required></textarea>
                         </div>
@@ -128,8 +128,8 @@
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_Css">
-                        <label for="name" class="col-sm-2 col-form-label">Title</label>
-                        <div class="col-sm-10">
+                        <label for="name" class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="title2" name="title"
                                    placeholder="Title Here..."
                                    required>
@@ -138,8 +138,8 @@
                     </div>
                     <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                     <div class="form-group row flex_Css">
-                        <label for="name" class="col-sm-2 col-form-label">Sub-Title</label>
-                        <div class="col-sm-10">
+                        <label for="name" class="col-sm-3 col-form-label">Sub-Title</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="subtitle" name="subtitle"
                                    placeholder="Title Here..."
                                    required>
@@ -148,8 +148,8 @@
 
 
                     <div class="form-group row flex_Css">
-                        <label for="description" class="col-sm-2 col-form-label">Description</label>
-                        <div class="col-md-10">
+                        <label for="description" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-md-9">
                             <textarea class="description_css form-control" name="description" id="description2"
                                       placeholder="Description Here..." required>
                             </textarea>

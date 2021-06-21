@@ -12,6 +12,7 @@ use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\InfosController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PortfolioItemsController;
+use App\Http\Controllers\ReqServiceController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TermsPoliciesController;
 use App\Http\Controllers\ViewController;
@@ -80,6 +81,11 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('services/{id}/edit', [ServicesController::class,'edit']);
     Route::post('services/updated', [ServicesController::class,'updated'])->name('services.updated');
 
+    // Requested Services
+    Route::get('reqservicesdelete', [ReqServiceController::class,'destroy'])->name('reqservices.destroy');
+    Route::get('req-services/{id}/edit', [ReqServiceController::class,'edit']);
+    Route::post('req-services/updated', [ReqServiceController::class,'updated'])->name('reqservices.updated');
+
     //Tags
     Route::post('tags/store', [TagsController::class,'store'])->name('tags.store');
     Route::get('tagsdelete', [TagsController::class,'destroy'])->name('tags.destroy');
@@ -139,6 +145,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('item-view/{id}', [ViewController::class,'viewItem'])->name('item.view');
     Route::get('client-view/{id}', [ViewController::class,'viewClient'])->name('client.view');
     Route::get('service-view/{id}', [ViewController::class,'viewService'])->name('service.view');
+    Route::get('req-service-view/{id}', [ViewController::class,'viewReqService'])->name('reqservice.view');
     Route::get('tag-view/{id}', [ViewController::class,'viewTag'])->name('tag.view');
     Route::get('catservice-view/{id}', [ViewController::class,'viewCatservice'])->name('catservice.view');
     Route::get('info-view/{id}', [ViewController::class,'viewInfo'])->name('info.view');

@@ -11,7 +11,7 @@ class InfosController extends Controller
     {
         $request->validate([
             'mobile'=>'required',
-            'email'=>'required',
+            'email'=>'required|email',
             'address'=>'required',
             'image'=>'required',
         ]);
@@ -64,7 +64,7 @@ class InfosController extends Controller
     {
         $request->validate([
             'mobile'=>'required',
-            'email'=>'required',
+            'email'=>'required|email',
             'address'=>'required',
         ]);
         $infos = Info::find($request->category_id);

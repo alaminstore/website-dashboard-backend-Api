@@ -66,8 +66,8 @@
 <script src="{{asset('backend')}}/js/script.js"></script>
 <script src="assets/plugins/morris/morris.min.js"></script>
 <script src="assets/plugins/raphael/raphael-min.js"></script>
-{{-- <script src="assets/pages/dashboard.js"></script> --}}
 <script src="{{asset('assets/js/app.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ajaxStart(function () {
         $("#overlay").show();

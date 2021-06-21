@@ -6,6 +6,7 @@ use App\Models\CategoryRelatedServices;
 use App\Models\Client;
 use App\Models\Count;
 use App\Models\Faq;
+use App\Models\GetQuotes;
 use App\Models\Info;
 use App\Models\PortfolioCategories;
 use App\Models\PortfolioItem;
@@ -70,6 +71,23 @@ class ViewController extends Controller
 
     public function viewService($id){
         $data = Service::find($id);
+
+        if($data){
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
+    }
+
+    public function viewReqService($id){
+        $data = GetQuotes::find($id);
 
         if($data){
           return response()->json([

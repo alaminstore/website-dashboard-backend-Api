@@ -151,7 +151,7 @@
                     <div class="form-group m-b-0">
                         <div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                Save
+                                Submit
                             </button>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                                 Cancel

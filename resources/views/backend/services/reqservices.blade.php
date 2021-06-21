@@ -84,9 +84,16 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Service Name</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="category-edit-name" name="service_name"
+                            <input class="form-control" type="text" id="name" name="service_name"
                                    placeholder="Service Name Here..." required>
-                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
+                            <input type="hidden" name="category_id" id="category-edit-id" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row flex_css">
+                        <label for="name" class="col-sm-4 col-form-label">Email</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="email" id="email" name="email"
+                                   placeholder="Email Here..." required>
                         </div>
                     </div>
 
@@ -115,21 +122,28 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p><b>Service Name:</b></p>
+
+                            <div class="row serv_name">
+                                <div class="col-md-4">
+                                    <p><b>Service Name:</b></p>
+                                </div>
+                                <div class="col-md-8">
+                                    <div id="viewService"></div>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <div id="viewService"></div>
+                            <div class="row serv_email">
+                                <div class="col-md-4">
+                                    <p><b>Email:</b></p>
+                                </div>
+                                <div class="col-md-8">
+                                    <div id="viewEmail"></div>
+                                </div>
                             </div>
-                        </div>
+
                 </div>
             </div>
         </div>
     </div>
-
-
-
 @endsection
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -137,9 +151,29 @@
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+
+    {{-- <script>
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+    </script> --}}
+    <script>
+        $("#tagsupdate").validate({
+        rules: {
+            name: {
+                required:true,
+                maxlength: 200,
+            },
+            email: {
+                required:true,
+            },
+        }
+      });
+    </script>
+
     <script>
         $(document).ready(function () {
-            $('form').parsley();
+
             $('#myTable').DataTable();
             $("#reqservice").select2({
             placeholder: "Select requested Service Name",
@@ -152,15 +186,16 @@
                 let id = $(this).attr('data-id');
 
                 $.ajax({
-                    url: "{{url('services')}}/" + id + '/edit',
+                    url: "{{url('req-services')}}/" + id + '/edit',
                     method: "get",
                     data: {},
                     dataType: 'json',
                     success: function (response) {
                         let url = window.location.origin;
                         console.log('data', response);
-                        $('#category-edit-name').val(response.data.service_name).focus();
-                        $('#category-edit-id').val(response.data.service_id);
+                        $('#name').val(response.data.service_name);
+                        $('#email').val(response.data.email);
+                        $('#category-edit-id').val(response.data.get_quote_id);
                         $('#myModal').modal('show');
                     },
                     error: function (error) {
@@ -171,19 +206,19 @@
                 });
             });
 
-
             //View===============================================================
             $('#reload-category').on('click', '.viewData', function () {
                 let id = $(this).attr('data-id');
                 console.log('id--', id);
                 $.ajax({
-                    url: "{{url('service-view')}}/" + id,
+                    url: "{{url('req-service-view')}}/" + id,
                     method: "get",
                     data: {},
                     dataType: 'json',
                     success: function (response) {
                         console.log('data', response);
                         $('#viewService').text(response.data.service_name);
+                        $('#viewEmail').text(response.data.email);
                         $('#viewModal').modal('show');
 
                     },
@@ -200,41 +235,6 @@
     </script>
 
     <script>
-        //save data
-        $('#catservestore').on('submit', function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: "{{route('services.store')}}",
-                method: "POST",
-                data: new FormData(this),
-                dataType: 'JSON',
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function (data) {
-                    console.log('save', data);
-                    toastr.options = {
-                        "debug": false,
-                        "positionClass": "toast-bottom-right",
-                        "onclick": null,
-                        "fadeIn": 300,
-                        "fadeOut": 1000,
-                        "timeOut": 5000,
-                        "extendedTimeOut": 1000
-                    };
-                    $('#myModalSave').modal('hide');
-                    setTimeout(function () {
-                        $("#loadnow").load(location.href + " #loadnow>*", "");
-                    }, 1);
-                    toastr.success('Data Inserted Successfully');
-
-                    $('#catservestore').trigger('reset');
-                }
-
-            });
-
-        });
-
         //Delete data
         $(document).on('click', '.deletetag', function (e) {
             e.preventDefault();
@@ -251,15 +251,15 @@
                 confirmButtonText: 'Yes, delete it!',
 
             }).then(result => {
-
                     if (result.value) {
                         $.ajax({
-                            url: "{!! route('services.destroy') !!}",
+                            url: "{!! route('reqservices.destroy') !!}",
                             type: "get",
                             data: {
                                 id: id,
                             },
                         });
+
                         toastr.success('Data Deleted Successfully');
                         $(this).closest('tr').hide();
 
@@ -272,14 +272,17 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
-                url: "{{route('services.updated')}}",
+                url: "{{route('reqservices.updated')}}",
                 method: "POST",
                 data: new FormData(this),
                 dataType: 'JSON',
                 contentType: false,
                 cache: false,
                 processData: false,
+
                 success: function (data) {
                     console.log(data);
                     toastr.options = {
@@ -303,7 +306,6 @@
             });
 
         });
-
     </script>
 
 @endsection

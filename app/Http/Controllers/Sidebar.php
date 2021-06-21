@@ -6,6 +6,7 @@ use App\Models\CategoryRelatedServices;
 use App\Models\Client;
 use App\Models\Count;
 use App\Models\Faq;
+use App\Models\GetQuotes;
 use App\Models\Info;
 use App\Models\PortfolioCategories;
 use App\Models\PortfolioItem;
@@ -39,6 +40,10 @@ class Sidebar extends Controller
     public function services(){
         $services = Service::all();
         return view('backend.services.services',compact('services'));
+    }
+    public function reqServices(){
+        $quotes = GetQuotes::all();
+        return view('backend.services.reqservices',compact('quotes'));
     }
     public function tags(){
         $tags = Tag::all();

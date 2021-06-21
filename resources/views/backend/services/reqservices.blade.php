@@ -1,8 +1,9 @@
 @extends('backend.home')
-@section('title','Tags')
+@section('title','Services')
 @section('style')
-    <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 @endsection
+
 @section('content')
     <style>
         .cat_img {
@@ -21,42 +22,40 @@
             <div class="row">
                 <div class="col-md-2">
                 </div>
-                <div class="col-md-7" id="reloadId">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-secondary waves-effect waves-light"
-                                                    title="Edit" data-toggle="modal" data-target="#myModalSave">
-                        <i class="ion-plus"></i> Add New Tags
-                    </button>
+                <div class="col-md-7">
                     <div id="reload-category">
                         <div class="list text-center">
-                            <h6 class="display-4" style="font-size: 20px;">Tag List</h6>
+                            <h6 class="display-4" style="font-size: 20px;">Requested Services Information</h6><br>
                         </div>
                         <table id="myTable" class="table table-bordered dt-responsive nowrap"
                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr class="text-center">
 
-                                <th>Tags Name</th>
+                                <th>Service Name</th>
+                                <th>Email</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody class="tbodytags" id="loadnow">
+                            <tbody id="loadnow">
 
-                            @foreach($tags  as $tag)
-                                <tr class="text-center unqtags{{$tag->tag_id}}">
-                                    <td>{{$tag->tag}}</td>
+                            @foreach($quotes  as $quote)
+                                <tr class="text-center">
+
+                                    <td>{{$quote->service_name}}</td>
+                                    <td>{{$quote->email}}</td>
                                     <td>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
-                                                data-id="{{$tag->tag_id}}"
-                                        >
+                                                data-id="{{$quote->get_quote_id}}">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$tag->tag_id}}" title="Edit">
+                                                data-id="{{$quote->get_quote_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
-                                        <a class="deletetag" data-id="{{$tag->tag_id}}">
+                                        <a class="deletetag" data-id="{{$quote->get_quote_id}}">
                                             <button class="btn btn-outline-danger btn-sm category-delete"
                                                     title="Delete"><i class="ti-trash"></i></button>
                                         </a>
@@ -71,62 +70,26 @@
         </div>
     </div>
 
-    <!--modal content  Save-->
-    <div id="myModalSave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Tag List Add</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    {!!Form::open(['class' => 'form-horizontal','id'=>'tagstore'])!!}
-                    @csrf
-                    <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-4 col-form-label">Tag Name</label>
-                        <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="tag" placeholder="Tag Name Here..."
-                                   required>
-                        </div>
-                    </div>
-
-                    <div class="form-group m-b-0">
-                        <div>
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                Submit
-                            </button>
-                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                    {!!Form::close()!!}
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!--modal content Update -->
+    <!--modal content update-->
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Tag List Update</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Update Requested Service</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Tags Name</label>
+                        <label for="name" class="col-sm-4 col-form-label">Service Name</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="category-edit-name" name="tag"
-                                   placeholder="Tags Name Here..." required>
+                            <input class="form-control" type="text" id="category-edit-name" name="service_name"
+                                   placeholder="Service Name Here..." required>
                             <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
+
                     <div class="form-group m-b-0">
                         <div>
                             <button type="submit" class="btn btn-success waves-effect waves-light">
@@ -142,64 +105,62 @@
             </div>
         </div>
     </div>
-
     {{-- View Modal --}}
-    <div id="viewModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+    <div id="viewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Tag Details</h5>
+                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Requested Service Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                    <div class="modal-body" style="background: #f5f5f5;">
                         <div class="row">
                             <div class="col-md-4">
-                                <p><b>Tag Name:</b></p>
+                                <p><b>Service Name:</b></p>
                             </div>
                             <div class="col-md-8">
-                                <div id="viewTag"></div>
+                                <div id="viewService"></div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 @endsection
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function () {
             $('form').parsley();
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
             $('#myTable').DataTable();
+            $("#reqservice").select2({
+            placeholder: "Select requested Service Name",
+            });
         });
-
     </script>
-    <script type="text/javascript"> //Edit data
+    <script type="text/javascript"> // Edit data
         $(document).ready(function () {
             $('#reload-category').on('click', '.category-edit', function () {
                 let id = $(this).attr('data-id');
 
                 $.ajax({
-                    url: "{{url('tags')}}/" + id + '/edit',
+                    url: "{{url('services')}}/" + id + '/edit',
                     method: "get",
                     data: {},
                     dataType: 'json',
                     success: function (response) {
                         let url = window.location.origin;
                         console.log('data', response);
-                        $('#tagsupdate').find('#category-edit-name').val(response.data.tag).focus();
-                        $('#tagsupdate').find('#category-edit-id').val(response.data.tag_id);
+                        $('#category-edit-name').val(response.data.service_name).focus();
+                        $('#category-edit-id').val(response.data.service_id);
                         $('#myModal').modal('show');
                     },
                     error: function (error) {
@@ -210,24 +171,20 @@
                 });
             });
 
+
             //View===============================================================
             $('#reload-category').on('click', '.viewData', function () {
                 let id = $(this).attr('data-id');
                 console.log('id--', id);
                 $.ajax({
-                    url: "{{url('tag-view')}}/" + id,
+                    url: "{{url('service-view')}}/" + id,
                     method: "get",
                     data: {},
                     dataType: 'json',
                     success: function (response) {
-                        // let url = window.location.origin;
-                        // console.log('data', data);
-                        // $('#viewTag').html(data.tag);
-
-                        console.log(response);
-                        $('#viewTag').text(response.data.tag);
-                        // $('#viewModel').modal('show');
-                        $('#viewModel').modal('show');
+                        console.log('data', response);
+                        $('#viewService').text(response.data.service_name);
+                        $('#viewModal').modal('show');
 
                     },
                     error: function (error) {
@@ -243,12 +200,11 @@
     </script>
 
     <script>
-
         //save data
-        $('#tagstore').on('submit', function (e) {
+        $('#catservestore').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
-                url: "{{route('tags.store')}}",
+                url: "{{route('services.store')}}",
                 method: "POST",
                 data: new FormData(this),
                 dataType: 'JSON',
@@ -256,7 +212,7 @@
                 cache: false,
                 processData: false,
                 success: function (data) {
-                    console.log(data);
+                    console.log('save', data);
                     toastr.options = {
                         "debug": false,
                         "positionClass": "toast-bottom-right",
@@ -268,11 +224,11 @@
                     };
                     $('#myModalSave').modal('hide');
                     setTimeout(function () {
-
                         $("#loadnow").load(location.href + " #loadnow>*", "");
                     }, 1);
                     toastr.success('Data Inserted Successfully');
-                    $('#tagstore').trigger('reset');
+
+                    $('#catservestore').trigger('reset');
                 }
 
             });
@@ -298,7 +254,7 @@
 
                     if (result.value) {
                         $.ajax({
-                            url: "{!! route('tags.destroy') !!}",
+                            url: "{!! route('services.destroy') !!}",
                             type: "get",
                             data: {
                                 id: id,
@@ -317,7 +273,7 @@
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
-                url: "{{route('tags.updated')}}",
+                url: "{{route('services.updated')}}",
                 method: "POST",
                 data: new FormData(this),
                 dataType: 'JSON',
@@ -347,5 +303,7 @@
             });
 
         });
+
     </script>
+
 @endsection

@@ -1,5 +1,8 @@
 @extends('backend.home')
 @section('title','Services')
+@section('style')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+@endsection
 
 @section('content')
     <style>
@@ -78,7 +81,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Count Add</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Add Service</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -112,14 +115,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Modal Heading</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Update Service</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Service Name</label>
+                        <label for="name" class="col-sm-4 col-form-label">Service Name</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="category-edit-name" name="service_name"
                                    placeholder="Service Name Here..." required>
@@ -145,18 +148,18 @@
     {{-- View Modal --}}
     <div id="viewModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title mt-0" id="myLargeModalLabel"> Service Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
-                        <div class="smModalCss text-center">
-                            <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
                                 <p><b>Service Name:</b></p>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <div id="viewService"></div>
                             </div>
                         </div>
@@ -177,13 +180,11 @@
     <script>
         $(document).ready(function () {
             $('form').parsley();
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
             $('#myTable').DataTable();
+            $("#reqservice").select2({
+            placeholder: "Select requested Service Name",
+            });
         });
-
     </script>
     <script type="text/javascript"> // Edit data
         $(document).ready(function () {

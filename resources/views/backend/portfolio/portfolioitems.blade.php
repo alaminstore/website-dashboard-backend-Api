@@ -1,7 +1,6 @@
 @extends('backend.home')
 @section('title','Portfolio Items')
 @section('style')
-    <link href="assets/plugins/summernote/summernote.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 @endsection
 @section('content')
@@ -283,7 +282,7 @@
                     <div class="form-group row">
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Tags</label>
                         <div class="col-sm-8">
-                            <select style="width: 200px" class="" id="newTagId" name="tag_id[]" multiple="multiple">
+                            <select style="width: 200px" class="" id="newTagId" name="tag_id[]" multiple="multiple" required>
                                 <option value=""></option>
                                 @foreach ($tags as $tag)
                                     <option value="{{$tag->tag_id}}">{{$tag->tag}}</option>

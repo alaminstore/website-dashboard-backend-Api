@@ -15,6 +15,7 @@ class ServicesController extends Controller
         ]);
         $category= new Service();
         $category->service_name    = $request->service_name;
+        $category->service_name_id    = $request->reqservice;
         $category->save();
         return response()->json($category);
 
@@ -44,10 +45,11 @@ class ServicesController extends Controller
         $request->validate([
             'service_name' => 'required',
         ]);
-        $tags = Service::find($request->category_id);
-        $tags->service_name = $request->service_name;
-        $tags->save();
-        return response()->json($tags);
+        $service = Service::find($request->category_id);
+        $service->service_name = $request->service_name;
+        $service->service_name_id = $request->reqservice;
+        $service->save();
+        return response()->json($service);
     }
 
     //Delete Data

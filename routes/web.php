@@ -50,6 +50,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/portfolio-position', [Sidebar::class,'portfolio_position'])->name('backend.portfolio_position');
     Route::get('/clients', [Sidebar::class,'clients'])->name('backend.clients');
     Route::get('/services', [Sidebar::class,'services'])->name('backend.serve');
+    Route::get('/req-services', [Sidebar::class,'reqServices'])->name('backend.reqserve');
     Route::get('/tags', [Sidebar::class,'tags'])->name('backend.tags');
     Route::get('/category-related-services', [Sidebar::class,'catServices'])->name('backend.catservices');
     Route::get('/portfolio-items', [Sidebar::class,'portfolioItem'])->name('backend.portfolioItem');

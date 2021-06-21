@@ -35,10 +35,22 @@
                        href="{{route('backend.clients')}}"><i class="ion-person"></i><span>Clients</span></a>
                 </li>
 
-                <li>
-                    <a class="nav-link waves-effect {{url()->current() == url('/services')}}"
-                       href="{{url('/services')}}"><i class="ion-ios7-bookmarks"></i><span>Services</span></a>
+                {{--  --}}
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-suitcase"></i><span>Services <span
+                                class="float-right"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                    <ul class="list-unstyled">
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect {{url()->current() == url('/services')}}"
+                                href="{{url('/services')}}"><i class="fa fa-share"></i><span>Services</span></a>
+                        </li>
+                        <li>
+                            <a class="nav-link waves-effect {{url()->current() == url('/req-services')}}"
+                                href="{{url('/req-services')}}"><i class="fa fa-share"></i><span>Requested Services</span></a>
+                        </li>
+                    </ul>
                 </li>
+                {{--  --}}
                 <li>
                     <a class="nav-link waves-effect {{url()->current() == url('/tags')}}" href="{{url('/tags')}}"><i
                             class="fa fa-odnoklassniki"></i><span>Tags</span></a>

@@ -25,7 +25,7 @@
                 <div class="col-md-7">
                     <div id="reload-category">
                         <div class="list text-center">
-                            <h6 class="display-4" style="font-size: 20px;">Requested Services Information</h6><br>
+                            <h6 class="display-4" style="font-size: 20px;">Requested Service Information</h6><br>
                         </div>
                         <table id="myTable" class="table table-bordered dt-responsive nowrap"
                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">

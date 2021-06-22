@@ -15,7 +15,6 @@ class ServicesController extends Controller
         ]);
         $category= new Service();
         $category->service_name    = $request->service_name;
-        $category->service_name_id    = $request->reqservice;
         $category->save();
         return response()->json($category);
 
@@ -47,7 +46,6 @@ class ServicesController extends Controller
         ]);
         $service = Service::find($request->category_id);
         $service->service_name = $request->service_name;
-        $service->service_name_id = $request->reqservice;
         $service->save();
         return response()->json($service);
     }

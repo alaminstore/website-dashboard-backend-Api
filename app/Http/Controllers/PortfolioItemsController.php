@@ -91,12 +91,22 @@ class PortfolioItemsController extends Controller
 
     public function edit($id)
     {
-        $items = PortfolioItem::find($id);
-        // dd($items->getTag);
-        //  dd($items);
+        $data  = PortfolioItem::find($id);
+        if($data){
+        $data['tags'] = $data->getTag;
+          return response()->json([
+              'success' => true,
+              'data' => $data
+            ]);
+        }
+        else{
+          return response()->json([
+              'success' => false,
+              'data' => 'No information found'
+            ]);
+        }
 
-        $items['tags'] = $items->getTag;
-        return response()->json($items);
+
     }
 
     public function updated(Request $request)
@@ -130,7 +140,8 @@ class PortfolioItemsController extends Controller
         if ($request->client_id) {
             $items->client_id = $request->client_id;
         }
-
+        $items->portfolio_category_id = $request->portfolio_category_id;
+        $items->position_one = $request->position;
         // return $items;
         $items->save();
         $items_Id = $items->portfolio_item_id;

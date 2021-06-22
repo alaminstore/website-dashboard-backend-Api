@@ -50,6 +50,7 @@
                             @foreach($portfolioitems  as $item)
                                 <tr class="text-center unqtags{{$item->portfolio_item_id}}">
                                     <td>{{$item->getCategory->name}}</td>
+                                    {{-- <td>{{$item->portfolio_category_id}}</td> --}}
                                     <td>{{ \Illuminate\Support\Str::limit($item->title, 20, $end='...') }}</td>
                                     <td class="cat_img">
                                         <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
@@ -67,8 +68,7 @@
                                         </button>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-primary waves-effect waves-light category-edit"
-                                                data-id="{{$item->portfolio_item_id}}" title="Edit"
-                                                data-toggle="modal" data-target="#myModal">
+                                                data-id="{{$item->portfolio_item_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
                                         <a class="deletetag" data-id="{{$item->portfolio_item_id}}">
@@ -509,16 +509,16 @@
                     method: "get",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function (response) {
                         // let url = window.location.origin;
-                        console.log('data', data);
-                        $('#tagsupdate').find('#title').val(data.title);
-                        $('#tagsupdate').find('#url').val(data.url);
+                        console.log('data', response);
+                        $('#tagsupdate').find('#title').val(response.data.title);
+                        $('#tagsupdate').find('#url').val(response.data.url);
 
-                        $('#tagsupdate').find('#category-edit-id').val(data.portfolio_item_id);
-                        $('#client_id2').val(data.client_id);
-                        var positiondata = $('#tagsupdate').find('#position2').val(data.position_one);
-                        var catData = $('#cat2').val(data.portfolio_category_id);
+                        $('#tagsupdate').find('#category-edit-id').val(response.data.portfolio_item_id);
+                        $('#client_id2').val(response.data.client_id);
+                        var positiondata = $('#tagsupdate').find('#position2').val(response.data.position_one);
+                        var catData = $('#cat2').val(response.data.portfolio_category_id);
                         $("#position2").select2({
                             placeholder: positiondata
                         });
@@ -527,9 +527,9 @@
                         });
                         $("#client_id2").select2();
                         $("#newTagId").select2();
-                        $('#level2').val(data.level);
-                        if (data.image) {
-                            var img_url = '{!!URL::to('/')!!}' + "/" + data.image;
+                        $('#level2').val(response.data.level);
+                        if (response.data.image) {
+                            var img_url = '{!!URL::to('/')!!}' + "/" + response.data.image;
                             console.log(img_url);
 
                             $("#image2").attr("data-height", 100);
@@ -544,7 +544,7 @@
                         $("#image2").dropify();
 
                         var tagId = [];
-                        $.each(data.get_tag, function (key, value) {
+                        $.each(response.data.get_tag, function (key, value) {
                             //    console.log(value);
                             tagId.push(value.tag_id)
                         })
@@ -554,7 +554,7 @@
                         $('#newTagId').trigger('change');
 
 
-                        $('#category-modal').modal('show');
+                        $('#myModal').modal('show');
 
 
                     },

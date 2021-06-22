@@ -1,6 +1,5 @@
 @extends('backend.home')
 @section('title','FAQS')
-<style>.pd-0{padding:0!important;}</style>
 @section('content')
     <div class="card m-b-20">
         <div class="card-body">
@@ -19,16 +18,16 @@
                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr class="text-center">
-
-                                <th>Faqs Question</th>
-                                <th>Faqs Answer</th>
+                                <th>Question</th>
+                                <th>Answer</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody class="tbodytags" id="loadnow">
+                            <tbody id="loadnow">
 
                             @foreach($faqs  as $faq)
-                                <tr class="text-center unqtags{{$faq->faq_id}}">
+                                <tr class="text-center">
+
                                     <td>{!! \Illuminate\Support\Str::limit($faq->faq_question, 40, $end='...') !!}</td>
                                     <td>{!! \Illuminate\Support\Str::limit($faq->faq_answer, 60, $end='...') !!}</td>
                                     <td>
@@ -44,15 +43,12 @@
                                         </button>
                                         <a class="deletetag" data-id="{{$faq->faq_id}}">
                                             <button class="btn btn-outline-danger btn-sm category-delete"
-                                                    title="Delete"><i
-                                                    class="ti-trash"></i>
-                                            </button>
+                                                    title="Delete"><i class="ti-trash"></i></button>
                                         </a>
                                     </td>
                                 </tr>
                             @endforeach
-                            </tbody>
-                        </table>
+                            </tbody></table>
                     </div>
                 </div>
             </div>
@@ -75,7 +71,7 @@
                         <label for="name" style="padding-right: 0;" class="col-sm-2 col-form-label">Question</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="text" name="faq_question"
-                                   placeholder="Faq Question Here..."
+                                   placeholder="Question Here..."
                                    required>
                         </div>
                     </div>
@@ -91,7 +87,7 @@
                             <button type="submit" class="btn btn-primary waves-effect waves-light">
                                 Submit
                             </button>
-                            <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal">
                                 Cancel
                             </button>
                         </div>
@@ -118,7 +114,7 @@
                         <label for="name" class="col-sm-2 col-form-label" style="padding-right: 0;">Question</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="text" id="faq_question" name="faq_question"
-                                   placeholder="Faq Question Here..."
+                                   placeholder="Question Here..."
                                    required>
                             <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
@@ -126,7 +122,7 @@
                     <div class="form-group row flex_css">
                         <label for="description" class="col-sm-2 col-form-label" style="padding-right: 0;">Answer</label>
                         <div class="col-md-10">
-                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer"
+                            <textarea class="description_css form-control" name="faq_answer" id="faq_answer" placeholder="Answer here..."
                                       required></textarea>
                         </div>
                     </div>
@@ -158,12 +154,12 @@
                 </div>
                 <div class="modal-body" style="background: #f5f5f5;">
                         <div class="Catname">
-                            <p class="p-0"><b>Faq Question:</b></p>
+                            <p class="p-0"><b>Question:</b></p>
                             <div id="viewQues"></div>
                             <br>
                         </div>
                         <div class="Catname p-0">
-                            <p class="p-0"><b>Faq Answer:</b></p>
+                            <p class="p-0"><b>Answer:</b></p>
                             <div id="viewAns"></div>
                             <br>
                         </div>

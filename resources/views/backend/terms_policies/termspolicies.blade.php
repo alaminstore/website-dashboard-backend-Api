@@ -17,7 +17,7 @@
                     </button>
                     <div id="reload-category">
                         <div class="list text-center">
-                            <h6 class="display-4" style="font-size: 20px;">Count List</h6>
+                            <h6 class="display-4" style="font-size: 20px;"> Terms & Policy List</h6>
                         </div>
                         <table id="myTable" class="table table-bordered dt-responsive nowrap"
                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -86,7 +86,7 @@
                         <label for="name" class="col-sm-3 col-form-label">Sub-Title</label>
                         <div class="col-sm-9">
                             <input class="form-control" type="text" name="subtitle"
-                                   placeholder="Title Here..."
+                                   placeholder="Sub-title Here..."
                                    required>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                         <label for="name" class="col-sm-3 col-form-label">Sub-Title</label>
                         <div class="col-sm-9">
                             <input class="form-control" type="text" id="subtitle" name="subtitle"
-                                   placeholder="Title Here..."
+                                   placeholder="Sub-title Here..."
                                    required>
                         </div>
                     </div>

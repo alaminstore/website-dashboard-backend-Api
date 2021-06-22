@@ -87,11 +87,11 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
-                    <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-8">
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-3 col-form-label" style="padding-right: 0;">Service Name</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="name" name="service_name"
-                                   placeholder="Service Name Here..." required>
+                                   placeholder="Service Name Here..." style="margin-left: 0;" required>
                         </div>
                     </div>
                     <div class="form-group m-b-0">
@@ -121,9 +121,9 @@
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
-                    <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-4 col-form-label">Service Name</label>
-                        <div class="col-sm-8">
+                    <div class="form-group row ">
+                        <label for="name" class="col-sm-3 col-form-label" style="padding-right: 0;">Service Name</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="category-edit-name" name="service_name"
                                    placeholder="Service Name Here..." required>
                             <input type="hidden" name="category_id" id="category-edit-id" class="form-control">

@@ -174,17 +174,33 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            $('form').parsley();
             $('#myTable').DataTable();
             $("#reqservice").select2({
             placeholder: "Select requested Service Name",
             });
         });
+    </script>
+    <script>
+        $("#catservestore").validate({
+        rules: {
+            service_name: {
+                required:true,
+                maxlength: 80,
+            },
+        }
+      });
+        $("#tagsupdate").validate({
+        rules: {
+            service_name: {
+                required:true,
+                maxlength: 80,
+            },
+        }
+      });
     </script>
     <script type="text/javascript"> // Edit data
         $(document).ready(function () {
@@ -243,6 +259,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('services.store')}}",
                 method: "POST",
@@ -312,6 +330,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('services.updated')}}",
                 method: "POST",

@@ -42,7 +42,6 @@
                                 <th>Image</th>
                                 <th>Level</th>
                                 <th>Position</th>
-                                <th>Url</th>
                                 <th>Client</th>
                                 <th>Action</th>
                             </tr>
@@ -57,7 +56,6 @@
                                     </td>
                                     <td>{{$item->level}}</td>
                                     <td>{{$item->position_one}}</td>
-                                    <td><a href="{{$item->url}}" target="_blank">{{$item->url}}</a></td>
                                     <td>
                                         {{$item->getClient->name}}
                                     </td>
@@ -404,7 +402,6 @@
 
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -414,10 +411,70 @@
 
     <script>
         $('.dropify').dropify();
-        $(document).ready(function () {
-            $('form').parsley();
-        });
     </script>
+
+
+    <script>
+        $("#catservestore").validate({
+        rules: {
+            portfolio_category_id: {
+                required:true,
+                maxlength: 100,
+            },
+            title: {
+                required:true,
+                maxlength: 100,
+            },
+            image: {
+                required:true,
+            },
+            level: {
+                required:true,
+            },
+            url: {
+                required:true,
+                maxlength: 100,
+            },
+            client_id: {
+                required:true,
+            },
+            position: {
+                required:true,
+            },
+            tag_id: {
+                required:true,
+            },
+
+        }
+    });
+        $("#tagsupdate").validate({
+        rules: {
+            portfolio_category_id: {
+                required:true,
+                maxlength: 100,
+            },
+            title: {
+                required:true,
+                maxlength: 100,
+            },
+            level: {
+                required:true,
+            },
+            url: {
+                required:true,
+                maxlength: 100,
+            },
+            client_id: {
+                required:true,
+            },
+            tag_id: {
+                required:true,
+            },
+
+        }
+    });
+    </script>
+
     <script>
         $(document).ready(function () {
             $(".clearData").on('click', function () {
@@ -526,7 +583,7 @@
                         $('#viewClient').html(response.data.get_client.name);
                         $('#viewUrl').html(`<a href="${response.data.url}" target="__blank">${response.data.url}</a>`);
                         $('#viewLevel').html(response.data.level);
-                        $('#viewImage').html(`<img width="300" height="300"  src="${url}/${response.data.image}"/>`);
+                        $('#viewImage').html(`<img width="300" height="300" class="img-fluid"  src="${url}/${response.data.image}"/>`);
                         $('#viewCat').text(response.data.get_category.name);
                         $('#viewPosition').text(response.data.position_one);
 
@@ -554,6 +611,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('portfolio.store')}}",
                 method: "POST",

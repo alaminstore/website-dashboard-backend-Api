@@ -1,5 +1,6 @@
 @extends('backend.home')
 @section('title','FAQS')
+<style>.pd-0{padding:0!important;}</style>
 @section('content')
     <div class="card m-b-20">
         <div class="card-body">
@@ -12,7 +13,7 @@
                     </button>
                     <div id="reload-category">
                         <div class="list text-center">
-                            <h6 class="display-4" style="font-size: 20px;">Count List</h6>
+                            <h6 class="display-4" style="font-size: 20px;">FAQ List</h6>
                         </div>
                         <table id="myTable" class="table table-bordered dt-responsive nowrap"
                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -28,8 +29,8 @@
 
                             @foreach($faqs  as $faq)
                                 <tr class="text-center unqtags{{$faq->faq_id}}">
-                                    <td>{!! \Illuminate\Support\Str::limit($faq->faq_question, 50, $end='...') !!}</td>
-                                    <td>{!! \Illuminate\Support\Str::limit($faq->faq_answer, 50, $end='...') !!}</td>
+                                    <td>{!! \Illuminate\Support\Str::limit($faq->faq_question, 40, $end='...') !!}</td>
+                                    <td>{!! \Illuminate\Support\Str::limit($faq->faq_answer, 60, $end='...') !!}</td>
                                     <td>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
@@ -64,14 +65,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Faqs Question & Answer Add</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel"> Add new Question & Answer</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Faqs Question</label>
+                        <label for="name" style="padding-right: 0;" class="col-sm-2 col-form-label">Question</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="text" name="faq_question"
                                    placeholder="Faq Question Here..."
@@ -79,9 +80,9 @@
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
+                        <label for="description" style="padding-right: 0;" class="col-sm-2 col-form-label">Answer</label>
                         <div class="col-md-10">
-                            <textarea class="description_css form-control" name="faq_answer" required></textarea>
+                            <textarea class="description_css form-control" name="faq_answer" placeholder="Answer here..." required></textarea>
                         </div>
                     </div>
 
@@ -107,14 +108,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">Faqs Question & Answer Update</h5>
+                    <h5 class="modal-title mt-0" id="myModalLabel">Update the Question & Answer</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Faq Question</label>
+                        <label for="name" class="col-sm-2 col-form-label" style="padding-right: 0;">Question</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="text" id="faq_question" name="faq_question"
                                    placeholder="Faq Question Here..."
@@ -123,7 +124,7 @@
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="description" class="col-sm-2 col-form-label">Faqs Answer</label>
+                        <label for="description" class="col-sm-2 col-form-label" style="padding-right: 0;">Answer</label>
                         <div class="col-md-10">
                             <textarea class="description_css form-control" name="faq_answer" id="faq_answer"
                                       required></textarea>
@@ -175,12 +176,32 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script>
         $('.dropify').dropify();
-        $(document).ready(function () {
-            $('form').parsley();
-        });
+    </script>
+    <script>
+        $("#catservestore").validate({
+        rules: {
+            faq_question: {
+                required:true,
+                maxlength: 200,
+            },
+            faq_answer: {
+                required:true,
+            },
+        }
+       });
+        $("#tagsupdate").validate({
+        rules: {
+            faq_question: {
+                required:true,
+                maxlength: 200,
+            },
+            faq_answer: {
+                required:true,
+            },
+        }
+       });
     </script>
     <script>
         $(document).ready(function () {
@@ -246,6 +267,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('faqs.store')}}",
                 method: "POST",
@@ -317,6 +340,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('faqs.updated')}}",
                 method: "POST",

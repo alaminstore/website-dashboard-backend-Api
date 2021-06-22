@@ -94,22 +94,22 @@
                     {!!Form::open(['class' => 'form-horizontal','id'=>'catservestore'])!!}
                     @csrf
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
+                        <label for="name" class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="name" name="name"
                                    placeholder="Portfolio Category Name" required>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="description" class="col-sm-2 col-form-label">Description</label>
-                        <div class="col-sm-10">
-                            <textarea class="description_css form-control" name="description" id="faq-question-answer"
+                        <label for="description" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea class="description_css form-control" name="description" id="faq-question-answer" placeholder="Description here..."
                                       required></textarea>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Icon</label>
-                        <div class="col-sm-10">
+                        <label for="portfolio_cat_icon" class="col-sm-3 col-form-label">Icon</label>
+                        <div class="col-sm-9">
                             <input type="file" name="image" id="portfolio_cat_icon" class="dropify" required>
                         </div>
                     </div>
@@ -141,23 +141,23 @@
                     {!!Form::open(['class' => 'form-horizontal','id'=>'tagsupdate'])!!}
                     @csrf
                     <div class="form-group row flex_css">
-                        <label for="name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
+                        <label for="name" class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
                             <input class="form-control" type="text" id="category-edit-name" name="name"
                                    placeholder="Portfolio Category Name" required>
                             <input type="hidden" name="category_id" id="category-edit-id" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="description" class="col-sm-2 col-form-label">Description</label>
-                        <div class="col-sm-10">
-                            <textarea class="description_css form-control" name="description" id="description-edit"
+                        <label for="description" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea class="description_css form-control" name="description" id="description-edit" placeholder="Description here..."
                                       required> </textarea>
                         </div>
                     </div>
                     <div class="form-group row flex_css">
-                        <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Icon</label>
-                        <div class="col-sm-10" id="portfolio_cat_icon2">
+                        <label for="portfolio_cat_icon" class="col-sm-3 col-form-label">Icon</label>
+                        <div class="col-sm-9" id="portfolio_cat_icon2">
                             <input type="file" name="image" id="icon2" class="dropify">
                         </div>
                     </div>
@@ -213,20 +213,40 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
+    <script>
+        $("#catservestore").validate({
+        rules: {
+            name: {
+                required:true,
+                maxlength: 100,
+            },
+            description: {
+                required:true,
+            },
+            image: {
+                required:true,
+            },
+        }
+      });
+        $("#tagsupdate").validate({
+            rules: {
+            name: {
+            required:true,
+            maxlength: 100,
+            },
+            description: {
+                required:true,
+            },
+        }
+      });
+    </script>
     <script>
         $('.dropify').dropify();
         $(document).ready(function () {
-            $('form').parsley();
             $('#datatable').DataTable();
             $(".clearData").on('click', function () {
                 $('.dropify-preview').hide();
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('form').parsley();
         });
     </script>
     <script type="text/javascript">  //edit
@@ -300,6 +320,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('portfoliocat.store')}}",
                 method: "POST",
@@ -342,6 +364,8 @@
         //Delete data
         $(document).on('click', '.deletetag', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             var id = $(this).data('id');
             console.log('id: ', id);
             //alert(role);
@@ -376,6 +400,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('portfoliocat.updated')}}",
                 method: "POST",

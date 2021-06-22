@@ -27,12 +27,12 @@
             <div class="row">
                 <div class="col-md-12" id="reloadId">
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button {{$limit>0? "disabled":''}} type="button"
+                    {{-- <button {{$limit>0? "disabled":''}} type="button"
                             class="btn btn-secondary waves-effect waves-light clearData addBtn" title="Edit"
                             data-toggle="modal"
                             data-target="#myModalSave">
                         <i class="ion-plus"></i> Add New Info
-                    </button>
+                    </button> --}}
                     <div id="reload-category">
                         <div class="list text-center">
                             <h6 class="display-4" style="font-size: 20px;">Info List</h6>
@@ -70,12 +70,12 @@
                                                 data-id="{{$info->info_id}}" title="Edit">
                                             <i class="mdi mdi-border-color"></i>
                                         </button>
-                                        <a class="deletetag" data-id="{{$info->info_id}}">
+                                        {{-- <a class="deletetag" data-id="{{$info->info_id}}">
                                             <button class="btn btn-outline-danger btn-sm category-delete"
                                                     title="Delete"><i
                                                     class="ti-trash"></i>
                                             </button>
-                                        </a>
+                                        </a> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -376,15 +376,70 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script>
-        $('.dropify').dropify();
         $(document).ready(function () {
-            $('form').parsley();
             $(".clearData").on('click', function () {
                 $('.dropify-preview').hide();
             });
+            $('.dropify').dropify();
         });
+    </script>
+    <script>
+        $("#catservestore").validate({
+        rules: {
+            name: {
+                required:true,
+                maxlength: 100,
+            },
+            email: {
+                required:true,
+            },
+            address: {
+                required:true,
+            },
+            image: {
+                required:true,
+            },
+            facebook_url: {
+                required:true,
+            },
+            instagram_url: {
+                required:true,
+            },
+            linkedin_url: {
+                required:true,
+            },
+            youtube_url: {
+                required:true,
+            },
+        }
+      });
+        $("#tagsupdate").validate({
+            rules: {
+            name: {
+                required:true,
+                maxlength: 200,
+            },
+            email: {
+                required:true,
+            },
+            address: {
+                required:true,
+            },
+            facebook_url: {
+                required:true,
+            },
+            instagram_url: {
+                required:true,
+            },
+            linkedin_url: {
+                required:true,
+            },
+            youtube_url: {
+                required:true,
+            },
+        }
+      });
     </script>
     <script>
         $(document).ready(function () {
@@ -477,6 +532,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('infos.store')}}",
                 method: "POST",
@@ -557,6 +614,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('infos.updated')}}",
                 method: "POST",

@@ -309,17 +309,56 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
             $('.dropify').dropify();
-            $('form').parsley();
             $('#myTable').DataTable();
             $("#cat").select2({
                 placeholder: "Select the Category"
             });
         });
+    </script>
+    <script>
+        $("#catservestore").validate({
+        rules: {
+            portfolio_category_id: {
+                required:true,
+                maxlength: 200,
+            },
+            name: {
+                required:true,
+                maxlength: 200,
+            },
+            image: {
+                required:true,
+            },
+            level: {
+                required:true,
+            },
+            position: {
+                required:true,
+            },
+        }
+      });
+        $("#tagsupdate").validate({
+        rules: {
+            portfolio_category_id: {
+                required:true,
+                maxlength: 200,
+            },
+            name: {
+                required:true,
+                maxlength: 200,
+            },
+            level: {
+                required:true,
+            },
+            position: {
+                required:true,
+            },
+        }
+      });
     </script>
     <script>
         $(document).ready(function () {
@@ -414,6 +453,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('catservices.store')}}",
                 method: "POST",
@@ -487,7 +528,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
-
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('catservices.updated')}}",
                 method: "POST",

@@ -148,15 +148,8 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-
-    {{-- <script>
-        $(document).ready(function() {
-            $('form').parsley();
-        });
-    </script> --}}
     <script>
         $("#tagsupdate").validate({
         rules: {

@@ -227,17 +227,45 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script>
         $('.dropify').dropify();
-        $(document).ready(function () {
-            $('form').parsley();
-        });
     </script>
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable();
         });
+    </script>
+    <script>
+        $("#catservestore").validate({
+        rules: {
+            name: {
+                required:true,
+                maxlength: 200,
+            },
+            subtitle: {
+                required:true,
+            },
+            description: {
+                required:true,
+            },
+        }
+        });
+        $("#tagsupdate").validate({
+        rules: {
+            name: {
+                required:true,
+                maxlength: 100,
+            },
+            subtitle: {
+                required:true,
+                maxlength: 200,
+            },
+            description: {
+                required:true,
+            },
+        }
+        });
+
     </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {
@@ -301,6 +329,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('terms.store')}}",
                 method: "POST",
@@ -372,6 +402,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('terms.updated')}}",
                 method: "POST",

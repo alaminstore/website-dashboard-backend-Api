@@ -234,18 +234,42 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script>
-        $('.dropify').dropify();
-        $(document).ready(function () {
-            $('form').parsley();
-        });
-    </script>
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable();
+            $('.dropify').dropify();
         });
+    </script>
+    <script>
+        $("#catservestore").validate({
+        rules: {
+            parameter: {
+                required:true,
+                maxlength: 100,
+            },
+            value: {
+                required:true,
+            },
+            position: {
+                required:true,
+            },
+        }
+      });
+        $("#tagsupdate").validate({
+        rules: {
+            parameter: {
+                required:true,
+                maxlength: 100,
+            },
+            value: {
+                required:true,
+            },
+            position: {
+                required:true,
+            },
+        }
+      });
     </script>
     <script type="text/javascript">
         $("#cat").select2({
@@ -322,6 +346,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('count.store')}}",
                 method: "POST",
@@ -391,6 +417,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('count.updated')}}",
                 method: "POST",

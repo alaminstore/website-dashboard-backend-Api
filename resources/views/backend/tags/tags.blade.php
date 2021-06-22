@@ -43,7 +43,7 @@
 
                             @foreach($tags  as $tag)
                                 <tr class="text-center unqtags{{$tag->tag_id}}">
-                                    <td>{{$tag->tag}}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($tag->tag, 25, $end='...') }}</td>
                                     <td>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
@@ -86,8 +86,7 @@
                     <div class="form-group row flex_css">
                         <label for="name" class="col-sm-4 col-form-label">Tag Name</label>
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="tag" placeholder="Tag Name Here..."
-                                   required>
+                            <input class="form-control" type="text" id="name" name="tag" placeholder="Tag Name Here..." required>
                         </div>
                     </div>
 
@@ -172,12 +171,30 @@
 @section('scripts')
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
+    {{-- <script src="assets/plugins/parsleyjs/parsley.min.js"></script> --}}
 
-    <script>
+    {{-- <script>
         $(document).ready(function () {
             $('form').parsley();
         });
+    </script> --}}
+    <script>
+        $("#tagstore").validate({
+        rules: {
+            tag: {
+                required:true,
+                maxlength: 200,
+            },
+        }
+      });
+        $("#tagsupdate").validate({
+        rules: {
+            tag: {
+                required:true,
+                maxlength: 200,
+            },
+        }
+      });
     </script>
     <script>
         $(document).ready(function () {
@@ -247,6 +264,8 @@
         //save data
         $('#tagstore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('tags.store')}}",
                 method: "POST",
@@ -316,6 +335,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('tags.updated')}}",
                 method: "POST",

@@ -40,12 +40,10 @@
                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                 <tr class="text-center">
-
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Level</th>
                                     <th>Precedence</th>
-                                    <th>Url</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -68,7 +66,6 @@
                                             @endif
                                         </td>
                                         <td>{{$client->newposition}}</td>
-                                        <td><a href="{{$client->url}}" target="_blank">{{$client->url}}</a></td>
                                         <td>
                                             <button type="button"
                                                     class="btn btn-sm btn-outline-info waves-effect waves-light viewData"
@@ -310,7 +307,6 @@
     <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="assets/plugins/parsleyjs/parsley.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -323,7 +319,45 @@
     <script>
         $('.dropify').dropify();
         $(document).ready(function () {
-            $('form').parsley();
+        });
+    </script>
+    <script>
+        $("#catservestore").validate({
+            rules: {
+                name: {
+                    required:true,
+                    maxlength: 100,
+                },
+                precedence: {
+                    required:true,
+                },
+                newPosition: {
+                    required:true,
+                },
+                url: {
+                    required:true,
+                },
+                image: {
+                    required:true,
+                },
+            }
+        });
+        $("#tagsupdate").validate({
+            rules: {
+                name: {
+                    required:true,
+                    maxlength: 100,
+                },
+                precedence: {
+                    required:true,
+                },
+                newPosition: {
+                    required:true,
+                },
+                url: {
+                    required:true,
+                },
+            }
         });
     </script>
     <script type="text/javascript">
@@ -411,6 +445,8 @@
         //save data
         $('#catservestore').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('clients.store')}}",
                 method: "POST",
@@ -482,6 +518,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
 
             $.ajax({
                 url: "{{route('clients.updated')}}",

@@ -167,7 +167,7 @@
                         <label for="portfolio_cat_icon" class="col-sm-2 col-form-label">Position</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="position2" name="position" required>
-                                <option disabled value="">Select Position</option>
+                                <option disabled  value="">Select Position</option>
                                 @php($i=1)
                                 @for($i=1;$i<=3;$i++)
                                     <option value="{{$i}}">Position {{$i}}</option>
@@ -275,7 +275,6 @@
         $("#cat").select2({
             placeholder: "Select the Category"
         });
-        $("#position2").select2();
     </script>
     <script type="text/javascript">   // Edit data
         $(document).ready(function () {

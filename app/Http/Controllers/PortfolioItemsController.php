@@ -141,8 +141,9 @@ class PortfolioItemsController extends Controller
             $items->client_id = $request->client_id;
         }
         $items->portfolio_category_id = $request->portfolio_category_id;
-        $items->position_one = $request->position;
-        // return $items;
+        if($request->position){
+            $items->position_one = $request->position;
+        }
         $items->save();
         $items_Id = $items->portfolio_item_id;
 

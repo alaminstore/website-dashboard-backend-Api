@@ -50,7 +50,6 @@
                             @foreach($portfolioitems  as $item)
                                 <tr class="text-center unqtags{{$item->portfolio_item_id}}">
                                     <td>{{$item->getCategory->name}}</td>
-                                    {{-- <td>{{$item->portfolio_category_id}}</td> --}}
                                     <td>{{ \Illuminate\Support\Str::limit($item->title, 20, $end='...') }}</td>
                                     <td class="cat_img">
                                         <img src="{{$item->image}}" class="img-fluid" alt="portfolio Category Image">
@@ -104,7 +103,7 @@
                         <div class="col-sm-8">
                             <select style="width: 200px" id="cat" class="cat_selector" name="portfolio_category_id"
                                     required>
-                                <option value=""></option>
+                                <option value="">Choose Category...</option>
                                 @foreach($portfolio_cat as $cat)
                                     <option value="{{$cat->portfolio_category_id}}">{{$cat->name}}</option>
                                 @endforeach
@@ -269,6 +268,7 @@
                         <label for="portfolio_cat_icon" class="col-sm-4 col-form-label">Position</label>
                         <div class="col-sm-8">
                             <select class="position_list2 form-control" id="position2" name="position">
+                                <option disabled value="">Choos Position...</option>
                                 @php($i=1)
                                 @for ($i=1;$i<=9;$i++)
                                     <option disabled value="{{$i}}">Position {{$i}}</option>
@@ -462,7 +462,6 @@
             },
             url: {
                 required:true,
-                maxlength: 100,
             },
             client_id: {
                 required:true,
@@ -510,21 +509,15 @@
                     data: {},
                     dataType: 'json',
                     success: function (response) {
-                        // let url = window.location.origin;
+                        let url = window.location.origin;
                         console.log('data', response);
-                        $('#tagsupdate').find('#title').val(response.data.title);
-                        $('#tagsupdate').find('#url').val(response.data.url);
+                        $('#title').val(response.data.title);
+                        $('#url').val(response.data.url);
 
-                        $('#tagsupdate').find('#category-edit-id').val(response.data.portfolio_item_id);
+                        $('#category-edit-id').val(response.data.portfolio_item_id);
                         $('#client_id2').val(response.data.client_id);
-                        var positiondata = $('#tagsupdate').find('#position2').val(response.data.position_one);
+                        $('#position2').val(response.data.position_one);
                         var catData = $('#cat2').val(response.data.portfolio_category_id);
-                        $("#position2").select2({
-                            placeholder: positiondata
-                        });
-                        $("#position2").select2({
-                            placeholder: positiondata
-                        });
                         $("#client_id2").select2();
                         $("#newTagId").select2();
                         $('#level2').val(response.data.level);
@@ -681,6 +674,8 @@
         //Update data
         $('#tagsupdate').on('submit', function (e) {
             e.preventDefault();
+            var $form = $(this);
+            if(! $form.valid()) return false;
             $.ajax({
                 url: "{{route('portfolio.updated')}}",
                 method: "POST",

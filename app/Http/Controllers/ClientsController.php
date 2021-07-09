@@ -135,8 +135,8 @@ class ClientsController extends Controller
     {
         $setPosition = Client::where('precedence', '=', $id)->max('newposition');
         return response()->json($setPosition);
-        $setPosition = CategoryRelatedServices::where('portfolio_category_id', '=', $id)->max('position');
-        return response()->json($setPosition);
+        // $setPosition = CategoryRelatedServices::where('portfolio_category_id', '=', $id)->max('position');
+        // return response()->json($setPosition);
     }
 
     public function clientPositionUpdate($id)
